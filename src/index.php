@@ -20,8 +20,10 @@
             $templateParams["content"] = "home.php";
             break;
         case "profile":
+            $userId = 2;
             $templateParams["title"] = "Sassi Shop - Profile";
             $templateParams["content"] = "profile.php";
+            $templateParams["orders"] = $dbh->getUserOrders($userId);
             break;
 
     }

@@ -52,14 +52,21 @@
         $profilePage = "home";
     }
 
+    
     switch($profilePage){
         case "home":
             echo "<h3>Ciao nomeUtente!! (non sei nomeUtente? Logout).</h3>
             <h1>Effettua subito il tuo ordine!</h1>
             <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2> ";
             break;
+
         case "dettagliAccount":
             require("dettagliAccount.php");
+            break;
+
+        case "cronologiaOrdini":
+            require("orders.php");
+            break;
     }
 
     ?>

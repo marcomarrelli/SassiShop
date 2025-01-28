@@ -203,6 +203,12 @@ class DatabaseHelper {
         return null;
     }
 
+    public function getUserOrders(int $userId): array{
+        $sql = "SELECT * FROM orders, product WHERE user = ? AND product=product.id";
+        $stmt = $this->execute($sql, [$userId]);
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     public function __destruct() {
         if ($this->db !== null) {
