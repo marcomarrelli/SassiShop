@@ -33,7 +33,9 @@
     </header>
 
     <main>
-        <p> MAIN BLA BLA BLA </p>
+        <?php
+            require($templateParams["content"]);
+        ?>
     </main>
 
     <footer>
