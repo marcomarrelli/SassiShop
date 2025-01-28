@@ -1,8 +1,8 @@
 <?php
 
 class DatabaseHelper {
-    private ?PDO $db = null;
-    private static ?Database $instance = null;
+    private ?mysqli $db = null;
+    private static ?DatabaseHelper $instance = null;
     private array $config;
 
     public function __construct(array $config = []) {
@@ -13,9 +13,10 @@ class DatabaseHelper {
             'database' => 'your_database_name',
             'charset' => 'utf8mb4'
         ], $config);
+        $this->connect();
     }
 
-    public static function getInstance(array $config = []): Database {
+    public static function getInstance(array $config = []): DatabaseHelper {
         if (self::$instance === null) {
             self::$instance = new self($config);
         }
@@ -25,46 +26,62 @@ class DatabaseHelper {
     private function connect(): void {
         if ($this->db === null) {
             try {
-                $dsn = sprintf(
-                    "mysql:host=%s;dbname=%s;charset=%s",
+                $this->db = new mysqli(
                     $this->config['servername'],
-                    $this->config['database'],
-                    $this->config['charset']
+                    $this->config['username'],
+                    $this->config['password'],
+                    $this->config['database']
                 );
 
-                $this->db = new PDO($dsn, $this->config['username'], $this->config['password'], [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$this->config['charset']}"
-                ]);
-            } catch(PDOException $e) {
+                if ($this->db->connect_error) {
+                    throw new Exception("Connection failed: " . $this->db->connect_error);
+                }
+
+                $this->db->set_charset($this->config['charset']);
+            } catch(Exception $e) {
                 throw new Exception("Connection failed: " . $e->getMessage());
             }
         }
     }
 
-    public function getConnection(): PDO {
+    public function getConnection(): mysqli {
         $this->connect();
         return $this->db;
     }
 
-    private function execute(string $sql, array $params = []): PDOStatement {
+    private function execute(string $sql, array $params = []): mysqli_stmt {
         $this->connect();
         $stmt = $this->db->prepare($sql);
-        $stmt->execute($params);
+        
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $this->db->error);
+        }
+
+        if (!empty($params)) {
+            $types = str_repeat('s', count($params));
+            $stmt->bind_param($types, ...array_values($params));
+        }
+
+        if (!$stmt->execute()) {
+            throw new Exception("Execute failed: " . $stmt->error);
+        }
+
         return $stmt;
     }
 
     public function addUser(string $firstName, string $lastName, string $email, string $password, int $privilege = 1): bool {
         $sql = "INSERT INTO Users (firstName, lastName, email, password, privilege) 
-                VALUES (:firstName, :lastName, :email, :password, :privilege)";
-        return $this->execute($sql, [
-            ':firstName' => trim($firstName),
-            ':lastName' => trim($lastName),
-            ':email' => filter_var(trim($email), FILTER_SANITIZE_EMAIL),
-            ':password' => password_hash($password, PASSWORD_DEFAULT),
-            ':privilege' => $privilege
-        ])->rowCount() > 0;
+                VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->execute($sql, [
+            trim($firstName),
+            trim($lastName),
+            filter_var(trim($email), FILTER_SANITIZE_EMAIL),
+            password_hash($password, PASSWORD_DEFAULT),
+            $privilege
+        ]);
+        $result = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $result;
     }
 
     public function getPosts(int $limit = 10, int $offset = 0): array {
@@ -73,12 +90,13 @@ class DatabaseHelper {
                 FROM Posts p 
                 JOIN Users u ON p.seller = u.id 
                 JOIN Product pr ON p.product = pr.id 
-                ORDER BY p.date DESC LIMIT :limit OFFSET :offset";
+                ORDER BY p.date DESC LIMIT ? OFFSET ?";
         
-        return $this->execute($sql, [
-            ':limit' => $limit,
-            ':offset' => $offset
-        ])->fetchAll();
+        $stmt = $this->execute($sql, [$limit, $offset]);
+        $result = $stmt->get_result();
+        $posts = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $posts;
     }
 
     public function getPostWithDetails(int $postId): array {
@@ -88,54 +106,70 @@ class DatabaseHelper {
                 FROM Posts p 
                 JOIN Users u ON p.seller = u.id 
                 JOIN Product pr ON p.product = pr.id 
-                WHERE p.id = :postId";
+                WHERE p.id = ?";
         
-        return $this->execute($sql, [':postId' => $postId])->fetch() ?: [];
+        $stmt = $this->execute($sql, [$postId]);
+        $result = $stmt->get_result();
+        $post = $result->fetch_assoc() ?: [];
+        $stmt->close();
+        return $post;
     }
 
     public function getComments(int $postId): array {
         $sql = "SELECT c.*, u.firstName, u.lastName 
                 FROM Comments c 
                 JOIN Users u ON c.author = u.id 
-                WHERE c.post = :postId 
+                WHERE c.post = ? 
                 ORDER BY c.date DESC";
         
-        return $this->execute($sql, [':postId' => $postId])->fetchAll();
+        $stmt = $this->execute($sql, [$postId]);
+        $result = $stmt->get_result();
+        $comments = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $comments;
     }
 
     public function addComment(int $postId, int $author, string $content): bool {
-        $sql = "INSERT INTO Comments (post, author, content) 
-                VALUES (:postId, :author, :content)";
-        return $this->execute($sql, [
-            ':postId' => $postId,
-            ':author' => $author,
-            ':content' => $content
-        ])->rowCount() > 0;
+        $sql = "INSERT INTO Comments (post, author, content) VALUES (?, ?, ?)";
+        $stmt = $this->execute($sql, [$postId, $author, $content]);
+        $result = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $result;
     }
 
     public function addRating(int $postId, int $userId, int $rating): bool {
-        $sql = "INSERT INTO Ratings (post, user, rating) 
-                VALUES (:postId, :userId, :rating)";
-        return $this->execute($sql, [
-            ':postId' => $postId,
-            ':userId' => $userId,
-            ':rating' => $rating
-        ])->rowCount() > 0;
+        $sql = "INSERT INTO Ratings (post, user, rating) VALUES (?, ?, ?)";
+        $stmt = $this->execute($sql, [$postId, $userId, $rating]);
+        $result = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $result;
     }
 
     public function getRating(int $postId, int $userId): ?int {
-        $sql = "SELECT rating FROM Ratings WHERE post = :postId AND user = :userId";
-        return $this->execute($sql, [':postId' => $postId, ':userId' => $userId])->fetchColumn();
+        $sql = "SELECT rating FROM Ratings WHERE post = ? AND user = ?";
+        $stmt = $this->execute($sql, [$postId, $userId]);
+        $result = $stmt->get_result();
+        $rating = $result->fetch_row()[0] ?? null;
+        $stmt->close();
+        return $rating;
     }
 
     public function getProducts(): array {
         $sql = "SELECT * FROM Product";
-        return $this->execute($sql)->fetchAll();
+        $stmt = $this->execute($sql);
+        $result = $stmt->get_result();
+        $products = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $products;
     }
 
     public function getProduct(int $productId): array {
-        $sql = "SELECT * FROM Product WHERE id = :productId";
-        return $this->execute($sql, [':productId' => $productId])->fetch() ?: [];
+        $sql = "SELECT * FROM Product WHERE id = ?";
+        $stmt = $this->execute($sql, [$productId]);
+        $result = $stmt->get_result();
+        $product = $result->fetch_assoc() ?: [];
+        $stmt->close();
+        return $product;
     }
 
     public function searchPosts(string $query, int $limit = 10, int $offset = 0): array {
@@ -144,19 +178,24 @@ class DatabaseHelper {
                 FROM Posts p 
                 JOIN Users u ON p.seller = u.id 
                 JOIN Product pr ON p.product = pr.id 
-                WHERE p.title LIKE :query OR p.description LIKE :query
-                ORDER BY p.date DESC LIMIT :limit OFFSET :offset";
+                WHERE p.title LIKE ? OR p.description LIKE ?
+                ORDER BY p.date DESC LIMIT ? OFFSET ?";
         
-        return $this->execute($sql, [
-            ':query' => "%$query%",
-            ':limit' => $limit,
-            ':offset' => $offset
-        ])->fetchAll();
+        $searchQuery = "%$query%";
+        $stmt = $this->execute($sql, [$searchQuery, $searchQuery, $limit, $offset]);
+        $result = $stmt->get_result();
+        $posts = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $posts;
     }
 
     public function login(string $email, string $password): ?array {
-        $sql = "SELECT * FROM Users WHERE email = :email";
-        $user = $this->execute($sql, [':email' => $email])->fetch();
+        $sql = "SELECT * FROM Users WHERE email = ?";
+        $stmt = $this->execute($sql, [$email]);
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+        
         if ($user && password_verify($password, $user['password'])) {
             unset($user['password']);
             return $user;
@@ -164,7 +203,10 @@ class DatabaseHelper {
         return null;
     }
 
+
     public function __destruct() {
-        $this->db = null;
+        if ($this->db !== null) {
+            $this->db->close();
+        }
     }
 }
