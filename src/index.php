@@ -2,7 +2,10 @@
 <?php
     require_once("bootstrap.php");
 
-    echo "tutto ok";
+    $templateParams["titolo"] = "Sassi Shop";
+
+    require("template/base.php");
+
 ?>
 
 

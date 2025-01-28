@@ -5,7 +5,7 @@ class DatabaseHelper {
     private static ?Database $instance = null;
     private array $config;
 
-    function __construct(array $config = []) {
+    public function __construct(array $config = []) {
         $this->config = array_merge([
             'servername' => 'localhost',
             'username' => 'root',
