@@ -1,3 +1,5 @@
+<!-- file base a tutti -->
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -49,8 +51,5 @@
         <p>Gestisci Cookies</p>
         <hr/>
     </footer>
-
-
 </body>
-
 </html>

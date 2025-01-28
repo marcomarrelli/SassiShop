@@ -203,6 +203,7 @@ class DatabaseHelper {
         return null;
     }
 
+    //restituisce tutti gli ordini effettuati da un utente
     public function getUserOrders(int $userId): array{
         $sql = "SELECT * FROM orders, product WHERE user = ? AND product=product.id";
         $stmt = $this->execute($sql, [$userId]);

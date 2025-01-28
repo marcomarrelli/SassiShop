@@ -1,3 +1,5 @@
+<!-- i dettagli dell'account sono all'interno di un form per il momento disabilitato. Si potranno poi modificare i dati
+ premendo il pulsante modifica -->
 <form action="#" method="POST">
     <ul>
         <li>

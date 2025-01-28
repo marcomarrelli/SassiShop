@@ -1,3 +1,5 @@
+<!-- pagina in cui c'è il profilo utente  -->
+
 <header>
     <h1>Il mio account</h1>
 </header>
@@ -46,6 +48,7 @@
 
 <section>
     <?php
+    //vedo se l'utente ha selezionato un campo del profilo
     if(isset($_GET["profilePage"])){
         $profilePage = $_GET["profilePage"];
     }else{
@@ -54,6 +57,7 @@
 
     
     switch($profilePage){
+        //l'utente non ha selezionato ancora nulla nel profilo
         case "home":
             echo "<h3>Ciao nomeUtente!! (non sei nomeUtente? Logout).</h3>
             <h1>Effettua subito il tuo ordine!</h1>
@@ -67,6 +71,19 @@
         case "cronologiaOrdini":
             require("orders.php");
             break;
+            
+        case "wishlist":
+            break;
+
+        case "assistenza":
+            break;
+        
+        case "privacy":
+            break;
+            
+        case "logout":
+            break;
+            
     }
 
     ?>

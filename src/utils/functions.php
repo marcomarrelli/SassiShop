@@ -1,0 +1,1 @@
+<!-- funzioni comuni a tutti i file -->

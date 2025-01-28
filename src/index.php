@@ -19,6 +19,16 @@
             $templateParams["title"] = "Sassi Shop - Home";
             $templateParams["content"] = "home.php";
             break;
+
+        case "search":
+            break;
+
+        case "cart":
+            break;
+
+        case "notification":
+            break;
+
         case "profile":
             $userId = 2;
             $templateParams["title"] = "Sassi Shop - Profile";
@@ -28,8 +38,7 @@
 
     }
 
-    
-
+    //in ogni caso si parte sempre dal template base
     require("template/base.php");
 
 ?>
