@@ -35,9 +35,12 @@ CREATE TABLE IF NOT EXISTS ProductImages (
     image VARCHAR(255) NOT NULL,
     
     FOREIGN KEY (product) REFERENCES Product(id),
-    CONSTRAINT maxImages CHECK (
-        (SELECT COUNT(*) FROM ProductImages WHERE product = Product.id) <= 5
-    )
+);
+
+CREATE TABLE IF NOT EXISTS Privileges (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Users (
@@ -50,12 +53,6 @@ CREATE TABLE IF NOT EXISTS Users (
     privilege INT NOT NULL,
     
     FOREIGN KEY (privilege) REFERENCES Privileges(id)
-);
-
-CREATE TABLE IF NOT EXISTS Privileges (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-
-    type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Posts (

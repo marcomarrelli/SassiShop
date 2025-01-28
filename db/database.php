@@ -1,11 +1,11 @@
 <?php
 
-class Database {
+class DatabaseHelper {
     private ?PDO $db = null;
     private static ?Database $instance = null;
     private array $config;
 
-    private function __construct(array $config = []) {
+    function __construct(array $config = []) {
         $this->config = array_merge([
             'servername' => 'localhost',
             'username' => 'root',

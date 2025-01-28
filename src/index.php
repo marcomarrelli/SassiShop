@@ -1,3 +1,11 @@
+
+<?php
+    require_once("bootstrap.php");
+
+    echo "tutto ok";
+?>
+
+
 <!--
 Pagine:
 - index (home)
