@@ -30,7 +30,7 @@
             $userId = 2;
             $templateParams["title"] = "Sassi Shop - Cart";
             $templateParams["content"] = "cart.php";
-            $templateParams["cartProduct"] = $dbh->getUserCart($userId);
+            $templateParams["cartProducts"] = $dbh->getUserCart($userId);
             break;
 
         case "notification":
