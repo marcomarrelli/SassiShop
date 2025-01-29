@@ -77,6 +77,10 @@
             break;
 
         case "assistenza":
+            echo "<h3>
+                    Se hai domande o hai bisogno di assistenza per il tuo ordine scrivi alla mail sassishop@gmail.com.
+                    Oppure contatta il numero verde 338 1234 5678.
+                  </h3>";
             break;
         
         case "privacy":
@@ -88,4 +92,5 @@
     }
 
     ?>
+
 </section>
