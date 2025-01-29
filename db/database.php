@@ -1,236 +1,389 @@
 <?php
 
+/**
+ * Classe di utilità per la gestione del database.
+ * Utilizza il pattern Singleton per la connessione.
+ */
 class DatabaseHelper {
     private ?mysqli $db = null;
     private static ?DatabaseHelper $instance = null;
-    private array $config;
+    private array $configuration;
 
-    public function __construct(array $config = []) {
-        $this->config = array_merge([
+    /**
+     * Costruttore - Inizializza la configurazione e stabilisce la connessione.
+     */
+    public function __construct() {
+        $this->configuration = [
             'servername' => 'localhost',
             'username' => 'root',
             'password' => '',
-            'database' => 'your_database_name',
+            'database' => 'SassiShop',
             'charset' => 'utf8mb4'
-        ], $config);
+        ];
         $this->connect();
     }
 
-    public static function getInstance(array $config = []): DatabaseHelper {
+    /**
+     * Restituisce l'istanza Singleton di DatabaseHelper.
+     * 
+     * @return DatabaseHelper Istanza Singleton di DatabaseHelper.
+     */
+    public static function getInstance(): DatabaseHelper {
         if (self::$instance === null) {
-            self::$instance = new self($config);
+            self::$instance = new self();
         }
+
         return self::$instance;
     }
 
+    /**
+     * Effettua la connessione al database (se non già connesso).
+     */
     private function connect(): void {
         if ($this->db === null) {
             try {
                 $this->db = new mysqli(
-                    $this->config['servername'],
-                    $this->config['username'],
-                    $this->config['password'],
-                    $this->config['database']
+                    $this->configuration['servername'],
+                    $this->configuration['username'],
+                    $this->configuration['password'],
+                    $this->configuration['database']
                 );
 
                 if ($this->db->connect_error) {
                     throw new Exception("Connection failed: " . $this->db->connect_error);
                 }
 
-                $this->db->set_charset($this->config['charset']);
+                $this->db->set_charset($this->configuration['charset']);
             } catch(Exception $e) {
                 throw new Exception("Connection failed: " . $e->getMessage());
             }
         }
     }
 
+    /**
+     * Restituisce l'oggetto mysqli.
+     * 
+     * @return mysqli Connessione al database.
+     */
     public function getConnection(): mysqli {
         $this->connect();
         return $this->db;
     }
 
+    /**
+     * Prepara ed esegue una query con parametri.
+     *
+     * @param string $sql Query SQL con eventuali placeholder.
+     * @param array  $params Parametri per il bind.
+     * 
+     * @return mysqli_stmt Statement eseguito.
+     */
     private function execute(string $sql, array $params = []): mysqli_stmt {
         $this->connect();
-        $stmt = $this->db->prepare($sql);
+        $temp = $this->db->prepare($sql);
         
-        if (!$stmt) {
+        if (!$temp) {
             throw new Exception("Prepare failed: " . $this->db->error);
         }
 
         if (!empty($params)) {
             $types = str_repeat('s', count($params));
-            $stmt->bind_param($types, ...array_values($params));
+            $temp->bind_param($types, ...array_values($params));
         }
 
-        if (!$stmt->execute()) {
-            throw new Exception("Execute failed: " . $stmt->error);
+        if (!$temp->execute()) {
+            throw new Exception("Execute failed: " . $temp->error);
         }
 
-        return $stmt;
+        return $temp;
     }
 
+    /**
+     * Aggiunge un nuovo utente nella tabella User.
+     * 
+     * @param string $firstName Nome dell'utente.
+     * @param string $lastName Cognome dell'utente.
+     * @param string $email Email dell'utente.
+     * @param string $password Password dell'utente.
+     * @param int    $privilege Privilegio dell'utente (default a User - 1).
+     * 
+     * @return bool True se l'utente è stato aggiunto correttamente, altrimenti false.
+     */
     public function addUser(string $firstName, string $lastName, string $email, string $password, int $privilege = 1): bool {
-        $sql = "INSERT INTO Users (firstName, lastName, email, password, privilege) 
+        $sql = "INSERT INTO User (firstName, lastName, email, password, privilege)
                 VALUES (?, ?, ?, ?, ?)";
-        $stmt = $this->execute($sql, [
+        $temp = $this->execute($sql, [
             trim($firstName),
             trim($lastName),
             filter_var(trim($email), FILTER_SANITIZE_EMAIL),
             password_hash($password, PASSWORD_DEFAULT),
             $privilege
         ]);
-        $result = $stmt->affected_rows > 0;
-        $stmt->close();
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
         return $result;
     }
 
+    /**
+     * Restituisce una lista di post dalla tabella Post, con info utente e prodotto.
+     * 
+     * @param int $limit Limite di post da restituire.
+     * @param int $offset Offset per la paginazione.
+     * 
+     * @return array Array di post.
+     */
     public function getPosts(int $limit = 10, int $offset = 0): array {
-        $sql = "SELECT p.*, u.firstName, u.lastName, pr.name as productName,
-                (SELECT AVG(rating) FROM Ratings WHERE post = p.id) as averageRating
-                FROM Posts p 
-                JOIN Users u ON p.seller = u.id 
-                JOIN Product pr ON p.product = pr.id 
+        $sql = "SELECT p.*, u.firstName, u.lastName, pr.name AS productName,
+                (SELECT AVG(rating) FROM Rating WHERE post = p.id) AS averageRating
+                FROM Post p
+                JOIN User u ON p.seller = u.id
+                JOIN Product pr ON p.product = pr.id
                 ORDER BY p.date DESC LIMIT ? OFFSET ?";
-        
-        $stmt = $this->execute($sql, [$limit, $offset]);
-        $result = $stmt->get_result();
+
+        $temp = $this->execute($sql, [$limit, $offset]);
+        $result = $temp->get_result();
         $posts = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
+        $temp->close();
+
         return $posts;
     }
 
+    /**
+     * Restituisce un singolo post con dettagli, inclusa valutazione media e numero di commenti.
+     * 
+     * @param int $postId ID del post.
+     * 
+     * @return array Array con i dettagli del post.
+     */
     public function getPostWithDetails(int $postId): array {
-        $sql = "SELECT p.*, u.firstName, u.lastName, pr.*, 
-                (SELECT AVG(rating) FROM Ratings WHERE post = p.id) as averageRating,
-                (SELECT COUNT(*) FROM Comments WHERE post = p.id) as commentCount
-                FROM Posts p 
-                JOIN Users u ON p.seller = u.id 
-                JOIN Product pr ON p.product = pr.id 
+        $sql = "SELECT p.*, u.firstName, u.lastName, pr.*,
+                (SELECT AVG(rating) FROM Rating WHERE post = p.id) AS averageRating,
+                (SELECT COUNT(*) FROM Comment WHERE post = p.id) AS commentCount
+                FROM Post p
+                JOIN User u ON p.seller = u.id
+                JOIN Product pr ON p.product = pr.id
                 WHERE p.id = ?";
-        
-        $stmt = $this->execute($sql, [$postId]);
-        $result = $stmt->get_result();
+
+        $temp = $this->execute($sql, [$postId]);
+        $result = $temp->get_result();
         $post = $result->fetch_assoc() ?: [];
-        $stmt->close();
+        $temp->close();
+
         return $post;
     }
 
+    /**
+     * Restituisce i commenti di un post dalla tabella Comment.
+     * 
+     * @param int $postId ID del post.
+     * 
+     * @return array Array di commenti.
+     */
     public function getComments(int $postId): array {
-        $sql = "SELECT c.*, u.firstName, u.lastName 
-                FROM Comments c 
-                JOIN Users u ON c.author = u.id 
-                WHERE c.post = ? 
+        $sql = "SELECT c.*, u.firstName, u.lastName
+                FROM Comment c
+                JOIN User u ON c.user = u.id
+                WHERE c.post = ?
                 ORDER BY c.date DESC";
-        
-        $stmt = $this->execute($sql, [$postId]);
-        $result = $stmt->get_result();
+
+        $temp = $this->execute($sql, [$postId]);
+        $result = $temp->get_result();
         $comments = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
+        $temp->close();
+
         return $comments;
     }
 
+    /**
+     * Aggiunge un commento nella tabella Comment.
+     * 
+     * @param int    $postId ID del post.
+     * @param int    $author ID dell'autore del commento.
+     * @param string $content Contenuto del commento.
+     * 
+     * @return bool True se il commento è stato aggiunto correttamente, altrimenti false.
+     */
     public function addComment(int $postId, int $author, string $content): bool {
-        $sql = "INSERT INTO Comments (post, author, content) VALUES (?, ?, ?)";
-        $stmt = $this->execute($sql, [$postId, $author, $content]);
-        $result = $stmt->affected_rows > 0;
-        $stmt->close();
+        $sql = "INSERT INTO Comment (post, user, comment) VALUES (?, ?, ?)";
+        $temp = $this->execute($sql, [$postId, $author, $content]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
         return $result;
     }
 
+    /**
+     * Aggiunge una valutazione (rating) nella tabella Rating.
+     * 
+     * @param int $postId ID del post.
+     * @param int $userId ID dell'utente.
+     * @param int $rating Valutazione da assegnare.
+     * 
+     * @return bool True se la valutazione è stata aggiunta correttamente, altrimenti false.
+     */
     public function addRating(int $postId, int $userId, int $rating): bool {
-        $sql = "INSERT INTO Ratings (post, user, rating) VALUES (?, ?, ?)";
-        $stmt = $this->execute($sql, [$postId, $userId, $rating]);
-        $result = $stmt->affected_rows > 0;
-        $stmt->close();
+        $sql = "INSERT INTO Rating (post, user, rating) VALUES (?, ?, ?)";
+        $temp = $this->execute($sql, [$postId, $userId, $rating]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+        
         return $result;
     }
 
+    /**
+     * Restituisce il rating di un utente su un post, se esiste.
+     * 
+     * @param int $postId ID del post.
+     * @param int $userId ID dell'utente.
+     * 
+     * @return int|null Valutazione dell'utente sul post, se esiste, altrimenti null.
+     */
     public function getRating(int $postId, int $userId): ?int {
-        $sql = "SELECT rating FROM Ratings WHERE post = ? AND user = ?";
-        $stmt = $this->execute($sql, [$postId, $userId]);
-        $result = $stmt->get_result();
+        $sql = "SELECT rating FROM Rating WHERE post = ? AND user = ?";
+        $temp = $this->execute($sql, [$postId, $userId]);
+        $result = $temp->get_result();
         $rating = $result->fetch_row()[0] ?? null;
-        $stmt->close();
+        $temp->close();
+
         return $rating;
     }
 
+    /**
+     * Restituisce tutti i prodotti presenti nella tabella Product.
+     * 
+     * @return array Array di prodotti.
+     */
     public function getProducts(): array {
         $sql = "SELECT * FROM Product";
-        $stmt = $this->execute($sql);
-        $result = $stmt->get_result();
+        $temp = $this->execute($sql);
+        $result = $temp->get_result();
         $products = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
+        $temp->close();
+        
         return $products;
     }
 
+    /**
+     * Restituisce il dettaglio di un prodotto.
+     * 
+     * @param int $productId ID del prodotto.
+     * 
+     * @return array Array con i dettagli del prodotto.
+     */
     public function getProduct(int $productId): array {
         $sql = "SELECT * FROM Product WHERE id = ?";
-        $stmt = $this->execute($sql, [$productId]);
-        $result = $stmt->get_result();
+        $temp = $this->execute($sql, [$productId]);
+        $result = $temp->get_result();
         $product = $result->fetch_assoc() ?: [];
-        $stmt->close();
+        $temp->close();
+
         return $product;
     }
 
+    /**
+     * Ricerca tra i post per titolo o descrizione, restituendo post, utente e prodotto associati.
+     * 
+     * @param string $query Testo da cercare.
+     * @param int    $limit Limite di post da restituire.
+     * @param int    $offset Offset per la paginazione.
+     * 
+     * @return array Array di post, utenti e prodotti.
+     */
     public function searchPosts(string $query, int $limit = 10, int $offset = 0): array {
-        $sql = "SELECT p.*, u.firstName, u.lastName, pr.name as productName,
-                (SELECT AVG(rating) FROM Ratings WHERE post = p.id) as averageRating
-                FROM Posts p 
-                JOIN Users u ON p.seller = u.id 
-                JOIN Product pr ON p.product = pr.id 
+        $sql = "SELECT p.*, u.firstName, u.lastName, pr.name AS productName,
+                (SELECT AVG(rating) FROM Rating WHERE post = p.id) AS averageRating
+                FROM Post p
+                JOIN User u ON p.seller = u.id
+                JOIN Product pr ON p.product = pr.id
                 WHERE p.title LIKE ? OR p.description LIKE ?
                 ORDER BY p.date DESC LIMIT ? OFFSET ?";
-        
+
         $searchQuery = "%$query%";
-        $stmt = $this->execute($sql, [$searchQuery, $searchQuery, $limit, $offset]);
-        $result = $stmt->get_result();
+        $temp = $this->execute($sql, [$searchQuery, $searchQuery, $limit, $offset]);
+        $result = $temp->get_result();
         $posts = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
+        $temp->close();
+
         return $posts;
     }
 
+    /**
+     * Verifica le credenziali di un utente e, se valide, restituisce i dati dell'utente senza la password.
+     * 
+     * @param string $email Email dell'utente.
+     * @param string $password Password dell'utente.
+     * 
+     * @return array|null Dati dell'utente senza la password, se le credenziali sono valide, altrimenti null.
+     */
     public function login(string $email, string $password): ?array {
-        $sql = "SELECT * FROM Users WHERE email = ?";
-        $stmt = $this->execute($sql, [$email]);
-        $result = $stmt->get_result();
+        $sql = "SELECT * FROM User WHERE email = ?";
+        $temp = $this->execute($sql, [$email]);
+        $result = $temp->get_result();
         $user = $result->fetch_assoc();
-        $stmt->close();
+        $temp->close();
         
         if ($user && password_verify($password, $user['password'])) {
             unset($user['password']);
             return $user;
         }
+
         return null;
     }
 
-    //restituisce tutti gli ordini effettuati da un utente
-    public function getUserOrders(int $userId): array{
-        $sql = "SELECT * FROM orders, product WHERE user = ? AND product=product.id";
-        $stmt = $this->execute($sql, [$userId]);
-        $result = $stmt->get_result();
+    /**
+     * Restituisce tutti i purchase effettuati da un utente con i relativi prodotti.
+     * 
+     * @param int $userId ID dell'utente.
+     * 
+     * @return array Array di purchase con i relativi prodotti.
+     */
+    public function getUserOrders(int $userId): array {
+        $sql = "SELECT * FROM Purchase, Product WHERE Purchase.user = ? AND Purchase.product = Product.id";
+        $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    
-    //restituisce la wishlist di un utente
-    public function getUserWishlist(int $userId): array{
-        $sql = "SELECT * FROM wishlist, product WHERE user = ? AND product=product.id";
-        $stmt = $this->execute($sql, [$userId]);
-        $result = $stmt->get_result();
+    /**
+     * Restituisce la wishlist di un utente con i relativi prodotti.
+     * 
+     * @param int $userId ID dell'utente.
+     * 
+     * @return array Array di prodotti nella wishlist.
+     */
+    public function getUserWishlist(int $userId): array {
+        $sql = "SELECT * FROM Wishlist, Product WHERE Wishlist.user = ? AND Wishlist.product = Product.id";
+        $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    //restituisce il carrello di un utente
-    public function getUserCart(int $userId): array{
-        $sql = "SELECT * FROM cart, product WHERE user = ? AND product=product.id";
-        $stmt = $this->execute($sql, [$userId]);
-        $result = $stmt->get_result();
+    /**
+     * Restituisce il carrello di un utente con i relativi prodotti.
+     * 
+     * @param int $userId ID dell'utente.
+     * 
+     * @return array Array di prodotti nel carrello.
+     */
+    public function getUserCart(int $userId): array {
+        $sql = "SELECT * FROM Cart, Product WHERE Cart.user = ? AND Cart.product = Product.id";
+        $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    /**
+     * Distruttore - Chiude la connessione al database.
+     */
     public function __destruct() {
         if ($this->db !== null) {
             $this->db->close();
         }
     }
 }
+
+?>
