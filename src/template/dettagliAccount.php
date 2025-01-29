@@ -4,19 +4,19 @@
     <ul>
         <li>
             <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" value="miao" disabled/>
+            <input type="text" id="nome" name="nome" value="<?php echo $_SESSION["firstName"] ?>" disabled/>
         </li>
         <li>
             <label for="cognome">Cognome</label>
-            <input type="text" id="cognome" name="cognome" value="marameo" disabled/>
+            <input type="text" id="cognome" name="cognome" value="<?php echo $_SESSION["lastName"] ?>" disabled/>
         </li>
         <li>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="miaoMarameo" disabled/>
+            <input type="text" id="username" name="username" value="<?php echo $_SESSION["email"] ?>" disabled/>
         </li>
         <li>
             <label for="email">Email</label>
-            <input type="text" id="email" name="email" value="miaoMarameo@gmiao.comiao" disabled/>
+            <input type="text" id="email" name="email" value="<?php echo $_SESSION["email"] ?>" disabled/>
         </li>
         <li>
             <input type="submit" name="edut" value="Modifica"/>

@@ -323,7 +323,7 @@ class DatabaseHelper {
         $user = $result->fetch_assoc();
         $temp->close();
         
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && $user["password"] == $password){//password_verify($password, $user['password'])) {
             unset($user['password']);
             return $user;
         }

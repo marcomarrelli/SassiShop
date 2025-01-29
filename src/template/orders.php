@@ -2,7 +2,7 @@
 <?php
     //lista ordini vuota, allora l'utente non ha ancora effettuato ordini
     if(empty($templateParams["orders"])){
-        echo "<p>Nessun ordine è stato ancora effettuato</p>
+        echo " <p>Nessun ordine è stato ancora effettuato</p>
         <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2> ";
     }else{ //se l'utente ha effettuato almeno un ordine, stampo gli ordini
      ?>    

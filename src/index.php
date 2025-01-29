@@ -41,11 +41,41 @@
             break;
 
         case "profile":
-            $userId = 2;
+            
+            if(isset($_POST["email"]) && isset($_POST["password"])){
+                $login_result = $dbh->Login($_POST["email"], $_POST["password"]);
+                if($login_result == null){
+                    //Login fallito
+                    $templateParams["errorelogin"] ="Errore!! Controllare username o pass";
+                }else{
+                    registerLoggedUser($login_result);
+                }
+            }
+
+            //controllo se l'utente è loggato
+            if(isUserLoggedIn()){
+                //Utente Loggato
+                $templateParams["title"] = "Sassi Shop - Profile";
+                $templateParams["content"] = "profile.php";
+                $templateParams["orders"] = $dbh->getUserOrders($_SESSION["idutente"]);
+                $templateParams["wishlist"] = $dbh->getUserWishlist($_SESSION["idutente"]);
+            
+            }else{
+                //Utente non loggato
+                $templateParams["title"] = "Sassi Shop - Login";
+                $templateParams["content"] = "login.php";
+            }
+            
+
+            /*$templateParams["title"] = "Sassi Shop - Profile";
+            $templateParams["content"] = "login.php";*/
+
+            /*$userId = 2;
             $templateParams["title"] = "Sassi Shop - Profile";
             $templateParams["content"] = "profile.php";
             $templateParams["orders"] = $dbh->getUserOrders($userId);
-            $templateParams["wishlist"] = $dbh->getUserWishlist($userId);
+            $templateParams["wishlist"] = $dbh->getUserWishlist($userId);*/
+            
             break;
 
     }

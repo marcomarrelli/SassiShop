@@ -1,5 +1,14 @@
 <!-- pagina in cui c'è il profilo utente  -->
 
+<?php
+    if(isset($_GET["profilePage"])){
+        if($_GET["profilePage"] == "logout" && isUserLoggedIn()){
+            logout();
+            header("Location: ?page=profile");
+        }
+    }
+?>
+
 <header>
     <h1>Il mio account</h1>
 </header>
@@ -48,50 +57,38 @@
 
 <section>
     <?php
-    //vedo se l'utente ha selezionato un campo del profilo
-    if(isset($_GET["profilePage"])){
-        $profilePage = $_GET["profilePage"];
-    }else{
-        $profilePage = "home";
-    }
+        if(isset($_GET["profilePage"])){
+            $profilePage = $_GET["profilePage"];
+        }else{
+            $profilePage = "home";
+        }
 
-    
-    switch($profilePage){
-        //l'utente non ha selezionato ancora nulla nel profilo
-        case "home":
-            echo "<h3>Ciao nomeUtente!! (non sei nomeUtente? Logout).</h3>
-            <h1>Effettua subito il tuo ordine!</h1>
-            <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2> ";
-            break;
-
-        case "dettagliAccount":
-            require("dettagliAccount.php");
-            break;
-
-        case "cronologiaOrdini":
-            require("orders.php");
-            break;
-            
-        case "wishlist":
-            require("wishlist.php");
-            break;
-
-        case "assistenza":
-            echo "<h3>
-                    Se hai domande o hai bisogno di assistenza per il tuo ordine scrivi alla mail sassishop@gmail.com.
-                    Oppure contatta il numero verde 338 1234 5678.
-                  </h3>";
-            break;
-        
-        case "privacy":
-            require("privacy.php");
-            break;
-            
-        case "logout":
-            break;
-            
-    }
-
+        switch($profilePage){
+            //l'utente non ha selezionato ancora nulla nel profilo
+            case "home":
+                echo "  <h3>Ciao nomeUtente!! (non sei nomeUtente? Logout).</h3>
+                <h1>Effettua subito il tuo ordine!</h1>
+                <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2>  ";
+                break;
+            case "dettagliAccount":
+                require("dettagliAccount.php");
+                break;
+            case "cronologiaOrdini":
+                require("orders.php");
+                break;
+            case "wishlist":
+                require("wishlist.php");
+                break;
+            case "assistenza":
+                echo " <h3>Se hai domande o hai bisogno di assistenza per il tuo ordine scrivi alla mail sassishop@gmail.com.
+                        Oppure contatta il numero verde 338 1234 5678. </h3> ";
+                break;
+            case "privacy":
+                require("privacy.php");
+                break;
+            case "logout":
+                
+                break;
+        }
     ?>
-
 </section>
