@@ -36,7 +36,7 @@
         case "notification":
             $templateParams["title"] = "Sassi Shop - Notification";
             $templateParams["content"] = "notification.php";
-            //$templateParams["notification"] = $dbh->getUserNotification($userId);
+            $templateParams["notifications"] = ""; // = $dbh->getUserNotification($userId);
             //non c'è ancora la tabella delle notifiche
             break;
 
