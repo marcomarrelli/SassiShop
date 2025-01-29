@@ -84,6 +84,7 @@
             break;
         
         case "privacy":
+            require("privacy.php");
             break;
             
         case "logout":
