@@ -1,7 +1,9 @@
 <!-- qua viene visualizzata il carrello dell'utente -->
 <?php
     //lista ordini vuota, allora l'utente non ha ancora effettuato ordini
-    if(empty($templateParams["cartProducts"])){
+    if(!$templateParams["userLogged"]){
+        echo " <h2> Effettua l'accesso per vedere il tuo carrello </h2> ";
+    }else if(empty($templateParams["cartProducts"])){
         echo "<p>Nessun prodotto è stato ancora aggiunto al carrello</p>
         <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2> ";
     }else{ //se l'utente ha effettuato almeno un ordine, stampo gli ordini

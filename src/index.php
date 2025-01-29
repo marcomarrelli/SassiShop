@@ -27,17 +27,27 @@
             break;
 
         case "cart":
-            $userId = 2;
+            if(isUserLoggedIn()){
+                $templateParams["cartProducts"] = $dbh->getUserCart($_SESSION["idutente"]);
+                $templateParams["userLogged"] = true;
+            }else{ 
+                $templateParams["userLogged"] = false;
+            }
             $templateParams["title"] = "Sassi Shop - Cart";
             $templateParams["content"] = "cart.php";
-            $templateParams["cartProducts"] = $dbh->getUserCart($userId);
+            
             break;
 
         case "notification":
+            if(isUserLoggedIn()){
+                $templateParams["notifications"] = "";// = $dbh->getUserNotification($userId);
+                //non c'è ancora la tabella delle notifiche
+                $templateParams["userLogged"] = true;
+            }else{
+                $templateParams["userLogged"] = false;
+            }
             $templateParams["title"] = "Sassi Shop - Notification";
             $templateParams["content"] = "notification.php";
-            $templateParams["notifications"] = ""; // = $dbh->getUserNotification($userId);
-            //non c'è ancora la tabella delle notifiche
             break;
 
         case "profile":
@@ -65,16 +75,6 @@
                 $templateParams["title"] = "Sassi Shop - Login";
                 $templateParams["content"] = "login.php";
             }
-            
-
-            /*$templateParams["title"] = "Sassi Shop - Profile";
-            $templateParams["content"] = "login.php";*/
-
-            /*$userId = 2;
-            $templateParams["title"] = "Sassi Shop - Profile";
-            $templateParams["content"] = "profile.php";
-            $templateParams["orders"] = $dbh->getUserOrders($userId);
-            $templateParams["wishlist"] = $dbh->getUserWishlist($userId);*/
             
             break;
 
