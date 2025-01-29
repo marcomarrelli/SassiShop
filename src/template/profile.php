@@ -73,6 +73,7 @@
             break;
             
         case "wishlist":
+            require("wishlist.php");
             break;
 
         case "assistenza":

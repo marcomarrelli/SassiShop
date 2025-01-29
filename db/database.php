@@ -213,7 +213,7 @@ class DatabaseHelper {
 
     
     //restituisce la wishlist un utente
-    public function getUserOrders(int $userId): array{
+    public function getUserWishlist(int $userId): array{
         $sql = "SELECT * FROM wishlist, product WHERE user = ? AND product=product.id";
         $stmt = $this->execute($sql, [$userId]);
         $result = $stmt->get_result();

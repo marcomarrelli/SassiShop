@@ -34,6 +34,7 @@
             $templateParams["title"] = "Sassi Shop - Profile";
             $templateParams["content"] = "profile.php";
             $templateParams["orders"] = $dbh->getUserOrders($userId);
+            $templateParams["wishlist"] = $dbh->getUserWishlist($userId);
             break;
 
     }
