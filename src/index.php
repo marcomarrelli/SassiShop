@@ -21,12 +21,23 @@
             break;
 
         case "search":
+            $templateParams["title"] = "Sassi Shop - Search";
+            $templateParams["content"] = "search.php";
+            $templateParams["product"] = $dbh->getProducts();
             break;
 
         case "cart":
+            $userId = 2;
+            $templateParams["title"] = "Sassi Shop - Cart";
+            $templateParams["content"] = "cart.php";
+            $templateParams["cartProduct"] = $dbh->getUserCart($userId);
             break;
 
         case "notification":
+            $templateParams["title"] = "Sassi Shop - Notification";
+            $templateParams["content"] = "notification.php";
+            //$templateParams["notification"] = $dbh->getUserNotification($userId);
+            //non c'è ancora la tabella delle notifiche
             break;
 
         case "profile":

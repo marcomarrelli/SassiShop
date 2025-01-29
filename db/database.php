@@ -212,9 +212,17 @@ class DatabaseHelper {
     }
 
     
-    //restituisce la wishlist un utente
+    //restituisce la wishlist di un utente
     public function getUserWishlist(int $userId): array{
         $sql = "SELECT * FROM wishlist, product WHERE user = ? AND product=product.id";
+        $stmt = $this->execute($sql, [$userId]);
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    //restituisce il carrello di un utente
+    public function getUserCart(int $userId): array{
+        $sql = "SELECT * FROM cart, product WHERE user = ? AND product=product.id";
         $stmt = $this->execute($sql, [$userId]);
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
