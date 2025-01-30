@@ -52,8 +52,8 @@
 
         case "profile":
             
-            if(isset($_POST["email"]) && isset($_POST["password"])){
-                $login_result = $dbh->Login($_POST["email"], $_POST["password"]);
+            if(isset($_POST["emailLogin"]) && isset($_POST["passwordLogin"])){
+                $login_result = $dbh->Login($_POST["emailLogin"], $_POST["passwordLogin"]);
                 if($login_result == null){
                     //Login fallito
                     $templateParams["errorelogin"] ="Errore!! Controllare username o pass";
@@ -77,6 +77,22 @@
             }
             
             break;
+        
+        case "register":
+            if(isset($_POST["firstNameRegister"]) && isset($_POST["lastNameRegister"]) && isset($_POST["usernameRegister"]) && isset($_POST["emailRegister"]) && isset($_POST["passwordRegister"])){
+                if($dbh->checkUsername($_POST["usernameRegister"])){
+                    $templateParams["erroreRegister"] = "Username già esistente";
+                }else{
+                    $dbh->addUser($_POST["firstNameRegister"], $_POST["lastNameRegister"], $_POST["usernameRegister"], $_POST["emailRegister"], $_POST["passwordRegister"]);
+                    $login_result = $dbh->Login($_POST["emailRegister"], $_POST["passwordRegister"]);
+                    registerLoggedUser($login_result);
+                    header("Location: ?page=profile");
+                }
+            }else{
+                $templateParams["erroreRegister"] = "Completare tutti i campi";
+            }
+            $templateParams["title"] = "Sassi Shop - Registrazione";
+            $templateParams["content"] = "register.php";
 
     }
 

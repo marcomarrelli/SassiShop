@@ -66,9 +66,10 @@
         switch($profilePage){
             //l'utente non ha selezionato ancora nulla nel profilo
             case "home":
-                echo "  <h3>Ciao nomeUtente!! (non sei nomeUtente? Logout).</h3>
+                $homeString = " <h3>Ciao " . $_SESSION["username"] . " (non sei " . $_SESSION["username"] . "? Logout).</h3>
                 <h1>Effettua subito il tuo ordine!</h1>
                 <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2>  ";
+                echo $homeString;
                 break;
             case "dettagliAccount":
                 require("dettagliAccount.php");

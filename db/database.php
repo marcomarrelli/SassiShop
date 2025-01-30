@@ -109,7 +109,7 @@ class DatabaseHelper {
      * 
      * @return bool True se l'utente è stato aggiunto correttamente, altrimenti false.
      */
-    public function addUser(string $firstName, string $lastName, string $username, string $email, string $password, int $privilege = 1): bool {
+    public function addUser(string $firstName, string $lastName, string $username, string $email, string $password, int $privilege = 2): bool {
         $sql = "INSERT INTO User (firstName, lastName, username, email, password, privilege)
                 VALUES (?, ?, ?, ?, ?, ?)";
         $temp = $this->execute($sql, [
@@ -324,7 +324,7 @@ class DatabaseHelper {
         $user = $result->fetch_assoc();
         $temp->close();
         
-        if ($user && $user["password"] == $password){//password_verify($password, $user['password'])) {
+        if ($user && $user["password"] == password_verify($password, $user['password'])) {
             unset($user['password']);
             return $user;
         }
@@ -375,6 +375,24 @@ class DatabaseHelper {
         $result = $temp->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * controlla che non ci siano altri utenti con lo stesso username.
+     * 
+     * @param string $username username identificativo dell'utente.
+     * 
+     * @return bool false se esiste già un utente con quell'username, se no true.
+     */
+    public function checkUsername(string $username): bool{
+        $sql = "SELECT * FROM User WHERE User.username = ?";
+        $temp = $this->execute($sql, [$username]);
+        $result = $temp->get_result();
+        if(count($result->fetch_all(MYSQLI_ASSOC)) > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
