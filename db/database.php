@@ -109,12 +109,13 @@ class DatabaseHelper {
      * 
      * @return bool True se l'utente è stato aggiunto correttamente, altrimenti false.
      */
-    public function addUser(string $firstName, string $lastName, string $email, string $password, int $privilege = 1): bool {
-        $sql = "INSERT INTO User (firstName, lastName, email, password, privilege)
-                VALUES (?, ?, ?, ?, ?)";
+    public function addUser(string $firstName, string $lastName, string $username, string $email, string $password, int $privilege = 1): bool {
+        $sql = "INSERT INTO User (firstName, lastName, username, email, password, privilege)
+                VALUES (?, ?, ?, ?, ?, ?)";
         $temp = $this->execute($sql, [
             trim($firstName),
             trim($lastName),
+            trim($username),
             filter_var(trim($email), FILTER_SANITIZE_EMAIL),
             password_hash($password, PASSWORD_DEFAULT),
             $privilege

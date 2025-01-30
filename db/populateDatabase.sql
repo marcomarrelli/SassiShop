@@ -18,10 +18,10 @@ INSERT INTO Privilege (type) VALUES
 ('Admin'),
 ('User');
 
-INSERT INTO User (firstName, lastName, email, password, privilege) VALUES
-('Mario', 'Rossi', 'mario.rossi@example.com', 'password123', 1),
-('Luigi', 'Verdi', 'luigi.verdi@example.com', 'password456', 2),
-('Giulia', 'Bianchi', 'giulia.bianchi@example.com', 'password789', 2);
+INSERT INTO User (firstName, lastName, username, email, password, privilege) VALUES
+('Mario', 'Rossi', 'RossoComunista', 'mario.rossi@example.com', 'password123', 1),
+('Luigi', 'Verdi', 'VerdeThe', 'luigi.verdi@example.com', 'password456', 2),
+('Giulia', 'Bianchi', 'BiancaCoca', 'giulia.bianchi@example.com', 'password789', 2);
 
 INSERT INTO Post (seller, product, title, description) VALUES
 (1, 1, 'Sasso Sorridente - Perfetto per regali!', 'Un sasso che porta allegria con il suo sorriso.'),

@@ -7,6 +7,7 @@
         $_SESSION["email"] = $user["email"];
         $_SESSION["firstName"] = $user["firstName"];
         $_SESSION["lastName"] = $user["lastName"];
+        $_SESSION["username"] = $user["username"];
     }
 
     function isUserLoggedIn() :bool{

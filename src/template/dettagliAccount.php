@@ -12,7 +12,7 @@
         </li>
         <li>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="<?php echo $_SESSION["email"] ?>" disabled/>
+            <input type="text" id="username" name="username" value="<?php echo $_SESSION["username"] ?>" disabled/>
         </li>
         <li>
             <label for="email">Email</label>

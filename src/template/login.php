@@ -10,7 +10,7 @@
             <label for="password">Password:</label><input type="password" id="password" name="password" />
         </li>
         <li>
-            <input type="submit" name="submit" value="Invia" />
+            <input type="submit" name="submit" value="Login" />
         </li>
     </ul>
 </form>
