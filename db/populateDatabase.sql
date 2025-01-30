@@ -7,12 +7,12 @@ INSERT INTO Category (name, description) VALUES
 INSERT INTO Size (size) VALUES
 ('Piccolo'), ('Medio'), ('Grande'), ('Extra Grande');
 
-INSERT INTO Product (name, description, price, category, size) VALUES
-('Sasso Sorridente', 'Sasso dipinto con una faccia sorridente', 9.99, 1, 2),
-('Sasso Cuore', 'Sasso a forma di cuore con scritta "Amore"', 12.99, 1, 1),
-('Sasso Personalizzato "Famiglia"', 'Sasso con i nomi della tua famiglia', 14.99, 2, 3),
-('Sasso Raro Cristallino', 'Sasso trasparente con venature uniche', 29.99, 3, 2),
-('Kit Dipingi Sassi', 'Kit con colori, pennelli e vernice per decorare sassi', 19.99, 4, 4);
+INSERT INTO Product (name, description, price, quantity, category, size) VALUES
+('Sasso Sorridente', 'Sasso dipinto con una faccia sorridente', 9.99, 5, 1, 2),
+('Sasso Cuore', 'Sasso a forma di cuore con scritta "Amore"', 12.99, 10, 1, 1),
+('Sasso Personalizzato "Famiglia"', 'Sasso con i nomi della tua famiglia', 14.99, 7, 2, 3),
+('Sasso Raro Cristallino', 'Sasso trasparente con venature uniche', 29.99, 9, 3, 2),
+('Kit Dipingi Sassi', 'Kit con colori, pennelli e vernice per decorare sassi', 19.99, 0, 4, 4);
 
 INSERT INTO Privilege (type) VALUES
 ('Admin'),

@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS Product (
     name VARCHAR(127) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
+    quantity INT NOT NULL,
     category INT NOT NULL,
     size INT NOT NULL,
     FOREIGN KEY (category) REFERENCES Category(id) ON DELETE RESTRICT,

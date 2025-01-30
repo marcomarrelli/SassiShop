@@ -127,6 +127,21 @@ class DatabaseHelper {
     }
 
     /**
+     * Restituisce la lista delle categorie presenti nella tabella Category.
+     * 
+     * @return array Array di categorie.
+     */
+    public function getCategories(): array {
+        $sql = "SELECT * FROM Category";
+        $temp = $this->execute($sql);
+        $result = $temp->get_result();
+        $categories = $result->fetch_all(MYSQLI_ASSOC);
+        $temp->close();
+
+        return $categories;
+    }
+
+    /**
      * Restituisce una lista di post dalla tabella Post, con info utente e prodotto.
      * 
      * @param int $limit Limite di post da restituire.
@@ -251,13 +266,23 @@ class DatabaseHelper {
     }
 
     /**
-     * Restituisce tutti i prodotti presenti nella tabella Product.
+     * Restituisce tutti i prodotti presenti nella tabella Product, con un filtro opzionale per il nome.
+     * 
+     * @param string $name Filtro per il nome del prodotto (default = "").
      * 
      * @return array Array di prodotti.
      */
-    public function getProducts(): array {
+    public function getProducts(string $name = ""): array {
         $sql = "SELECT * FROM Product";
-        $temp = $this->execute($sql);
+        if(!empty($name)) {
+            $sql += " WHERE name LIKE ?";
+            $searchQuery = "%$name%";
+            $temp = $this->execute($sql, [$searchQuery]);
+        }
+        else {
+            $temp = $this->execute($sql);
+        }
+
         $result = $temp->get_result();
         $products = $result->fetch_all(MYSQLI_ASSOC);
         $temp->close();
@@ -272,7 +297,7 @@ class DatabaseHelper {
      * 
      * @return array Array con i dettagli del prodotto.
      */
-    public function getProduct(int $productId): array {
+    public function getProductInfo(int $productId): array {
         $sql = "SELECT * FROM Product WHERE id = ?";
         $temp = $this->execute($sql, [$productId]);
         $result = $temp->get_result();

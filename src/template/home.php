@@ -1,14 +1,13 @@
 <section>
 	<input type="text" placeholder="Cerca prodotto..." />
 	<select>
-		<option value="">Tutte le categorie</option>
-		<option value="1">Sassi Decorati</option>
-		<option value="2">Sassi Personalizzati</option>
-		<option value="3">Sassi da Collezione</option>
-		<option value="4">Kit per Dipingere Sassi</option>
+		<option value="">Tutte le categorie</option>	
+		<?php foreach ($templateParams["categoriesList"] as $category): ?>
+			<option value="<?php echo $category["id"]; ?>"> <?php echo $category["name"]; ?> </option> 
+		<?php endforeach; ?>
 	</select>
 	<button>Cerca</button>
-	<button style="font-size: smaller;">Filtri</button>
+	<button>Filtri</button>
 </section>
 
 <section>
