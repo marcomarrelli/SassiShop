@@ -1,3 +1,4 @@
+/* Light Mode Palette */
 :root.light-mode {
     --background-color: #E7E7E7FF;
     --text-color: #1D201FFF;
@@ -24,6 +25,7 @@
     --info-color-hover: #1E87E2FF;
 }
 
+/* Dark Mode Palette */
 :root.dark-mode {
     --background-color: #2A2D2DFF;
     --text-color: #E8E8E8FF;
@@ -50,7 +52,27 @@
     --info-color-hover: #41A7FF;
 }
 
+/* Theme Color Change Transition */
+* {
+    transition: all 0.3s ease;
+}
+
 body {
     margin: 0;
     padding: 0;
+
+    background-color: var(--background-color);
+
+    font-family: 'Istok Web'; /* Default Font Family */
+}
+
+.header-button {
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.header-button:hover {
+    color: var(--highlight-color);
 }
