@@ -1,4 +1,3 @@
-<!-- qua viene visualizzata il carrello dell'utente -->
 <?php
     //lista ordini vuota, allora l'utente non ha ancora effettuato ordini
     if(!$templateParams["userLogged"]){

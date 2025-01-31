@@ -49,7 +49,7 @@
 
     <header>
         <div class="header-logo">
-            <img src="../assets/images/text_logo.svg" alt="Logo"/>
+            <img id="text-logo" src="../assets/images/text_logo.svg" alt="Logo"/>
         </div>
 
         <button id="theme-switcher" onclick="switchTheme()">Change Theme</button>
