@@ -19,9 +19,8 @@
             <input type="text" id="email" name="email" value="<?php echo $_SESSION["email"] ?>" disabled/>
         </li>
         <li>
-            <input type="submit" name="edut" value="Modifica"/>
+            <input type="button" name="edit" value="Modifica"/>
         </li>
     </ul>
-
-
 </form>
+<script src="js/accountDetails.js"></script>

@@ -64,7 +64,7 @@
             echo $homeString;
             break;
         case "dettagliAccount":
-            require("dettagliAccount.php");
+            require("accountDetails.php");
             break;
         case "cronologiaOrdini":
             require("orders.php");

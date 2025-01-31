@@ -18,13 +18,12 @@
         case "home":
             $templateParams["title"] = "Sassi Shop - Home";
             $templateParams["content"] = "home.php";
-            $templateParams["categoriesList"] = $dbh->getCategories();
             break;
 
         case "search":
             $templateParams["title"] = "Sassi Shop - Search";
             $templateParams["content"] = "search.php";
-            $templateParams["productList"] = $dbh->getProducts();
+            $templateParams["product"] = $dbh->getProducts();
             break;
 
         case "cart":
