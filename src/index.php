@@ -83,7 +83,11 @@
                 if($dbh->checkUsername($_POST["usernameRegister"])){
                     $templateParams["erroreRegister"] = "Username già esistente";
                 }else{
-                    $dbh->addUser($_POST["firstNameRegister"], $_POST["lastNameRegister"], $_POST["usernameRegister"], $_POST["emailRegister"], $_POST["passwordRegister"]);
+                    $privilege = 2;
+                    //if(isset($_POST["admin"])){
+                      //  $privilege = 1;
+                    //}
+                    $dbh->addUser($_POST["firstNameRegister"], $_POST["lastNameRegister"], $_POST["usernameRegister"], $_POST["emailRegister"], $_POST["passwordRegister"], $privilege);
                     $login_result = $dbh->Login($_POST["emailRegister"], $_POST["passwordRegister"]);
                     registerLoggedUser($login_result);
                     header("Location: ?page=profile");
@@ -93,6 +97,12 @@
             }
             $templateParams["title"] = "Sassi Shop - Registrazione";
             $templateParams["content"] = "register.php";
+            break;
+        
+        case "manageProduct":
+            $templateParams["title"] = "Sassi Shop - Gestisci Prodotti";
+            $templateParams["content"] = "manageProduct.php";
+            break;
 
     }
 

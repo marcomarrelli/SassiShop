@@ -22,5 +22,8 @@
         <li>
             <input type="submit" name="submit" value="Registrati" />
         </li>
+        <!-- <li>
+            <label for="admin">I am Admin</label><input type="checkbox" name="admin" value="admin"/>
+        </li> -->
     </ul>
 </form>

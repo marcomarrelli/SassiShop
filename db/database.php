@@ -126,16 +126,15 @@ class DatabaseHelper {
         return $result;
     }
 
-    public function updateUser(int $userId, string $firstName = "", string $lastName = "", string $username = "", string $email = "", string $password = "") {
+    public function updateUser(int $userId, string $firstName = "", string $lastName = "", string $username = "", string $email = "") {
         $sql = "UPDATE `user` SET
         firstName = ?,
         lastName = ?,
         username = ?,
         email = ?,
-        password = ?
         WHERE User.id = ?";
 
-        $temp = $this->execute($sql, [$firstName, $lastName, $username, $email, $password, $userId]);
+        $temp = $this->execute($sql, [$firstName, $lastName, $username, $email, $userId]);
         $temp->close();
     }
 

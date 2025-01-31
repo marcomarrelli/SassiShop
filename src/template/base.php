@@ -23,9 +23,16 @@
                 </a>
             </li>
             <li>
-                <a href="?page=cart">
-                    <i class="bi bi-cart"> </i>
-                </a>
+                <?php
+                    if(isset($_SESSION["privilege"]) && $_SESSION["privilege"]== 1){ ?>
+                        <a href="?page=manageProduct">
+                            <i class="bi bi-plus-square"> </i>
+                        </a>
+                    <?php }else{ ?>
+                        <a href="?page=cart">
+                            <i class="bi bi-cart"></i>
+                        </a>
+                    <?php } ?>
             </li>
             <li>
                 <a href="?page=notification">
