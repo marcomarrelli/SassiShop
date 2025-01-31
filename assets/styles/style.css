@@ -27,6 +27,10 @@
     --margin: 5px;
 }
 
+:root.light-mode #text-logo {
+    filter: invert(6%) sepia(16%) saturate(330%) hue-rotate(109deg) brightness(96%) contrast(86%);
+}
+
 /* Dark Mode Palette */
 :root.dark-mode {
     --background-color: #2A2D2DFF;
@@ -56,6 +60,10 @@
     --margin: 5px;
 }
 
+:root.dark-mode #text-logo {
+    filter: invert(100%) sepia(3%) saturate(1971%) hue-rotate(178deg) brightness(118%) contrast(82%);
+}
+
 /* Theme Color Change Transition */
 * {
     transition: all 0.3s ease;
@@ -69,10 +77,6 @@ body {
 
     font-family: 'Istok Web'; /* Default Font Family */
 }
-
-/* ------------------------- */
-/* HEADER NAV BAR ---------- */
-/* ------------------------- */
 
 .header-nav {
     background-color: var(--primary-color);
@@ -103,17 +107,15 @@ body {
 
 .header-logo {
     width: 100vw;
-    height: 10vh;
+    height: 20vh;
     text-align: center;
     margin: var(--margin) 0;
 }
 
-.header-logo img {
-    width: 80%;
+#text-logo {
+    width: 100%;
+    max-width: fit-content;
     height: 100%;
+    max-height: fit-content;
     object-fit: cover;
-    /*
-    filter: invert(6%) sepia(16%) saturate(330%) hue-rotate(109deg) brightness(96%) contrast(86%);
-    filter: invert(100%) sepia(3%) saturate(1971%) hue-rotate(178deg) brightness(118%) contrast(82%);
-    */
 }
