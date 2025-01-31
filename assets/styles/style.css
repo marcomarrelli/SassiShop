@@ -23,6 +23,8 @@
     --error-color-hover: #D6342AFF;
     --info-color: #2196F3FF;
     --info-color-hover: #1E87E2FF;
+
+    --margin: 5px;
 }
 
 /* Dark Mode Palette */
@@ -50,6 +52,8 @@
     --error-color-hover: #FF5C50FF;
     --info-color: #42A5F5FF;
     --info-color-hover: #41A7FF;
+
+    --margin: 5px;
 }
 
 /* Theme Color Change Transition */
@@ -66,13 +70,33 @@ body {
     font-family: 'Istok Web'; /* Default Font Family */
 }
 
-.header-button {
-    color: var(--text-color);
-    border: none;
-    cursor: pointer;
-    font-size: 30px;
+/* ------------------------- */
+/* HEADER NAV BAR ---------- */
+/* ------------------------- */
+
+.header-nav {
+    background-color: var(--primary-color);
 }
 
-.header-button:hover {
+.header-nav ul {
+    list-style: none;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0 var(--margin);
+    display: flex;
+}
+
+.header-nav ul li {
+    display: inline;
+}
+
+.header-nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 32px;
+}
+
+.header-nav ul li a:hover {
     color: var(--highlight-color);
+    transition: color 0.1s ease;
 }

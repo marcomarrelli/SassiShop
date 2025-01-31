@@ -10,30 +10,30 @@
 </head>
 
 <body>
-    <nav>
+    <nav class="header-nav">
         <ul>
             <li>
-                <a class="header-button" href="?page=home">
+                <a href="?page=home">
                     <i class="bi bi-house"> </i>
                 </a>
             </li>
             <li>
-                <a class="header-button" href="?page=search">
+                <a href="?page=search">
                     <i class="bi bi-search"> </i>
                 </a>
             </li>
             <li>
-                <a class="header-button" href="?page=cart">
+                <a href="?page=cart">
                     <i class="bi bi-cart"> </i>
                 </a>
             </li>
             <li>
-                <a class="header-button" href="?page=notification">
+                <a href="?page=notification">
                     <i class="bi bi-bell"> </i>
                 </a>
             </li>
             <li>
-                <a class="header-button" href="?page=profile">
+                <a href="?page=profile">
                     <i class="bi bi-person-circle"> </i>
                 </a>
             </li>
