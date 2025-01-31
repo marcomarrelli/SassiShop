@@ -27,7 +27,7 @@
             <input type="text" id="email" name="email" value="<?php echo $_SESSION["email"] ?>" disabled required/>
         </li>
         <li>
-            <input class="btn --primary-color" type="button" name="edit" value="Modifica"/>
+            <input class="btn" type="button" name="edit" value="Modifica"/>
         </li>
         <li>
             <input class="d-none" type="submit" name="save" value="Salva"/>
