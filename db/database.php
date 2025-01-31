@@ -126,6 +126,19 @@ class DatabaseHelper {
         return $result;
     }
 
+    public function updateUser(int $userId, string $firstName = "", string $lastName = "", string $username = "", string $email = "", string $password = "") {
+        $sql = "UPDATE `user` SET
+        firstName = ?,
+        lastName = ?,
+        username = ?,
+        email = ?,
+        password = ?
+        WHERE User.id = ?";
+
+        $temp = $this->execute($sql, [$firstName, $lastName, $username, $email, $password, $userId]);
+        $temp->close();
+    }
+
     /**
      * Restituisce la lista delle categorie presenti nella tabella Category.
      * 
@@ -368,6 +381,7 @@ class DatabaseHelper {
         $sql = "SELECT * FROM Purchase, Product WHERE Purchase.user = ? AND Purchase.product = Product.id";
         $temp = $this->execute($sql, [$userId]);
         $result = $temp->get_result();
+        $temp->close();
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
@@ -383,6 +397,7 @@ class DatabaseHelper {
         $sql = "SELECT * FROM Wishlist, Product WHERE Wishlist.user = ? AND Wishlist.product = Product.id";
         $temp = $this->execute($sql, [$userId]);
         $result = $temp->get_result();
+        $temp->close();
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
@@ -398,6 +413,7 @@ class DatabaseHelper {
         $sql = "SELECT * FROM Cart, Product WHERE Cart.user = ? AND Cart.product = Product.id";
         $temp = $this->execute($sql, [$userId]);
         $result = $temp->get_result();
+        $temp->close();
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
@@ -413,11 +429,20 @@ class DatabaseHelper {
         $sql = "SELECT * FROM User WHERE User.username = ?";
         $temp = $this->execute($sql, [$username]);
         $result = $temp->get_result();
-        if(count($result->fetch_all(MYSQLI_ASSOC)) > 0){
-            return true;
-        }else{
-            return false;
-        }
+        $temp->close();
+        
+        return (count($result->fetch_all(MYSQLI_ASSOC)) > 0);
+    }
+
+    public function getUserInfo(int $userId){
+        $sql = "SELECT * FROM User WHERE User.id = ?";
+        $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+        $user = $result->fetch_assoc();
+        unset($user["password"]);
+        $temp->close();
+
+        return $user;
     }
 
     /**

@@ -6,10 +6,10 @@
     <?php endif ?>
     <ul>
         <li>
-            <label for="emailLogin">Email:</label><input type="text" id="emailLogin" name="emailLogin" />
+            <label for="emailLogin">Email:</label><input type="text" id="emailLogin" name="emailLogin" required/>
         </li>
         <li>
-            <label for="passwordLogin">Password:</label><input type="password" id="passwordLogin" name="passwordLogin" />
+            <label for="passwordLogin">Password:</label><input type="password" id="passwordLogin" name="passwordLogin" required/>
         </li>
         <li>
             <input type="submit" name="submit" value="Login" />

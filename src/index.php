@@ -28,7 +28,7 @@
 
         case "cart":
             if(isUserLoggedIn()){
-                $templateParams["cartProducts"] = $dbh->getUserCart($_SESSION["idutente"]);
+                $templateParams["cartProducts"] = $dbh->getUserCart($_SESSION["idUser"]);
                 $templateParams["userLogged"] = true;
             }else{ 
                 $templateParams["userLogged"] = false;
@@ -67,8 +67,8 @@
                 //Utente Loggato
                 $templateParams["title"] = "Sassi Shop - Profile";
                 $templateParams["content"] = "profile.php";
-                $templateParams["orders"] = $dbh->getUserOrders($_SESSION["idutente"]);
-                $templateParams["wishlist"] = $dbh->getUserWishlist($_SESSION["idutente"]);
+                $templateParams["orders"] = $dbh->getUserOrders($_SESSION["idUser"]);
+                $templateParams["wishlist"] = $dbh->getUserWishlist($_SESSION["idUser"]);
             
             }else{
                 //Utente non loggato

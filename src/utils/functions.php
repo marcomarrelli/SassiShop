@@ -3,19 +3,20 @@
 <?php
     //registra sulla session l'utente in questo momento attivo
     function registerLoggedUser($user){
-        $_SESSION["idutente"] = $user["id"];
+        $_SESSION["idUser"] = $user["id"];
         $_SESSION["email"] = $user["email"];
         $_SESSION["firstName"] = $user["firstName"];
         $_SESSION["lastName"] = $user["lastName"];
         $_SESSION["username"] = $user["username"];
     }
+    
 
     function isUserLoggedIn() :bool{
-        return !empty($_SESSION['idutente']);
+        return !empty($_SESSION['idUser']);
     }
 
     function logout(){
-        unset($_SESSION["idutente"]);
+        unset($_SESSION["idUser"]);
         unset($_SESSION["email"]);
         unset($_SESSION["firstName"]);
         unset($_SESSION["lastName"]);
