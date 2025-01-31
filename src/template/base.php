@@ -41,7 +41,10 @@
     </nav>
 
     <header>
-        <h1>SASSI SHOP</h1>
+        <div class="header-logo">
+            <img src="../assets/images/text_logo.svg" alt="Logo"/>
+        </div>
+
         <button id="theme-switcher" onclick="switchTheme()">Change Theme</button>
         <script>
             const root = document.documentElement;

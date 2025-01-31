@@ -100,3 +100,20 @@ body {
     color: var(--highlight-color);
     transition: color 0.1s ease;
 }
+
+.header-logo {
+    width: 100vw;
+    height: 10vh;
+    text-align: center;
+    margin: var(--margin) 0;
+}
+
+.header-logo img {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+    /*
+    filter: invert(6%) sepia(16%) saturate(330%) hue-rotate(109deg) brightness(96%) contrast(86%);
+    filter: invert(100%) sepia(3%) saturate(1971%) hue-rotate(178deg) brightness(118%) contrast(82%);
+    */
+}
