@@ -1,36 +1,37 @@
 /*****
 Bootstrap Breakpoints:
-- small screen: 576px
-- medium screen: 992px
-- large screen: 1200px
+XS      <   576px
+S       >   576px
+M       >   768px
+L       >   992px
+XL      >   1200px
+XXL     >   1400px
 *****/
 
 /* Light Mode Palette */
 :root.light-mode {
-    --background-color: #E7E7E7FF;
-    --text-color: #1D201FFF;
-    --placeholder-color: #1D201FA0;
-
-    --primary-color: #DF928EFF;
-    --primary-hover-color: #E3A09CFF;
-    --secondary-color: #C58882FF;
-    --secondary-hover-color: #D19794FF;
-    --highlight-color: #EAD2ACFF;
-    --highlight-color-hover: #DFC29BFF;
-
-    --controls-backgroind-color: #F7F7F7FF;
-    --controls-border-color: #CCCCCCFF;
-    --controls-hover-color: #FAFAFAFF;
-    --controls-disabled-color: #B0B0B0FF;
-
-    --success-color: #4CAF50FF;
-    --success-color-hover: #3A9E45FF;
-    --warning-color: #FFC107FF;
-    --warning-color-hover: #E0A800FF;
-    --error-color: #F44336FF;
-    --error-color-hover: #D6342AFF;
-    --info-color: #2196F3FF;
-    --info-color-hover: #1E87E2FF;
+    --background-color: rgba(231, 231, 231, 1);             /* #E7E7E7 */
+    --background-half-color: rgba(211, 211, 211, 1);        /* #E7E7E7 */
+    --text-color: rgba(29, 32, 31, 1);                      /* #1D201F */
+    --placeholder-color: rgba(29, 32, 31, 0.625);           /* #1D201F */
+    --primary-color: rgba(223, 146, 142, 1);                /* #DF928E */
+    --primary-hover-color: rgba(227, 160, 156, 1);          /* #E3A09C */
+    --secondary-color: rgba(197, 136, 130, 1);              /* #C58882 */
+    --secondary-hover-color: rgba(209, 151, 148, 1);        /* #D19794 */
+    --highlight-color: rgba(234, 210, 172, 1);              /* #EAD2AC */
+    --highlight-color-hover: rgba(223, 194, 155, 1);        /* #DFC29B */
+    --controls-background-color: rgba(247, 247, 247, 1);    /* #F7F7F7 */
+    --controls-border-color: rgba(204, 204, 204, 1);        /* #CCCCCC */
+    --controls-hover-color: rgba(250, 250, 250, 1);         /* #FAFAFA */
+    --controls-disabled-color: rgba(176, 176, 176, 1);      /* #B0B0B0 */
+    --success-color: rgba(76, 175, 80, 1);                  /* #4CAF50 */
+    --success-color-hover: rgba(58, 158, 69, 1);            /* #3A9E45 */
+    --warning-color: rgba(255, 193, 7, 1);                  /* #FFC107 */
+    --warning-color-hover: rgba(224, 168, 0, 1);            /* #E0A800 */
+    --error-color: rgba(244, 67, 54, 1);                    /* #F44336 */
+    --error-color-hover: rgba(214, 52, 42, 1);              /* #D6342A */
+    --info-color: rgba(33, 150, 243, 1);                    /* #2196F3 */
+    --info-color-hover: rgba(30, 135, 226, 1);              /* #1E87E2 */
 }
 
 :root.light-mode .header-text-logo {
@@ -39,31 +40,30 @@ Bootstrap Breakpoints:
 
 /* Dark Mode Palette */
 :root.dark-mode {
-    --background-color: #2A2D2DFF;
-    --text-color: #E8E8E8FF;
-    --placeholder-color: #1F2E1DA0;
-
-    --primary-color: #C47471FF;
-    --primary-hover-color: #D0807EFF;
-    --secondary-color: #A86E6AFF;
-    --secondary-hover-color: #B77975FF;
-    --highlight-color: #CCB08DFF;
-    --highlight-color-hover: #D1A979FF;
-
-    --controls-backgroind-color: #D7D7D7FF;
-    --controls-border-color: #888888FF;
-    --controls-hover-color: #EAEAEAFF;
-    --controls-disabled-color: #666666FF;
-
-    --success-color: #6BCF74FF;
-    --success-color-hover: #5ECF67FF;
-    --warning-color: #FFD54FFF;
-    --warning-color-hover: #FFCA2AFF;
-    --error-color: #FF6B60FF;
-    --error-color-hover: #FF5C50FF;
-    --info-color: #42A5F5FF;
-    --info-color-hover: #41A7FF;
+    --background-color: rgba(42, 45, 45, 1);                /* #2A2D2D */
+    --background-half-color: rgba(62, 65, 65, 1);           /* #2A2D2D */
+    --text-color: rgba(232, 232, 232, 1);                   /* #E8E8E8 */
+    --placeholder-color: rgba(31, 46, 29, 0.625);           /* #1F2E1D */
+    --primary-color: rgba(196, 116, 113, 1);                /* #C47471 */
+    --primary-hover-color: rgba(208, 128, 126, 1);          /* #D0807E */
+    --secondary-color: rgba(168, 110, 106, 1);              /* #A86E6A */
+    --secondary-hover-color: rgba(183, 121, 117, 1);        /* #B77975 */
+    --highlight-color: rgba(204, 176, 141, 1);              /* #CCB08D */
+    --highlight-color-hover: rgba(209, 169, 121, 1);        /* #D1A979 */
+    --controls-background-color: rgba(215, 215, 215, 1);    /* #D7D7D7 */
+    --controls-border-color: rgba(136, 136, 136, 1);        /* #888888 */
+    --controls-hover-color: rgba(234, 234, 234, 1);         /* #EAEAEA */
+    --controls-disabled-color: rgba(102, 102, 102, 1);      /* #666666 */
+    --success-color: rgba(107, 207, 116, 1);                /* #6BCF74 */
+    --success-color-hover: rgba(94, 207, 103, 1);           /* #5ECF67 */
+    --warning-color: rgba(255, 213, 79, 1);                 /* #FFD54F */
+    --warning-color-hover: rgba(255, 202, 42, 1);           /* #FFCA2A */
+    --error-color: rgba(255, 107, 96, 1);                   /* #FF6B60 */
+    --error-color-hover: rgba(255, 92, 80, 1);              /* #FF5C50 */
+    --info-color: rgba(66, 165, 245, 1);                    /* #42A5F5 */
+    --info-color-hover: rgba(65, 167, 255, 1);              /* #41A7FF */
 }
+
 
 :root.dark-mode .header-text-logo {
     filter: invert(100%) sepia(3%) saturate(1971%) hue-rotate(178deg) brightness(118%) contrast(82%);
@@ -104,7 +104,7 @@ body{
 
 .header-logo {
     width: 100vw;
-    height: 20vh;
+    height: 18vh;
     text-align: center;
     margin: 5 0;
 }
@@ -131,7 +131,7 @@ body{
     }
     .header-logo {
         width: 85vw;
-        height: 20vh;
+        height: 12vh;
         text-align: left;
         margin: 1vh 0 0 5vw;
     }
@@ -213,6 +213,32 @@ body{
     flex-direction: column;
     justify-content: center;
     gap: 10px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1200px) {
+    .home-search-container {
+        width: 90vw;
+        height: 21vh;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--background-half-color) !important;
+        gap: 25px;
+        padding: 25px;
+        transition: "background-color" 0.5s ease;
+    }
+
+    .home-search-input,
+    .home-select-category,
+    .home-search-and-filter {
+        height: 50% !important;
+        flex: 1;
+    }
+
+    .home-search-and-filter {
+        display: flex;
+    }
 }
 
 .home-search-input, .home-select-category {
@@ -224,7 +250,7 @@ body{
 .home-search-input input, .home-select-category select {
     padding-left: 50px;
     height: 100%;
-    background-color: var(--controls-backgroind-color);
+    background-color: var(--controls-background-color);
     border-color: var(--controls-border-color);
 }
 
@@ -280,4 +306,68 @@ body{
 
 .home-filter-button > i {
     font-size: 24px;
+}
+
+.home-cards-container {
+    display: grid;
+    gap: 25px;
+}
+
+.home-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-loved-category, .home-sold-collections {
+    flex: 1;
+    min-width: 100px;
+    min-height: 15vh;
+    padding: 25px;
+    background-color: var(--background-half-color);
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-loved-category > img, .home-sold-collections > img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; 
+}
+
+.home-loved-category-title, .home-sold-collections-title {
+    font-weight: bold;
+    text-align: center;
+    font-size: calc(20px + 1vw);
+}
+
+.home-loved-category > div > h5, .home-sold-collections > div > h5 {
+    font-weight: bold;
+}
+
+.home-card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.home-card-body .btn {
+    margin-top: auto;
+}
+
+.home-go-to-sold-collections, .home-go-to-loved-categories {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+@media (min-width: 1200px) {
+    .home-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .home-loved-category-title, .home-sold-collections-title {
+        font-size: calc(16px + 1vw);
+    }
 }

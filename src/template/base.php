@@ -48,21 +48,6 @@
                 Che sasso stai cercando oggi?
             </label>
         </div>
-
-        <button id="theme-switcher" onclick="switchTheme()">Change Theme</button>
-        <script>
-            const root = document.documentElement;
-
-            const savedTheme = localStorage.getItem("theme") || "light-mode";
-            root.classList.add(savedTheme);
-
-            function switchTheme() {
-                const newTheme = root.classList.contains("light-mode") ? "dark-mode" : "light-mode";
-
-                root.classList.replace(root.classList.contains("light-mode") ? "light-mode" : "dark-mode", newTheme);
-                localStorage.setItem("theme", newTheme);
-            }
-        </script>
     </header>
 
     <main>
@@ -82,5 +67,25 @@
         <p>Gestisci Cookies</p>
         <hr/>
     </footer>
+
+    <script>
+            const root = document.documentElement;
+
+            const savedTheme = localStorage.getItem("theme") || "light-mode";
+            root.classList.add(savedTheme);
+
+            function switchTheme() {
+                const newTheme = root.classList.contains("light-mode") ? "dark-mode" : "light-mode";
+
+                root.classList.replace(root.classList.contains("light-mode") ? "light-mode" : "dark-mode", newTheme);
+                localStorage.setItem("theme", newTheme);
+            }
+        </script>
 </body>
 </html>
+
+<!--
+
+        <button id="theme-switcher" onclick="switchTheme()">Change Theme</button>
+
+-->

@@ -20,6 +20,48 @@
             $templateParams["title"] = "Sassi Shop - Home";
             $templateParams["content"] = "home.php";
             $templateParams["categoriesList"] = $dbh->getCategories();
+            $templateParams["mostLovedCategories"] = [
+                [
+                    "title" => "Amici ed Emozioni",
+                    "description" => "Un'emozione,<br>per lasciarti impietrito!",
+                    "image" => "../assets/images/placeholders/categoria_amichetti.jpg",
+                    "alt" => "Categoria: Sassi Amici"
+                ],
+                [
+                    "title" => "Bandiere",
+                    "description" => "Tutto il mondo,<br>a portata di pietra!",
+                    "image" => "../assets/images/placeholders/categoria_bandiere.jpg",
+                    "alt" => "Categoria: Bandiere"
+                ],
+                [
+                    "title" => "Animaletti",
+                    "description" => "Che verso fa la pietra?<br>Scoprilo!",
+                    "image" => "../assets/images/placeholders/categoria_animali.jpg",
+                    "alt" => "Categoria: Animali"
+                ]
+            ];
+            
+            $templateParams["mostSoldCollections"] = [
+                [
+                    "title" => "San Valentino",
+                    "description" => "Non avere il cuore di pietra, regalalo!",
+                    "image" => "../assets/images/placeholders/collezione_san_valentino.jpg",
+                    "alt" => "Categoria: San Valentino"
+                ],
+                [
+                    "title" => "Cartoni Animati",
+                    "description" => "Gotta catch 'em all!<br>E tanto altro...",
+                    "image" => "../assets/images/placeholders/collezione_cartoni_animati.jpg",
+                    "alt" => "Categoria: Cartoni Animati"
+                ],
+                [
+                    "title" => "Famiglia",
+                    "description" => "Fatti abbracciare!<br>Per tutta la famiglia.",
+                    "image" => "../assets/images/placeholders/collezione_famiglia.jpg",
+                    "alt" => "Categoria: Famiglie"
+                ]
+            ];
+
             break;
 
         case "search":
