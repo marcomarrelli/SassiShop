@@ -23,4 +23,26 @@
         unset($_SESSION["lastName"]);
         unset($_SESSION["privilege"]);
     }
+
+    /**
+     * Funzione che taglia una stringa in base alla lunghezza passata come parametro.
+     * 
+     * @param string $string stringa da tagliare
+     * @param int $length lunghezza massima della stringa
+     * 
+     * @return string stringa tagliata
+     */
+    function string_cutter($string, $length) : string {
+        if(is_null($string)) return "";
+        if(empty($string)) return "";
+
+        if($length <= 0) return $string;
+
+        return (strlen($string) > $length) ? substr($string, 0, $length) . "..." : $string;
+    }
+
+    function getProductImage($product){
+        if(is_null($product) || empty($product) || !isset($product["image"])) return "../../assets/images/placeholders/not_available.png";
+        else return imagecreatefromstring(base64_decode($product["image"])) || "../../assets/images/placeholders/not_available.png";
+    }
 ?>
