@@ -138,7 +138,7 @@ body{
     .header-nav-container {
         width: 15vw;
         top: 0; right: 0;
-        position: fixed;
+        position: absolute;
         margin: 1vh 5vw 0 0;
         background-color: transparent;
         transition: color 1s ease;
@@ -309,6 +309,8 @@ body{
 }
 
 .home-cards-container {
+    width: 80vw;
+    margin: 0 auto;
     display: grid;
     gap: 25px;
 }
@@ -363,6 +365,7 @@ body{
 
 @media (min-width: 1200px) {
     .home-cards-container {
+        width: 90vw;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px;
     }

@@ -1,4 +1,14 @@
+<?php
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name_filter = isset($_POST["name_filter"]) ? $_POST["name_filter"] : "";
+        $category_filter = isset($_POST["category_filter"]) ? $_POST["category_filter"] : -1;
+    }
+
+    $templateParams["productList"] = $dbh->getProducts($name_filter, $category_filter);
+?>
+
 <h1>Lista Prodotti</h1>
+
 <?php if (!empty($templateParams["productList"])): ?>
     <?php foreach ($templateParams["productList"] as $product): ?>
         <div>

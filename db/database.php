@@ -284,17 +284,21 @@ class DatabaseHelper {
      * 
      * @return array Array di prodotti.
      */
-    public function getProducts(string $name = ""): array {
+    public function getProducts(string $name = "", int $category = -1): array {
         $sql = "SELECT * FROM Product";
+        $params = [];
+
         if(!empty($name)) {
-            $sql += " WHERE name LIKE ?";
-            $searchQuery = "%$name%";
-            $temp = $this->execute($sql, [$searchQuery]);
+            $sql .= " WHERE name LIKE ?";
+            $params[] = "%$name%";
         }
-        else {
-            $temp = $this->execute($sql);
+        if($category != -1) {
+            $sql .= empty($name)  ? " WHERE category = ?" : " AND category = ?";
+            $params[] = $category;
         }
 
+        $temp = $this->execute($sql, $params);
+        
         $result = $temp->get_result();
         $products = $result->fetch_all(MYSQLI_ASSOC);
         $temp->close();

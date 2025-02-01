@@ -12,7 +12,6 @@
     //parametri di base
     $templateParams["title"] = "Sassi Shop - Home";
     $templateParams["content"] = "home.php";
-    
 
     //in base alla pagina che voglio accedere cambiano i parametri e quindi il contenuto della pagina
     switch($page){
@@ -152,7 +151,6 @@
 
     //in ogni caso si parte sempre dal template base
     require("template/base.php");
-
 ?>
 
 
