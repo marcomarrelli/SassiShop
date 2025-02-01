@@ -164,14 +164,30 @@ body{
     text-align: center;
 }
 
+.home-profile{ 
+    background-color: var(--highlight-color); 
+    color: var(--text-color);
+    padding: 15px;
+    text-align: center;
+}
+
 .link-profile{
     color: var(--text-color);
     text-decoration: none;
     padding:0 0 0 20px;
 }
 
-.link-profile:hover{
+.link-product{
+    color: var(--text-color);
+    padding:0 0 0 20px;
+}
+
+.link-profile:hover, .link-product:hover{
     color: var(--secondary-color);
+}
+
+.text {
+    color: var(--text-color);
 }
 
 @media screen and (min-width:768px){

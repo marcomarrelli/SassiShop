@@ -20,7 +20,7 @@
             <li class="header-nav-item">
                 <a href="?page=search"> <i class="bi bi-search"> </i> </a>
             </li>
-            <li>
+            <li class="header-nav-item">
                 <?php
                     if(isset($_SESSION["privilege"]) && $_SESSION["privilege"]== 1){ ?>
                         <a href="?page=manageProduct">
