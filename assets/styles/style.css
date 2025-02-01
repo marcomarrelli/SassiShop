@@ -69,13 +69,17 @@
     transition: all 0.3s ease;
 }
 
-body {
+body{
     margin: 0;
     padding: 0;
 
     background-color: var(--background-color);
 
     font-family: 'Istok Web'; /* Default Font Family */
+}
+
+h3{
+    color:var(--text-color);
 }
 
 .header-nav {
@@ -119,3 +123,37 @@ body {
     max-height: fit-content;
     object-fit: cover;
 }
+
+.header-profile{ 
+    background-color: var(--secondary-color); 
+    color: var(--text-color);
+    text-align: center;
+}
+
+.link-profile{
+    color: var(--text-color);
+    text-decoration: none;
+    padding:0 0 0 20px;
+}
+
+.link-profile:hover{
+    color: var(--secondary-color);
+}
+
+@media screen and (min-width:768px){
+    .nav{
+        align-items: center;
+        text-align: center;
+    }
+    .icons{
+        font-size: 50px;
+        padding: 0 50px;
+    }
+
+    .hr{
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+}
+
+

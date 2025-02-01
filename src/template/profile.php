@@ -9,31 +9,37 @@
     }
 ?>
 
-<header>
-    <h1>Il mio account</h1>
-</header>
+<div class="container-fluid p-0 mb-4">
+    <header class="header-profile p-4">
+        <h1>Il mio account</h1>
+    </header>
+</div>
 
-<h2>Il mio account</h2>
-<nav>
-    <ul>
-        <li> 
-            <a href="?page=profile&profilePage=dettagliAccount"><i class="bi bi-person"></i>Dettagli account</a> <hr/>
+<!-- <div class="container"> -->
+
+<h3 class="ps-4">Il mio account</h3>
+<nav class="navbar">
+    <ul class="nav">
+        <div class="row">
+        <li class="col-12 col-md-6 col-lg-4 nav-item"> 
+            <a class="link-profile nav-link" href="?page=profile&profilePage=dettagliAccount"><i class="bi bi-person pe-2 icons"></i>Dettagli account</a> <hr class="hr"/>
         </li>
-        <li>
-            <a href="?page=profile&profilePage=cronologiaOrdini"><i class="bi bi-card-list"></i>Cronologia ordini</a><hr/>
+        <li class="col-12 col-md-6 col-lg-4 nav-item">
+            <a class="link-profile nav-link" href="?page=profile&profilePage=cronologiaOrdini"><i class="bi bi-card-list pe-2 icons"></i>Cronologia ordini</a><hr class="hr"/>
         </li>
-        <li>
-            <a href="?page=profile&profilePage=wishlist"><i class="bi bi-heart-fill"></i>wishlist</a><hr/>
+        <li class="col-12 col-md-6 col-lg-4 nav-item">
+            <a class="link-profile nav-link" href="?page=profile&profilePage=wishlist"><i class="bi bi-heart-fill pe-2 icons"></i>wishlist</a><hr class="hr"/>
         </li>
-        <li>
-            <a href="?page=profile&profilePage=assistenza"><i class="bi bi-telephone-fill"></i>Assistenza</a><hr/>
+        <li class="col-12 col-md-6 col-lg-4 nav-item">
+            <a class="link-profile nav-link" href="?page=profile&profilePage=assistenza"><i class="bi bi-telephone-fill pe-2 icons"></i>Assistenza</a><hr class="hr"/>
         </li>
-        <li>
-            <a href="?page=profile&profilePage=privacy"><i class="bi bi-fingerprint"></i>Privicy e sicurezza</a><hr/>
+        <li class="col-12 col-md-6 col-lg-4 nav-item">
+            <a class="link-profile nav-link" href="?page=profile&profilePage=privacy"><i class="bi bi-fingerprint pe-2 icons"></i>Privicy e sicurezza</a><hr class="hr"/>
         </li>
-        <li>
-            <a href="?page=profile&profilePage=logout"><i class="bi bi-door-open"></i>Logout</a><hr/>
+        <li class="col-12 col-md-6 col-lg-4 nav-item">
+            <a class="link-profile nav-link" href="?page=profile&profilePage=logout"><i class="bi bi-door-open pe-2 icons"></i>Logout</a><hr class="hr"/>
         </li>
+        </div>
     </ul>
 </nav>
 
@@ -72,3 +78,4 @@
             break;
     }
 ?>
+<!-- </div> -->
