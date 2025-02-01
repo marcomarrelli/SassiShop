@@ -1,5 +1,7 @@
 <!-- file base a tutti -->
 
+<!-- file base a tutti -->
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -10,17 +12,13 @@
 </head>
 
 <body>
-    <nav class="header-nav">
-        <ul>
-            <li>
-                <a href="?page=home">
-                    <i class="bi bi-house"> </i>
-                </a>
+    <nav class="header-nav-container">
+        <ul class="nav justify-content-center justify-content-between header-nav-body">
+            <li class="header-nav-item">
+                <a href="?page=home"> <i class="bi bi-house"> </i> </a>
             </li>
-            <li>
-                <a href="?page=search">
-                    <i class="bi bi-search"> </i>
-                </a>
+            <li class="header-nav-item">
+                <a href="?page=search"> <i class="bi bi-search"> </i> </a>
             </li>
             <li>
                 <?php
@@ -34,22 +32,21 @@
                         </a>
                     <?php } ?>
             </li>
-            <li>
-                <a href="?page=notification">
-                    <i class="bi bi-bell"> </i>
-                </a>
+            <li class="header-nav-item">
+                <a href="?page=notification"> <i class="bi bi-bell"> </i> </a>
             </li>
-            <li>
-                <a href="?page=profile">
-                    <i class="bi bi-person-circle"> </i>
-                </a>
+            <li class="header-nav-item">
+                <a href="?page=profile"> <i class="bi bi-person-circle"> </i> </a>
             </li>
         </ul>
     </nav>
 
     <header>
         <div class="header-logo">
-            <img id="text-logo" src="../assets/images/text_logo.svg" alt="Logo"/>
+            <img class="header-text-logo" src="../assets/images/text_logo.svg" alt="Logo"/>
+            <label class="header-welcome-phrase">
+                Che sasso stai cercando oggi?
+            </label>
         </div>
 
         <button id="theme-switcher" onclick="switchTheme()">Change Theme</button>

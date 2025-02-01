@@ -19,6 +19,7 @@
         case "home":
             $templateParams["title"] = "Sassi Shop - Home";
             $templateParams["content"] = "home.php";
+            $templateParams["categoriesList"] = $dbh->getCategories();
             break;
 
         case "search":
