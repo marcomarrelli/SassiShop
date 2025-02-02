@@ -2,8 +2,10 @@
 <?php
     //lista ordini vuota, allora l'utente non ha ancora effettuato ordini
     if(empty($templateParams["wishlist"])){
-        echo "<p>Nessun prodotto è stato ancora aggiunto ai preferiti </p>
-        <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2> ";
+        echo "<div class=\"home-profile\">
+            <h2>Nessun prodotto è stato ancora aggiunto ai preferiti!</h2>
+            <h3><a class=\"link-product\" href=\"?page=search\">Sfoglia Prodotti</a></h3>
+            </div>  ";
     }else{ //se l'utente ha effettuato almeno un ordine, stampo gli ordini
      ?>    
 
