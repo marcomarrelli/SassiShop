@@ -2,9 +2,10 @@
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $name_filter = isset($_POST["name_filter"]) ? $_POST["name_filter"] : "";
         $category_filter = isset($_POST["category_filter"]) ? $_POST["category_filter"] : -1;
+        $templateParams ["productList"] = $dbh->getProducts ($name_filter, $category_filter);
+    }else{
+        $templateParams ["productList"] = $dbh->getProducts();
     }
-
-    $templateParams["productList"] = $dbh->getProducts($name_filter, $category_filter);
 ?>
 
 <h1>Lista Prodotti</h1>

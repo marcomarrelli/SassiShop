@@ -131,7 +131,7 @@ class DatabaseHelper {
         firstName = ?,
         lastName = ?,
         username = ?,
-        email = ?,
+        email = ?
         WHERE User.id = ?";
 
         $temp = $this->execute($sql, [$firstName, $lastName, $username, $email, $userId]);

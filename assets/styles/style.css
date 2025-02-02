@@ -126,36 +126,7 @@ body{
 }
 
 @media screen and (min-width: 1200px) {
-    .header-welcome-phrase {
-        display: none !important;
-    }
-    .header-logo {
-        width: 85vw;
-        height: 12vh;
-        text-align: left;
-        margin: 1vh 0 0 5vw;
-    }
-    .header-nav-container {
-        width: 15vw;
-        top: 0; right: 0;
-        position: absolute;
-        margin: 1vh 5vw 0 0;
-        background-color: transparent;
-        transition: color 1s ease;
-    }
-    .header-nav-item:nth-child(1), .header-nav-item:nth-child(2) {
-        display: none;
-    }
-    .header-nav-item:nth-child(5) a {
-        color: var(--primary-color);
-    }
-    .header-nav-item a {
-        font-size: calc(24px + 1vw);
-    }
-    .header-nav-item a:hover {
-        color: var(--highlight-color);
-        transition: color 0.1s ease;
-    }
+    
 }
 
 .header-profile{ 
@@ -174,6 +145,7 @@ body{
 .link-profile{
     color: var(--text-color);
     text-decoration: none;
+    text-align: left;
     padding:0 0 0 20px;
 }
 
@@ -190,22 +162,6 @@ body{
     color: var(--text-color);
 }
 
-@media screen and (min-width:768px){
-    .nav{
-        align-items: center;
-        text-align: center;
-    }
-    .icons{
-        font-size: 50px;
-        padding: 0 50px;
-    }
-
-    .hr{
-        margin-left: 30px;
-        margin-right: 30px;
-    }
-}
-
 .home-search-container {
     width: 60vw;
     height: 18vh;
@@ -214,31 +170,6 @@ body{
     justify-content: center;
     gap: 10px;
     margin: 0 auto;
-}
-
-@media (min-width: 1200px) {
-    .home-search-container {
-        width: 90vw;
-        height: 21vh;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        background-color: var(--background-half-color) !important;
-        gap: 25px;
-        padding: 25px;
-        transition: "background-color" 0.5s ease;
-    }
-
-    .home-search-input,
-    .home-select-category,
-    .home-search-and-filter {
-        height: 50% !important;
-        flex: 1;
-    }
-
-    .home-search-and-filter {
-        display: flex;
-    }
 }
 
 .home-search-input, .home-select-category {
@@ -358,7 +289,7 @@ body{
     margin-top: auto;
 }
 
-.home-go-to-sold-collections, .home-go-to-loved-categories {
+.home-go-to-sold-collections, .home-go-to-loved-categories, .form-profile {
     background-color: var(--primary-color);
     color: var(--text-color);
 }
@@ -372,5 +303,79 @@ body{
 
     .home-loved-category-title, .home-sold-collections-title {
         font-size: calc(16px + 1vw);
+    }
+
+    .home-search-container {
+        width: 90vw;
+        height: 21vh;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--background-half-color) !important;
+        gap: 25px;
+        padding: 25px;
+        transition: "background-color" 0.5s ease;
+    }
+
+    .home-search-input,
+    .home-select-category,
+    .home-search-and-filter {
+        height: 50% !important;
+        flex: 1;
+    }
+
+    .home-search-and-filter {
+        display: flex;
+    }
+
+    .header-welcome-phrase {
+        display: none !important;
+    }
+    .header-logo {
+        width: 85vw;
+        height: 12vh;
+        text-align: left;
+        margin: 1vh 0 0 5vw;
+    }
+    .header-nav-container {
+        width: 15vw;
+        top: 0; right: 0;
+        position: absolute;
+        margin: 1vh 5vw 0 0;
+        background-color: transparent;
+        transition: color 1s ease;
+    }
+    .header-nav-item:nth-child(1), .header-nav-item:nth-child(2) {
+        display: none;
+    }
+    .header-nav-item:nth-child(5) a {
+        color: var(--primary-color);
+    }
+    .header-nav-item a {
+        font-size: calc(24px + 1vw);
+    }
+    .header-nav-item a:hover {
+        color: var(--highlight-color);
+        transition: color 0.1s ease;
+    }
+}
+
+@media screen and (min-width:768px){
+    .nav{
+        align-items: center;
+        text-align: center;
+    }
+    .icons{
+        font-size: 50px;
+        padding: 0 50px;
+    }
+
+    .hr{
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .link-profile{
+        text-align: center;
     }
 }

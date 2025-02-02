@@ -28,7 +28,7 @@
             <a class="link-profile nav-link" href="?page=profile&profilePage=cronologiaOrdini"><i class="bi bi-card-list pe-2 icons"></i>Cronologia ordini</a><hr class="hr text"/>
         </li>
         <li class="col-12 col-md-6 col-lg-4 nav-item">
-            <a class="link-profile nav-link" href="?page=profile&profilePage=wishlist"><i class="bi bi-heart-fill pe-2 icons"></i>wishlist</a><hr class="hr text"/>
+            <a class="link-profile nav-link" href="?page=profile&profilePage=wishlist"><i class="bi bi-heart-fill pe-2 icons"></i>Wishlist</a><hr class="hr text"/>
         </li>
         <li class="col-12 col-md-6 col-lg-4 nav-item">
             <a class="link-profile nav-link" href="?page=profile&profilePage=assistenza"><i class="bi bi-telephone-fill pe-2 icons"></i>Assistenza</a><hr class="hr text"/>
