@@ -1,6 +1,6 @@
-<!-- funzioni comuni a tutti i file -->
-
 <?php
+
+    //funzioni comuni a tutti i file
     //registra sulla session l'utente in questo momento attivo
     function registerLoggedUser($user){
         $_SESSION["idUser"] = $user["id"];

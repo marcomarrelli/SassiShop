@@ -259,6 +259,32 @@ class DatabaseHelper {
         return $result;
     }
 
+    public function addProductWishlist(int $productId, int $userId): bool{
+        $sql = "INSERT INTO Wishlist (user, product) VALUES (?, ?)";
+        $temp = $this->execute($sql, [$userId, $productId]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+
+    public function removeProductWishlist(int $productId, int $userId){
+        $sql = "DELETE from wishlist WHERE product = ? AND user = ?";
+        $temp = $this->execute($sql, [$productId, $userId]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+
+    public function checkProductWishlist(int $productId, int $userId){
+        $sql = "SELECT * from wishlist WHERE product = ? AND user = ?";
+        $temp = $this->execute($sql, [$productId, $userId]);
+        $result = $temp->get_result();
+        $temp->close();
+
+        return (count($result->fetch_all(MYSQLI_ASSOC)) > 0);
+    }
     /**
      * Restituisce il rating di un utente su un post, se esiste.
      * 

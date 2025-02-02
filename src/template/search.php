@@ -1,6 +1,6 @@
 <div class="top-banner">
     <div class="banner-success text-center">
-        <strong>✓ Successo!</strong> Prodotto aggiunto al carrello
+        
     </div>
 </div>
 

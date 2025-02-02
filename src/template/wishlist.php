@@ -2,7 +2,6 @@
 
 <div class="top-banner">
     <div class="banner-success text-center">
-        <strong>✓ Successo!</strong> Prodotto aggiunto al carrello
     </div>
 </div>
 
@@ -30,8 +29,10 @@
                         <h5 class="card-title"><?php echo $wish['name']; ?></h5>
         
                         <button class="btn btn-outline-danger btn-sm" name="heart">
-                            <i class="bi bi-heart-fill"></i>
+                                <p class="d-none"><?php echo $wish['product'] ?></p>
+                                <i class="bi bi-heart-fill"></i>
                         </button>
+                        
         
                         </div>
                         <p class="card-text"><?php 
