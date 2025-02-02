@@ -125,43 +125,6 @@ body{
     text-align: center;
 }
 
-@media screen and (min-width: 1200px) {
-    
-}
-
-.header-profile{ 
-    background-color: var(--secondary-color); 
-    color: var(--text-color);
-    text-align: center;
-}
-
-.home-profile{ 
-    background-color: var(--highlight-color); 
-    color: var(--text-color);
-    padding: 15px;
-    text-align: center;
-}
-
-.link-profile{
-    color: var(--text-color);
-    text-decoration: none;
-    text-align: left;
-    padding:0 0 0 20px;
-}
-
-.link-product{
-    color: var(--text-color);
-    padding:0 0 0 20px;
-}
-
-.link-profile:hover, .link-product:hover{
-    color: var(--secondary-color);
-}
-
-.text {
-    color: var(--text-color);
-}
-
 .home-search-container {
     width: 60vw;
     height: 18vh;
@@ -294,6 +257,7 @@ body{
     color: var(--text-color);
 }
 
+
 @media (min-width: 1200px) {
     .home-cards-container {
         width: 90vw;
@@ -358,6 +322,47 @@ body{
         color: var(--highlight-color);
         transition: color 0.1s ease;
     }
+}
+
+
+/* Profile */
+
+.home-profile{ 
+    background-color: var(--highlight-color); 
+    color: var(--text-color);
+    padding: 15px;
+    text-align: center;
+}
+
+.link-profile{
+    color: var(--text-color);
+    text-decoration: none;
+    text-align: left;
+    padding:0 0 0 20px;
+}
+
+.link-product{
+    color: var(--text-color);
+    padding:0 0 0 20px;
+}
+
+.link-profile:hover, .link-product:hover{
+    color: var(--secondary-color);
+}
+
+.text {
+    color: var(--text-color);
+}
+
+.header-profile{ 
+    background-color: var(--secondary-color); 
+    color: var(--text-color);
+    text-align: center;
+}
+
+.btn-profile{
+    /* color: var(--primary-color); */
+     background-color: var(--primary-color); 
 }
 
 @media screen and (min-width:768px){

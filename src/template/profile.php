@@ -52,7 +52,7 @@
     switch($profilePage){
         //l'utente non ha selezionato ancora nulla nel profilo
         case "home":
-            $homeString = " <h5 class=\"ps-4 mb-3 text\">Ciao " . $_SESSION["username"] . " (non sei " . $_SESSION["username"] . "? Logout).</h5>
+            $homeString = " <h5 class=\"ps-4 mb-3 text\">Ciao <b>" . $_SESSION["username"] . "</b> (non sei <b>" . $_SESSION["username"] . "</b>? Logout).</h5>
             <div class=\"home-profile\">
             <h2>Effettua subito il tuo ordine!</h2>
             <h3><a class=\"link-product\" href=\"?page=search\">Sfoglia Prodotti</a></h3>

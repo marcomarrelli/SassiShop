@@ -32,13 +32,9 @@
                     <input class="form-control" type="text" id="email" name="email" value="<?php echo $_SESSION["email"] ?>" disabled required/>
                 </div>
                 <div>
-                    <input class="btn" type="button" name="edit" value="Modifica"/>
-                </div>
-                <div>
-                    <input class="d-none" type="submit" name="save" value="Salva"/>
-                </div>
-                <div>
-                    <input class="d-none" type="button" name="cancel" value="Cancella"/>
+                    <input class="btn btn-profile btn-outline-dark px-4 mx-3" type="button" name="edit" value="Modifica"/>
+                    <input class="btn btn-profile btn-outline-dark px-4 mx-3 d-none" type="submit" name="save" value="Salva"/>
+                    <input class="btn btn-profile btn-outline-secondary px-4 mx-3 d-none" type="button" name="cancel" value="Cancella"/>
                 </div>
             </div>
         </div>

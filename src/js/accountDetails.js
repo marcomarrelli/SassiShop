@@ -3,11 +3,10 @@ document.querySelector("input[value='Modifica']").addEventListener("click", func
     data.forEach(d => {
         d.disabled = false;
     });
-    let button = document.querySelectorAll("input[class='d-none']");
-    console.log(button);
-    button.forEach(b => {
+    document.querySelectorAll("input[name='save'], input[name='cancel']").forEach(b => {
         b.classList.remove("d-none");
     });
+    document.querySelector("input[name='edit']").disabled = true;
 });
 
 document.querySelector("input[value='Cancella']").addEventListener("click", function(){
@@ -20,5 +19,6 @@ document.querySelector("input[value='Cancella']").addEventListener("click", func
     button.forEach(b => {
         b.classList.add("d-none");
     });
+    document.querySelector("input[name='edit']").disabled = false;
 });
 
