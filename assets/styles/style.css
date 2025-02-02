@@ -365,8 +365,10 @@ body{
      background-color: var(--primary-color); 
 }
 
-.img-orders{
-    width: 50%;
+.img{
+    align-items: center;
+    width: 80%;
+    margin: 20px;
 }
 
 @media screen and (min-width:768px){
@@ -387,4 +389,28 @@ body{
     .link-profile{
         text-align: center;
     }
+}
+
+/* BANNER */
+.top-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.top-banner.show {
+    transform: translateY(0);
+}
+
+.banner-success {
+    background-color: var(--highlight-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 1rem;
 }

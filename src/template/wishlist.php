@@ -1,4 +1,11 @@
 <!-- qua viene visualizzata la cronologia ordini dell'utente -->
+
+<div class="top-banner">
+    <div class="banner-success text-center">
+        <strong>✓ Successo!</strong> Prodotto aggiunto al carrello
+    </div>
+</div>
+
 <?php
     //lista ordini vuota, allora l'utente non ha ancora effettuato ordini
     if(empty($templateParams["wishlist"])){
@@ -10,23 +17,38 @@
      ?>    
 
 
-    <table>
-        <thead>
-            <tr>
-                <th>Prodotto</th>
-                <th>Prezzo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach($templateParams["wishlist"] as $wish): ?>
-            <tr>
-                <td><?php echo $wish["name"]?></td>
-                <td><?php echo $wish["price"]?></td>
-            </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
     
+    <?php foreach($templateParams["wishlist"] as $wish): ?>
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4 text-center">
+                    <img class="img" src="../assets/images/placeholders/not_available.png" class="card-img" alt="Prodotto: <?php echo $wish['name']; ?>">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body m-5">
+                        <div class="d-flex justify-content-between">
+                        <h5 class="card-title"><?php echo $wish['name']; ?></h5>
+        
+                        <button class="btn btn-outline-danger btn-sm" name="heart">
+                            <i class="bi bi-heart-fill"></i>
+                        </button>
+        
+                        </div>
+                        <p class="card-text"><?php 
+                            echo string_cutter($wish['description'], 50);
+                        ?></p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary">Compra a <?php echo $wish['price']; ?>€</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
+        
 <?php 
     }
 ?>
+
+<script src="js/addWish.js"></script>

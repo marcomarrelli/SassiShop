@@ -1,3 +1,9 @@
+<div class="top-banner">
+    <div class="banner-success text-center">
+        <strong>✓ Successo!</strong> Prodotto aggiunto al carrello
+    </div>
+</div>
+
 <?php
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $name_filter = isset($_POST["name_filter"]) ? $_POST["name_filter"] : "";
@@ -14,15 +20,15 @@
     <?php foreach ($templateParams["productList"] as $product): ?>
         <div class="card mb-3">
             <div class="row no-gutters">
-                <div class="col-md-4">
-                <img src="../assets/images/placeholders/not_available.png" class="card-img" alt="Prodotto: <?php echo $product['name']; ?>">
+                <div class="col-md-4 text-center">
+                    <img class="img" src="../assets/images/placeholders/not_available.png" class="card-img" alt="Prodotto: <?php echo $product['name']; ?>">
                 </div>
                 <div class="col-md-8">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                     <h5 class="card-title"><?php echo $product['name']; ?></h5>
 
-                    <button class="btn btn-outline-danger btn-sm">
+                    <button class="btn btn-outline-danger btn-sm" name="heart">
                         <i class="bi bi-heart"></i>
                     </button>
 
@@ -49,3 +55,5 @@
             <p>Quantità: <?php echo $product['quantity']; ?></p>
             <p>Descrizione: <?php echo $product['description']; ?></p>
         </div> -->
+    
+<script src="js/addWish.js"></script>
