@@ -86,7 +86,7 @@ function decrementQuantity() {
 }
 
 /** Funzione che permette di aggiungere un prodotto al carrello */
-document.getElementById('quantity').addEventListener('change', function() {
+document.querySelector('.product-quantity').addEventListener('change', function() {
     const max = parseInt(this.max);
     const value = parseInt(this.value);
     if (value > max) this.value = max;

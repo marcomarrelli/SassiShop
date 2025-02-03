@@ -16,10 +16,7 @@
         </div>
 
         <div class="home-search-and-filter d-flex gap-2">
-            <button type="submit" class="btn home-search-button">Cerca</button>    
-            <!-- <button class="btn home-filter-button">
-                <i class="bi bi-filter"></i>
-            </button> -->
+            <button type="submit" class="btn home-search-button">Cerca</button>
         </div>
     </div>
 </form>
@@ -35,7 +32,7 @@
                         <div class="card-body home-card-body">
                             <h5 class="card-title"><?php echo $category['title']; ?></h5>
                             <p class="card-text"><?php echo $category['description']; ?></p>
-                            <a href="#" class="btn btn-primary home-go-to-loved-categories">Scopri la categoria!</a>
+                            <a href="#" class="btn home-go-to-loved-categories">Scopri la categoria!</a>
                         </div>
                     </div>
                 </div>
@@ -52,7 +49,7 @@
                         <div class="card-body home-card-body">
                             <h5 class="card-title"><?php echo $category['title']; ?></h5>
                             <p class="card-text"><?php echo $category['description']; ?></p>
-                            <a href="#" class="btn btn-primary home-go-to-sold-collections">Scopri la categoria!</a>
+                            <a href="#" class="btn home-go-to-sold-collections">Scopri la categoria!</a>
                         </div>
                     </div>
                 </div>

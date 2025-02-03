@@ -13,6 +13,14 @@ if (empty($product)) {
 ?>
 
 <div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <a href="?page=search" class="btn btn-outline-secondary go-back-search">
+                <i class="bi bi-arrow-left"></i> Torna alla Ricerca
+            </a>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-6">
             <img src="../assets/images/placeholders/not_available.png" class="img-fluid" alt="<?php echo $product['name']; ?>">
@@ -45,7 +53,7 @@ if (empty($product)) {
                     <div class="col-4">
                         <div class="input-group">
                             <button class="btn btn-outline-secondary quantity-remover" type="button">-</button>
-                            <input type="number" class="form-control text-center" id="quantity" value="1" min="1" max="<?php echo $product['quantity']; ?>">
+                            <input type="number" class="form-control text-center product-quantity" value="1" min="1" max="<?php echo $product['quantity']; ?>">
                             <button class="btn btn-outline-secondary quantity-adder" type="button">+</button>
                         </div>
                     </div>

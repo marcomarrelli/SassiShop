@@ -253,7 +253,17 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 .home-go-to-sold-collections, .home-go-to-loved-categories, .form-profile {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: var(--controls-background-color);
+}
+
+.home-go-to-sold-collections:hover, .home-go-to-loved-categories:hover {
+    background-color: var(--highlight-color) !important;
+    color: var(--text-color) !important;
+}
+
+.home-go-to-sold-collections:active, .home-go-to-loved-categories:active {
+    background-color: var(--highlight-color) !important;
+    color: var(--text-color) !important;
 }
 
 @media (min-width: 1200px) {
@@ -520,8 +530,21 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     border: none;
 }
 
-.add-to-cart:hover {
+.add-to-cart:hover, .add-to-cart:active {
     background-color: var(--highlight-color);
     color: var(--text-color);
     cursor: pointer;
+}
+
+.go-back-search {
+    background-color: var(--background-half-color);
+    color: var(--text-color) !important;
+    border-color: "transparent" !important;
+    padding: 0.5rem;
+    border: none;
+}
+
+.go-back-search:hover, .go-back-search:active {
+    background-color: var(--background-color) !important;
+    border-color: var(--text-color) !important;
 }

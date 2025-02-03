@@ -71,7 +71,14 @@
         </div>
     <?php endforeach; ?>
 <?php else: ?>
-    <p>Nessun prodotto trovato.</p>
+    <div class="container py-5 d-flex justify-content-center align-items-center">
+        <div class="alert alert-warning text-center w-75" role="alert">
+            <h4 class="alert-heading">Nessun prodotto trovato!</h4>
+            <p>La ricerca "<?php echo $name_filter; ?>" non ha prodotto risultati. Prova a cercare utilizzando altri termini o categorie.</p>
+            <hr>
+            <a href="?page=search" class="btn btn-warning">Torna alla Ricerca</a>
+        </div>
+    </div>
 <?php endif; ?>
 
 <script src="js/productHelper.js"></script>
