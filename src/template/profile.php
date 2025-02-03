@@ -53,7 +53,7 @@
         //l'utente non ha selezionato ancora nulla nel profilo
         case "home":
             $homeString = " <h5 class=\"ps-4 mb-3 text\">Ciao <b>" . $_SESSION["username"] . "</b> (non sei <b>" . $_SESSION["username"] . "</b>? Logout).</h5>
-            <div class=\"home-profile\">
+            <div class=\"home-profile mt-3\">
             <h2>Effettua subito il tuo ordine!</h2>
             <h3><a class=\"link-product\" href=\"?page=search\">Sfoglia Prodotti</a></h3>
             </div>  ";
@@ -69,8 +69,10 @@
             require("wishlist.php");
             break;
         case "assistenza":
-            echo " <h3>Se hai domande o hai bisogno di assistenza per il tuo ordine scrivi alla mail sassishop@gmail.com.
-                    Oppure contatta il numero verde 338 1234 5678. </h3> ";
+            $homeString = " <div class=\"home-profile mt-3\">
+                        <h3 class=\"p-2\">Se hai domande o hai bisogno di assistenza per il tuo ordine scrivi alla mail <b>sassishop@gmail.com</b>. <br/> Oppure contatta il numero verde <b>338 1234 5678</b>.</h3>
+                        </div>  ";
+            echo $homeString;
             break;
         case "privacy":
             require("privacy.php");

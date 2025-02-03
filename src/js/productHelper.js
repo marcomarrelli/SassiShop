@@ -65,6 +65,7 @@ document.querySelectorAll("button[name='heart']").forEach(b => {
 /** Funzione che permette di aggiungere un prodotto al carrello */
 document.querySelectorAll('.product-card').forEach(card => {
     card.addEventListener('click', function(e) {
+        if(e.target.closest('button')) return;
         const productId = this.dataset.productId;
         window.location.href = `?page=productPage&id=${productId}`;
     });
