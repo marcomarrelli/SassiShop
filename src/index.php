@@ -77,6 +77,11 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             break;
 
         case "search":
+            if(isUserLoggedIn()){
+                $templateParams["userLogged"] = true;
+            }else{ 
+                $templateParams["userLogged"] = false;
+            }
             $templateParams["title"] = "Sassi Shop - Search";
             $templateParams["content"] = "search.php";
             $templateParams["product"] = $dbh->getProducts();

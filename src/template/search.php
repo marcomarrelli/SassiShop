@@ -27,7 +27,10 @@
                     <div class="d-flex justify-content-between">
                     <h5 class="card-title"><?php echo $product['name']; ?></h5>
 
-                    <button class="btn btn-outline-danger btn-sm" name="heart">
+                    <!-- il bottone della wishlist viene mostrato sono con utente loggato -->
+                    <?php
+                    if($templateParams["userLogged"]){ ?>
+                        <button class="btn btn-outline-danger btn-sm" name="heart">
                         <!-- paragrafo nascosto che serve per comunicare l'id del prodotto allo script javascript -->
                         <p class="d-none"> <?php echo $product["id"] ?></p>
                         <!-- controlla se il prodotto è già nella wishlist o no e mette l'icona adatta -->
@@ -37,6 +40,8 @@
                             <i class="bi bi-heart"></i>
                         <?php }?>
                     </button>
+
+                    <?php } ?>    
 
                     </div>
                     <p class="card-text"><?php 
