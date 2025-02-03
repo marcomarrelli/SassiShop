@@ -1,20 +1,20 @@
 document.querySelectorAll("button[name='heart']").forEach(b => {
     b.addEventListener("click",function(){
 
-        let productId = this.querySelector("p").innerHTML;
+        let productId = this.querySelector("p").innerHTML; //prendo il paragrafo nascosto collegato al bottone che mi comunica l'id del prodotto
 
-        const banner = document.querySelector("div[class='top-banner']");
+        const banner = document.querySelector("div[class='top-banner']"); //prendo la parte di html che mi crea il banner
         const bannerContent = banner.querySelector('div');
-    
-        bannerContent.className = 'banner-success text-center';
         
-        let icon = this.querySelector("i");
+        let icon = this.querySelector("i"); //prendo l'icona collegata al bottone
 
 
+        //costruisco il json
         const productData = {
-            id:productId,
+            id: productId,
         };
 
+        //mando tutto alla pagina php che si occupa della comunicazione con il database
         fetch('addProductWishlist.php', {
             method: 'POST',
             headers: {
@@ -25,6 +25,7 @@ document.querySelectorAll("button[name='heart']").forEach(b => {
         .then(response => response.json())
         .then(data => {
             if(data.success){
+                //se ha avuto successo controllo se l'elemento è da rimuovere dai preferifi o da aggiungere
                 if(icon.classList.contains("bi-heart")){
                     icon.classList.remove("bi-heart");
                     icon.classList.add("bi-heart-fill");

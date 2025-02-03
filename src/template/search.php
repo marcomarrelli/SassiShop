@@ -28,7 +28,9 @@
                     <h5 class="card-title"><?php echo $product['name']; ?></h5>
 
                     <button class="btn btn-outline-danger btn-sm" name="heart">
+                        <!-- paragrafo nascosto che serve per comunicare l'id del prodotto allo script javascript -->
                         <p class="d-none"> <?php echo $product["id"] ?></p>
+                        <!-- controlla se il prodotto è già nella wishlist o no e mette l'icona adatta -->
                         <?php if($dbh->checkProductWishlist($product["id"], $_SESSION["idUser"])){?>
                             <i class="bi bi-heart-fill"></i>
                         <?php }else{?>

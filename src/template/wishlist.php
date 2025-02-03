@@ -29,6 +29,7 @@
                         <h5 class="card-title"><?php echo $wish['name']; ?></h5>
         
                         <button class="btn btn-outline-danger btn-sm" name="heart">
+                                <!-- paragrafo nascosto per comunicare l'id del prodotto allo script js -->
                                 <p class="d-none"><?php echo $wish['product'] ?></p>
                                 <i class="bi bi-heart-fill"></i>
                         </button>

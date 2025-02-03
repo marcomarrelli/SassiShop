@@ -259,6 +259,15 @@ class DatabaseHelper {
         return $result;
     }
 
+    /**
+     * Aggiunge un prodotto alla wishlist.
+     * 
+     * @param int $productId ID del prodotto.
+     * @param int $userId ID dell'utente.
+     * 
+     * @return bool True se il prodotto è stato aggiunto correttamente, altrimenti false.
+     * 
+     */
     public function addProductWishlist(int $productId, int $userId): bool{
         $sql = "INSERT INTO Wishlist (user, product) VALUES (?, ?)";
         $temp = $this->execute($sql, [$userId, $productId]);
@@ -268,7 +277,16 @@ class DatabaseHelper {
         return $result;
     }
 
-    public function removeProductWishlist(int $productId, int $userId){
+    /**
+     * Rimuove un prodotto dalla wishlist.
+     * 
+     * @param int $productId ID del prodotto.
+     * @param int $userId ID dell'utente.
+     * 
+     * @return bool True se il prodotto è stato rimosso correttamente, altrimenti false.
+     * 
+     */
+    public function removeProductWishlist(int $productId, int $userId): bool{
         $sql = "DELETE from wishlist WHERE product = ? AND user = ?";
         $temp = $this->execute($sql, [$productId, $userId]);
         $result = $temp->affected_rows > 0;
@@ -277,7 +295,16 @@ class DatabaseHelper {
         return $result;
     }
 
-    public function checkProductWishlist(int $productId, int $userId){
+    /**
+     * Controlla se un prodotto è già presente nella wishlist.
+     * 
+     * @param int $productId ID del prodotto.
+     * @param int $userId ID dell'utente.
+     * 
+     * @return bool True se il prodotto è già stato aggiunto, altrimenti false.
+     * 
+     */
+    public function checkProductWishlist(int $productId, int $userId): bool{
         $sql = "SELECT * from wishlist WHERE product = ? AND user = ?";
         $temp = $this->execute($sql, [$productId, $userId]);
         $result = $temp->get_result();
