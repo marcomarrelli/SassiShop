@@ -60,10 +60,7 @@ document.querySelectorAll('.product-card').forEach(card => {
 
 /** Funzione che permette di visualizzare la pagina del prodotto */
 document.querySelectorAll('button.card-purchase-button').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const productId = this.closest('.product-card').dataset.productId;
-    });
+    button.addEventListener('click', function(e) { console.log("MIAO"); });
 });
 
 /** Funzione helper per lo spinner */

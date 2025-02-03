@@ -12,10 +12,16 @@ if (empty($product)) {
 }
 ?>
 
+<div class="top-banner">
+    <div class="banner-success text-center">
+    </div>
+</div>
+
 <div class="container mt-5">
     <div class="row mb-4">
         <div class="col">
-            <a href="?page=search" class="btn btn-outline-secondary go-back-search">
+            <?php $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '?page=search'; ?>
+            <a href="<?php echo $previousPage; ?>" class="btn btn-outline-secondary go-back-search">
                 <i class="bi bi-arrow-left"></i> Torna alla Ricerca
             </a>
         </div>
@@ -35,11 +41,11 @@ if (empty($product)) {
                 <?php if($templateParams["userLogged"]): ?>
                     <button class="btn btn-outline-danger btn-sm" name="heart">
                         <p class="d-none"><?php echo $product["id"] ?></p>
-                        <?php if($dbh->checkProductWishlist($product["id"], $_SESSION["idUser"])): ?>
+                        <?php if($dbh->checkProductWishlist($product["id"], $_SESSION["idUser"])){?>
                             <i class="bi bi-heart-fill"></i>
-                        <?php else: ?>
+                        <?php }else{?>
                             <i class="bi bi-heart"></i>
-                        <?php endif; ?>
+                        <?php }?>
                     </button>
                 <?php endif; ?>
             </div>

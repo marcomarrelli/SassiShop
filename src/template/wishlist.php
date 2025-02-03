@@ -17,37 +17,31 @@
 
 
     
-    <?php foreach($templateParams["wishlist"] as $wish): ?>
-        <div class="card mb-3">
-            <div class="row no-gutters">
-                <div class="col-md-4 text-center">
-                    <img class="img" src="../assets/images/placeholders/not_available.png" class="card-img" alt="Prodotto: <?php echo $wish['name']; ?>">
+<?php foreach ($templateParams["wishlist"] as $product): ?>
+        <div class="card mb-3 product-card" data-product-id="<?php echo $product['id']; ?>">
+            <div class="row no-gutters h-100">
+                <div class="col-md-4">
+                    <img src="../assets/images/placeholders/not_available.png" class="card-img" alt="Prodotto: <?php echo $product['name']; ?>">
                 </div>
                 <div class="col-md-8">
-                    <div class="card-body m-5">
+                    <div class="card-body">
                         <div class="d-flex justify-content-between">
-                        <h5 class="card-title"><?php echo $wish['name']; ?></h5>
-        
-                        <button class="btn btn-outline-danger btn-sm" name="heart">
-                                <!-- paragrafo nascosto per comunicare l'id del prodotto allo script js -->
-                                <p class="d-none"><?php echo $wish['product'] ?></p>
-                                <i class="bi bi-heart-fill"></i>
+                            <h4 class="card-title"><?php echo $product['name']; ?></h4>
+                            <button class="btn btn-outline-danger btn-sm" name="heart">
+                                    <p class="d-none"><?php echo $wish['product'] ?></p>
+                                    <i class="bi bi-heart-fill"></i>
+                            </button>
+                        </div>
+                        <p class="card-text"><?php echo string_cutter($product['description'], 50); ?></p>
+                        <p class="card-subtext"><small class="text-muted"><?php echo getQuantityAlert($product['quantity']); ?></small></p>
+                        <button class="btn card-purchase-button">
+                            Compra a <?php echo $product['price']; ?>€
                         </button>
-                        
-        
-                        </div>
-                        <p class="card-text"><?php 
-                            echo string_cutter($wish['description'], 50);
-                        ?></p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary">Compra a <?php echo $wish['price']; ?>€</button>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    <?php endforeach ?>
+    <?php endforeach; ?>
         
 <?php 
     }

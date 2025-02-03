@@ -27,8 +27,11 @@
                             <i class="bi bi-plus-square"> </i>
                         </a>
                     <?php }else{ ?>
-                        <a href="?page=cart">
+                        <a href="?page=cart" class="position-relative">
                             <i class="bi bi-cart"></i>
+                            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill cart-badge">
+                                <?php echo isset($_SESSION['cartCount']) ? $_SESSION['cartCount'] : '0'; ?>
+                            </span>
                         </a>
                     <?php } ?>
             </li>
