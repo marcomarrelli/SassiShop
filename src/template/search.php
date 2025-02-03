@@ -46,7 +46,7 @@
         <div class="card mb-3 product-card" data-product-id="<?php echo $product['id']; ?>">
             <div class="row no-gutters h-100">
                 <div class="col-md-4">
-                    <img src="../assets/images/placeholders/not_available.png" class="card-img" alt="Prodotto: <?php echo $product['name']; ?>">
+                    <img src=<?php echo getProductImage($product); ?> class="card-img" alt="Prodotto: <?php echo $product['name']; ?>">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

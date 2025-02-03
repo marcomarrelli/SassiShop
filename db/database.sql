@@ -20,15 +20,10 @@ CREATE TABLE IF NOT EXISTS Product (
     quantity INT NOT NULL,
     category INT NOT NULL,
     size INT NOT NULL,
+    image TEXT DEFAULT "",
+    isCollection BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (category) REFERENCES Category(id) ON DELETE RESTRICT,
     FOREIGN KEY (size) REFERENCES Size(id) ON DELETE RESTRICT
-);
-
-CREATE TABLE IF NOT EXISTS ProductImage (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product INT NOT NULL,
-    image VARCHAR(255) NOT NULL,
-    FOREIGN KEY (product) REFERENCES Product(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Privilege (
@@ -80,11 +75,19 @@ CREATE TABLE IF NOT EXISTS Wishlist (
 CREATE TABLE IF NOT EXISTS Purchase (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user INT NOT NULL,
-    product INT NOT NULL,
-    quantity INT NOT NULL,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(50) DEFAULT "PENDING",
-    FOREIGN KEY (user) REFERENCES User(id) ON DELETE RESTRICT,
+    total DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (user) REFERENCES User(id) ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS ProductList (
+    purchase INT NOT NULL,
+    product INT NOT NULL,
+    quantity INT NOT NULL,
+    productPrice DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (purchase, product),
+    FOREIGN KEY (purchase) REFERENCES Purchase(id) ON DELETE RESTRICT,
     FOREIGN KEY (product) REFERENCES Product(id) ON DELETE RESTRICT
 );
 

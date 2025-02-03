@@ -29,7 +29,7 @@ if (empty($product)) {
 
     <div class="row">
         <div class="col-md-6">
-            <img src="../assets/images/placeholders/not_available.png" class="img-fluid" alt="<?php echo $product['name']; ?>">
+            <img src=<?php echo getProductImage($product); ?> class="img-fluid" alt="<?php echo $product['name']; ?>">
         </div>
 
         <div class="col-md-6">

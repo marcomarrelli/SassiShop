@@ -1,56 +1,62 @@
-INSERT INTO Category (name, description) VALUES
-('Sassi Decorati', 'Sassi dipinti a mano con disegni creativi'),
-('Sassi Personalizzati', 'Sassi con nomi, frasi o messaggi personalizzati'),
-('Sassi da Collezione', 'Sassi rari e particolari per collezionisti'),
-('Kit per Dipingere Sassi', 'Kit completi per decorare i sassi a casa');
-
 INSERT INTO Size (size) VALUES
-('Piccolo'), ('Medio'), ('Grande'), ('Extra Grande');
-
-INSERT INTO Product (name, description, price, quantity, category, size) VALUES
-('Sasso Sorridente', 'Sasso dipinto con una faccia sorridente', 9.99, 5, 1, 2),
-('Sasso Cuore', 'Sasso a forma di cuore con scritta "Amore"', 12.99, 10, 1, 1),
-('Sasso Personalizzato "Famiglia"', 'Sasso con i nomi della tua famiglia', 14.99, 7, 2, 3),
-('Sasso Raro Cristallino', 'Sasso trasparente con venature uniche', 29.99, 9, 3, 2),
-('Kit Dipingi Sassi', 'Kit con colori, pennelli e vernice per decorare sassi', 19.99, 0, 4, 4);
+('Piccolo'),
+('Medio'),
+('Grande'),
+('Molto Grande');
 
 INSERT INTO Privilege (type) VALUES
 ('Admin'),
 ('User');
 
 INSERT INTO User (firstName, lastName, username, email, password, privilege) VALUES
-('Mario', 'Rossi', 'RossoComunista', 'mario.rossi@example.com', 'password123', 1),
-('Luigi', 'Verdi', 'VerdeThe', 'luigi.verdi@example.com', 'password456', 2),
-('Giulia', 'Bianchi', 'BiancaCoca', 'giulia.bianchi@example.com', 'password789', 2);
+('Admin', 'Admin', 'admin', 'admin@sassishop.it', 'admin', 1),
+('Pietro', 'Pietra', 'pietro_pietra', 'pietro.pietra@gmail.com', 'Pietrone99', 2),
+('Sara', 'Sassi', 'sassolover', 'sara.sassi@yahoo.it', 'S4SS0', 2),
+('Giovanni', 'Gioielli', 'giogio_vannielli', 'giovagiojells@gmail.com', 'GioGioVanni', 2),
+('Peter', 'Stone', 'peter_stone', 'peter.stone@gmail.com', 'PietraX2', 2);
 
+INSERT INTO Category (name, description) VALUES
+('Emozioni', "Rappresenta le tue emozioni!"),
+('Animali', "I migliori amici dell'uomo!"),
+('Bandiere', "Rappresenta il tuo paese!"),
+('Naturali', "Pietra 100% naturale!"),
+('Collezioni', "Pietre su Pietre su Pietre su Pietre"),
+('Pietre Preziose', "Le pietre più costose e scintillanti!");
+
+INSERT INTO Product (name, description, price, quantity, category, size, image, isCollection) VALUES
+('Pietra Ambra', "Fatti conquistare dall'ambra più pura d'Italia! Fidati!",     99.99, 12, 6, 1, '../assets/images/products/ambra.jpg',      FALSE),
+('Amiche di Pietra', "Pietre per te e per tutte le tue amiche!",                29.99, 05, 5, 4, '../assets/images/products/amiche.jpg',      TRUE),
+('Bandiere di Pietra', "Una pietra per conquistare ogni paese del mondo!",      39.99, 03, 5, 4, '../assets/images/products/bandiere.jpg',    TRUE),
+('Pietra Cane', "Woof Woof! Guarda che bel cagnolino!",                         09.99, 17, 2, 2, '../assets/images/products/cane1.jpg',      FALSE),
+('Pietra Coniglietto', "Fai saltellare questo bel sasso!",                      07.50, 14, 2, 1, '../assets/images/products/coniglio.jpg',   FALSE),
+('Pietra Ermellino', "SASSO! (Non so il verso dell'ermellino...)",              05.00, 11, 2, 1, '../assets/images/products/ermellino.jpg',  FALSE),
+('Famiglia di Pietre', "Regalo per i familiari più antipatici? Eccolo!",        29.99, 02, 5, 4, '../assets/images/products/famiglia.jpg',    TRUE),
+('Pietra Felice', "Cosa c'è di meglio di una bella pietra sorridente?",         09.99, 08, 1, 1, '../assets/images/products/felice.jpg',     FALSE),
+('Pietra Francia', "Vive la France!",                                           00.99, 00, 3, 2, '../assets/images/products/francia.jpg',    FALSE),
+('Pietra Gatto', "Miaoooo! Comprami, ne rimarrai di sasso!",                    05.00, 09, 2, 2, '../assets/images/products/gatto.jpg',      FALSE),
+('Pietra Germania', "Ich Liebe Sassi",                                          08.99, 07, 3, 3, '../assets/images/products/germania.jpg',   FALSE),
+('Pietra Paurosa', "BUUUUUUUUU - Ti osserverò la notte.",                       06.99, 18, 1, 3, '../assets/images/products/horror.jpg',     FALSE),
+('Pietra Italia', "FRATELLIIIII DI SAAASSIIIIIIII",                             07.50, 21, 3, 2, '../assets/images/products/italia.jpg',     FALSE),
+('Pietra Naturale', "Pietra al 100% composta da sassi.",                        59.99, 01, 4, 4, '../assets/images/products/natura1.jpg',    FALSE),
+('Pietra Paura', "Ho tanta paura di non esser comprato...",                     12.99, 09, 1, 1, '../assets/images/products/paura.jpg',      FALSE),
+('Pietra Polonia', "Apri la tua vodka con questa pietra!",                      08.00, 07, 3, 2, '../assets/images/products/polonia.jpg',    FALSE),
+('Pietra Rabbia', "Se non mi compri... GRRRRRRR!",                              07.99, 14, 1, 2, '../assets/images/products/rabbia.jpg',     FALSE),
+('Pietra Rubino', "Non rubare il nostro rubino!",                               99.99, 10, 6, 1, '../assets/images/products/rubino.jpg',     FALSE),
+('Pietra Russia', "La NOSTRA pietra!",                                          11.99, 09, 3, 3, '../assets/images/products/russia.jpg',     FALSE),
+('Pietra Spagna', "Yo quiero mucho pietra.",                                    13.50, 08, 3, 2, '../assets/images/products/spagna.jpg',     FALSE),
+('Pietra Triste', "Se non mi compri rimarrò triste...",                         07.00, 04, 1, 1, '../assets/images/products/triste.jpg',     FALSE),
+('Pietra Volpe', "Che verso fanno le pietre?",                                  09.99, 12, 2, 1, '../assets/images/products/volpe.jpg',      FALSE);
+
+-- Populate Posts
 INSERT INTO Post (seller, product, title, description) VALUES
-(1, 1, 'Sasso Sorridente - Perfetto per regali!', 'Un sasso che porta allegria con il suo sorriso.'),
-(1, 4, 'Sasso Cristallino Raro', 'Un sasso unico per veri collezionisti.'),
-(1, 5, 'Kit per Dipingere Sassi', 'Crea i tuoi sassi personalizzati con questo kit completo.');
 
-INSERT INTO Cart (user, product, quantity) VALUES
-(2, 1, 3),
-(2, 3, 2),
-(3, 4, 1);
-
-INSERT INTO Purchase (user, product, quantity, status) VALUES
-(2, 1, 2, 'COMPLETED'),
-(2, 2, 2, 'COMPLETED'),
-(3, 4, 1, 'PENDING');
-
+-- Populate Comments
 INSERT INTO Comment (post, user, comment) VALUES
-(1, 3, 'Adoro questo sasso sorridente! Perfetto per il mio giardino.'),
-(2, 2, 'Il sasso cristallino è davvero unico, lo consiglio!');
 
+-- Populate Ratings
 INSERT INTO Rating (post, user, rating) VALUES
-(1, 3, 5),
-(2, 2, 4);
 
-INSERT INTO Wishlist (user, product) VALUES
-(2, 1),
-(2, 3),
-(3, 4);
-
+-- Populate NotificationType
 INSERT INTO NotificationType (name) VALUES
 ('STOCK_EMPTY'),
 ('STOCK_REFILL'),

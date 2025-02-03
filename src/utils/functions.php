@@ -43,7 +43,7 @@
 
     function getProductImage($product){
         if(is_null($product) || empty($product) || !isset($product["image"])) return "../../assets/images/placeholders/not_available.png";
-        return imagecreatefromstring(base64_decode($product["image"])) || "../../assets/images/placeholders/not_available.png";
+        return $product["image"];
     }
 
     /**
