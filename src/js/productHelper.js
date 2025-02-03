@@ -1,15 +1,3 @@
-document.querySelector('form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-    const params = new URLSearchParams().append('page', 'search');
-    
-    if(formData.get('filtering').trim() !== '') params.append('filtering', formData.get('filtering'));
-    if(formData.get('category') !== '-1') params.append('category', formData.get('category'));
-    
-    window.location.href = '?' + params.toString();
-});
-
 document.querySelectorAll("button[name='heart']").forEach(b => {
     b.addEventListener("click",function(){
 
@@ -62,45 +50,63 @@ document.querySelectorAll("button[name='heart']").forEach(b => {
     });
 });
 
-/** Funzione che permette di aggiungere un prodotto al carrello */
-document.querySelectorAll('.product-card').forEach(card => {
-    card.addEventListener('click', function(e) {
-        const productId = this.dataset.productId;
-        window.location.href = `?page=productPage&id=${productId}`;
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (!e.target.closest('button')) {
+                const productId = this.dataset.productId;
+                window.location.href = `?page=productPage&id=${productId}`;
+            }
+        });
     });
-});
 
-/** Funzione che permette di visualizzare la pagina del prodotto */
-document.querySelectorAll('button.card-purchase-button').forEach(button => {
-    button.addEventListener('click', function(e) { console.log("MIAO"); });
-});
+    const quantityInput = document.querySelector("input[name='product-quantity']");
+    const addButton = document.querySelector('.quantity-adder');
+    const removeButton = document.querySelector('.quantity-remover');
 
-/** Funzione helper per lo spinner */
-function incrementQuantity() {
-    const input = document.querySelector("input[name='product-quantity']");
-    const max = parseInt(input.max);
-    const currentValue = parseInt(input.value);
-    if (currentValue < max) {
-        input.value = currentValue + 1;
+    if (quantityInput && addButton && removeButton) {
+        function incrementQuantity() {
+            const max = parseInt(quantityInput.max);
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < max) {
+                quantityInput.value = currentValue + 1;
+            }
+        }
+
+        function decrementQuantity() {
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        }
+
+        quantityInput.addEventListener('change', function() {
+            const max = parseInt(this.max);
+            const value = parseInt(this.value);
+            if (value > max) this.value = max;
+            if (value < 1) this.value = 1;
+        });
+
+        addButton.addEventListener('click', incrementQuantity);
+        removeButton.addEventListener('click', decrementQuantity);
     }
-}
 
-/** Funzione helper per lo spinner */
-function decrementQuantity() {
-    const input = document.querySelector("input[name='product-quantity']");
-    const currentValue = parseInt(input.value);
-    if (currentValue > 1) {
-        input.value = currentValue - 1;
+    const searchForm = document.querySelector('form');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const params = new URLSearchParams();
+            
+            params.append('page', 'search');
+            if(formData.get('filtering').trim() !== '') {
+                params.append('filtering', formData.get('filtering'));
+            }
+            if(formData.get('category') !== '-1') {
+                params.append('category', formData.get('category'));
+            }
+            
+            window.location.href = '?' + params.toString();
+        });
     }
-}
-
-/** Funzione che permette di aggiungere un prodotto al carrello */
-document.querySelector("input[name='product-quantity']").addEventListener('change', function() {
-    const max = parseInt(this.max);
-    const value = parseInt(this.value);
-    if (value > max) this.value = max;
-    if (value < 1) this.value = 1;
 });
-
-document.querySelector('.quantity-adder').addEventListener('click', incrementQuantity);
-document.querySelector('.quantity-remover').addEventListener('click', decrementQuantity);
