@@ -1,6 +1,5 @@
 <div class="top-banner">
     <div class="banner-success text-center">
-        
     </div>
 </div>
 
@@ -29,7 +28,12 @@
                     <h5 class="card-title"><?php echo $product['name']; ?></h5>
 
                     <button class="btn btn-outline-danger btn-sm" name="heart">
-                        <i class="bi bi-heart"></i>
+                        <p class="d-none"> <?php echo $product["id"] ?></p>
+                        <?php if($dbh->checkProductWishlist($product["id"], $_SESSION["idUser"])){?>
+                            <i class="bi bi-heart-fill"></i>
+                        <?php }else{?>
+                            <i class="bi bi-heart"></i>
+                        <?php }?>
                     </button>
 
                     </div>
