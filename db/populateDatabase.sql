@@ -48,13 +48,13 @@ INSERT INTO Product (name, description, price, quantity, category, size, image, 
 ('Pietra Volpe', "Che verso fanno le pietre?",                                  09.99, 12, 2, 1, '../assets/images/products/volpe.jpg',      FALSE);
 
 -- Populate Posts
-INSERT INTO Post (seller, product, title, description) VALUES
+-- INSERT INTO Post (seller, product, title, description) VALUES
 
 -- Populate Comments
-INSERT INTO Comment (post, user, comment) VALUES
+-- INSERT INTO Comment (post, user, comment) VALUES
 
 -- Populate Ratings
-INSERT INTO Rating (post, user, rating) VALUES
+-- INSERT INTO Rating (post, user, rating) VALUES
 
 -- Populate NotificationType
 INSERT INTO NotificationType (name) VALUES
