@@ -68,7 +68,7 @@ document.querySelectorAll('button.card-purchase-button').forEach(button => {
 
 /** Funzione helper per lo spinner */
 function incrementQuantity() {
-    const input = document.getElementById('quantity');
+    const input = document.querySelector("input[name='product-quantity']");
     const max = parseInt(input.max);
     const currentValue = parseInt(input.value);
     if (currentValue < max) {
@@ -78,7 +78,7 @@ function incrementQuantity() {
 
 /** Funzione helper per lo spinner */
 function decrementQuantity() {
-    const input = document.getElementById('quantity');
+    const input = document.querySelector("input[name='product-quantity']");
     const currentValue = parseInt(input.value);
     if (currentValue > 1) {
         input.value = currentValue - 1;
@@ -86,7 +86,7 @@ function decrementQuantity() {
 }
 
 /** Funzione che permette di aggiungere un prodotto al carrello */
-document.querySelector('.product-quantity').addEventListener('change', function() {
+document.querySelector("input[name='product-quantity']").addEventListener('change', function() {
     const max = parseInt(this.max);
     const value = parseInt(this.value);
     if (value > max) this.value = max;

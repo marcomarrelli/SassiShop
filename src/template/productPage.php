@@ -53,7 +53,7 @@ if (empty($product)) {
                     <div class="col-4">
                         <div class="input-group">
                             <button class="btn btn-outline-secondary quantity-remover" type="button">-</button>
-                            <input type="number" class="form-control text-center product-quantity" value="1" min="1" max="<?php echo $product['quantity']; ?>">
+                            <input type="number" name="product-quantity" class="form-control text-center" value="1" min="1" max="<?php echo $product['quantity']; ?>">
                             <button class="btn btn-outline-secondary quantity-adder" type="button">+</button>
                         </div>
                     </div>
