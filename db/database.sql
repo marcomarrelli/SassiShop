@@ -82,11 +82,11 @@ CREATE TABLE IF NOT EXISTS Purchase (
 );
 
 CREATE TABLE IF NOT EXISTS ProductList (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     purchase INT NOT NULL,
     product INT NOT NULL,
     quantity INT NOT NULL,
     productPrice DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY (purchase, product),
     FOREIGN KEY (purchase) REFERENCES Purchase(id) ON DELETE RESTRICT,
     FOREIGN KEY (product) REFERENCES Product(id) ON DELETE RESTRICT
 );

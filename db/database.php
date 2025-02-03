@@ -451,7 +451,7 @@ class DatabaseHelper {
      * @return array Array di purchase con i relativi prodotti.
      */
     public function getUserOrders(int $userId): array {
-        $sql = "SELECT * FROM Purchase, Product WHERE Purchase.user = ? AND Purchase.product = Product.id";
+        $sql = "SELECT * FROM Purchase, Product, productlist WHERE Purchase.user = ? AND productlist.product = Product.id AND productlist.purchase = purchase.id";
         $temp = $this->execute($sql, [$userId]);
         $result = $temp->get_result();
         $temp->close();
