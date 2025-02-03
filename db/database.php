@@ -427,6 +427,23 @@ class DatabaseHelper {
     }
 
     /**
+     * Aggiorna la password dell'utente
+     * 
+     * @param string $password nuova password dell'utente.
+     * @param string $userId ID dell'utente.
+     * 
+     * @return bool se la modifica è andata a buon fine true, altrimenti false
+     */
+    public function updatePassword(string $password, int $userId): bool{
+        $sql = "UPDATE User SET password = ? WHERE id = ?";
+        $temp = $this->execute($sql, [password_hash($password, PASSWORD_DEFAULT), $userId]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+
+    /**
      * Restituisce tutti i purchase effettuati da un utente con i relativi prodotti.
      * 
      * @param int $userId ID dell'utente.

@@ -10,38 +10,40 @@
      ?>    
 
 
-    <div class="container align-items-center justify-content-center mt-4">
+    <div class="container-fluid align-items-center justify-content-center mt-4">
         <div class="card shadow-sm">
             <div class="card-header form-profile">
                 <h5 class="card-title mb-0">Cronologia Ordini</h5>
             </div>
-            <div class="card-body p-4">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="table-danger">
-                            <th scope="col"></th>
-                            <th scope="col">Prodotto</th>
-                            <th scope="col">Quantità</th>
-                            <th scope="col">Stato Ordine</th>
-                            <th scope="col">Data</th>
-                            <th scope="col">Prezzo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $cont=0;
-                            foreach($templateParams["orders"] as $order):
-                            $cont++; ?>
-                        <tr>
-                            <th scope="row"><?php echo $cont?></th>
-                            <td><?php echo $order["name"]?></td>
-                            <td><?php echo $order["quantity"]?></td>
-                            <td><?php echo $order["status"]?></td>
-                            <td><?php echo $order["date"]?></td>
-                            <td><?php echo $order["price"]?></td>
-                        </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
+            <div class="card-body p-2 p-md-4">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-danger">
+                            <tr>
+                                <th scope="col" class="d-none d-md-table-cell">#</th>
+                                <th scope="col">Prodotto</th>
+                                <th scope="col" class="d-none d-md-table-cell">Quantità</th>
+                                <th scope="col">Stato Ordine</th>
+                                <th scope="col" class="d-none d-md-table-cell">Data</th>
+                                <th scope="col">Prezzo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $cont=0;
+                                foreach($templateParams["orders"] as $order):
+                                $cont++; ?>
+                            <tr>
+                                <th scope="row" class="d-none d-md-table-cell"><?php echo $cont?></th>
+                                <td><?php echo $order["name"]?></td>
+                                <td class="d-none d-md-table-cell"><?php echo $order["quantity"]?></td>
+                                <td><?php echo $order["status"]?></td>
+                                <td data-label="Data" class="d-none d-md-table-cell"><?php echo $order["date"]?></td>
+                                <td><?php echo $order["price"]*$order["quantity"]?></td>
+                            </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

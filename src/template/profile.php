@@ -75,8 +75,28 @@
             echo $homeString;
             break;
         case "privacy":
+            if(isset($_POST["newPassword"]) && isset($_POST["confirmPassword"])){
+                if($_POST["newPassword"] == $_POST["confirmPassword"]){
+                    $result = $dbh->updatePassword($_POST["newPassword"], $_SESSION["idUser"]);
+                    if($result){
+                        $passwordOk = " <div class=\"home-profile mt-3\">
+                                <h3 class=\"p-2\">Password cambiata con successo!!</h3>
+                                </div>  ";
+                        echo $passwordOk;
+                    }else{
+                        $templateParams["errorPassword"] = " <div class=\"home-profile mt-3\">
+                                <h3 class=\"p-2\">Non siamo riusciti a cambiare la password, ci scusiamo per il disagio :( </h3>
+                                </div>  ";
+                    }
+                }else{
+                    $templateParams["errorPassword"] ="<div class=\"home-profile mt-3\">
+                                    <h3 class=\"p-2\">Le due password non coincidono!!</h3>
+                                    </div>  ";
+                }
+            }
             require("privacy.php");
             break;
+
         case "logout":
             
             break;
