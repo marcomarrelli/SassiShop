@@ -32,7 +32,7 @@
                         <div class="card-body home-card-body">
                             <h5 class="card-title"><?php echo $category['title']; ?></h5>
                             <p class="card-text"><?php echo $category['description']; ?></p>
-                            <a href="#" class="btn home-go-to-loved-categories">Scopri la categoria!</a>
+                            <a href=<?php echo $category['href']; ?> class="btn home-go-to-loved-categories">Scopri la categoria!</a>
                         </div>
                     </div>
                 </div>

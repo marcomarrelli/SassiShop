@@ -36,19 +36,22 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
                     "title" => "Amici ed Emozioni",
                     "description" => "Un'emozione,<br>per lasciarti impietrito!",
                     "image" => "../assets/images/placeholders/categoria_amichetti.jpg",
-                    "alt" => "Categoria: Sassi Amici"
+                    "alt" => "Categoria: Sassi Amici",
+                    "href" => "?page=search&category=1"
                 ],
                 [
                     "title" => "Bandiere",
                     "description" => "Tutto il mondo,<br>a portata di pietra!",
                     "image" => "../assets/images/placeholders/categoria_bandiere.jpg",
-                    "alt" => "Categoria: Bandiere"
+                    "alt" => "Categoria: Bandiere",
+                    "href" => "?page=search&category=1"
                 ],
                 [
                     "title" => "Animaletti",
                     "description" => "Che verso fa la pietra?<br>Scoprilo!",
                     "image" => "../assets/images/placeholders/categoria_animali.jpg",
-                    "alt" => "Categoria: Animali"
+                    "alt" => "Categoria: Animali",
+                    "href" => "?page=search&category=1"
                 ]
             ];
             

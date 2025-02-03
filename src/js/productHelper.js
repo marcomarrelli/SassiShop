@@ -1,3 +1,15 @@
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const params = new URLSearchParams().append('page', 'search');
+    
+    if(formData.get('filtering').trim() !== '') params.append('filtering', formData.get('filtering'));
+    if(formData.get('category') !== '-1') params.append('category', formData.get('category'));
+    
+    window.location.href = '?' + params.toString();
+});
+
 document.querySelectorAll("button[name='heart']").forEach(b => {
     b.addEventListener("click",function(){
 

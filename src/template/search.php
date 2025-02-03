@@ -7,27 +7,30 @@
     $name_filter = "";
     $category_filter = -1;
 
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name_filter = isset($_POST["name_filter"]) ? $_POST["name_filter"] : "";
-        $category_filter = isset($_POST["category_filter"]) ? $_POST["category_filter"] : -1;
-        $templateParams["productList"] = $dbh->getProducts ($name_filter, $category_filter);
+    if(isset($_GET["filtering"]) || isset($_GET["category"])) {
+        $name_filter = isset($_GET["filtering"]) ? $_GET["filtering"] : "";
+        $category_filter = isset($_GET["category"]) ? $_GET["category"] : -1;
+        $templateParams["productList"] = $dbh->getProducts($name_filter, $category_filter);
     }
     else $templateParams["productList"] = $dbh->getProducts();
 ?>
 
-<form action="?page=search" method="POST">
+<form action="?page=search" method="GET">
+    <input type="hidden" name="page" value="search">
     <div class="home-search-container">
         <div class="input-group home-search-input">
             <i class="bi bi-search"></i>
-            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" name="name_filter" placeholder="Cerca il tuo sasso..." value=<?php echo $name_filter;?>>
+            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" name="filtering" placeholder="Cerca il tuo sasso..." value="<?php echo htmlspecialchars($name_filter); ?>">
         </div>
 
         <div class="input-group home-select-category">
             <i class="bi bi-columns-gap"></i>
-            <select class="form-select" aria-label="Cerca tra tutte le categorie" name="category_filter">
-                <option class="home-select-category-placeholder" value="-1" selected>Tutte le categorie</option>
+            <select class="form-select" aria-label="Cerca tra tutte le categorie" name="category">
+                <option class="home-select-category-placeholder" value="-1">Tutte le categorie</option>
                 <?php foreach ($dbh->getCategories() as $category): ?>
-                    <option <?php if($category_filter == $category["id"]) echo "selected"?> value="<?php echo $category["id"]; ?>"><?php echo $category["name"]; ?></option>
+                    <option value="<?php echo $category["id"]; ?>" <?php echo ($category_filter == $category["id"]) ? 'selected' : ''; ?>>
+                        <?php echo $category["name"]; ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -74,7 +77,7 @@
     <div class="container py-5 d-flex justify-content-center align-items-center">
         <div class="alert alert-warning text-center w-75" role="alert">
             <h4 class="alert-heading">Nessun prodotto trovato!</h4>
-            <p>La ricerca "<?php echo $name_filter; ?>" non ha prodotto risultati. Prova a cercare utilizzando altri termini o categorie.</p>
+            <p>La ricerca "<?php echo htmlspecialchars($name_filter); ?>" non ha prodotto risultati. Prova a cercare utilizzando altri termini o categorie.</p>
             <hr>
             <a href="?page=search" class="btn btn-warning">Torna alla Ricerca</a>
         </div>
