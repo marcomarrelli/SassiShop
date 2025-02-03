@@ -1,13 +1,17 @@
 <?php
-    //lista ordini vuota, allora l'utente non ha ancora effettuato ordini
-    if(!$templateParams["userLogged"]){
-        echo " <h2> Effettua l'accesso per vedere il tuo carrello </h2> ";
-    }else if(empty($templateParams["cartProducts"])){
-        echo "<p>Nessun prodotto è stato ancora aggiunto al carrello</p>
-        <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2> ";
-    }else{ //se l'utente ha effettuato almeno un ordine, stampo gli ordini
-     ?>    
-
+    if(!$templateParams["userLogged"]){ ?>
+        <div class="container d-flex justify-content-center align-items-center" style="min-height: 50vh;">
+            <div class="alert alert-warning text-center no-login-cart-alert" role="alert">
+                <h4 class="alert-heading">Effettua l'accesso per vedere il carrello!</h4>
+                <p>Per visualizzare i prodotti nel tuo carrello devi prima effettuare l'accesso.</p>
+                <hr>
+                <a href="?page=profile" class="btn btn-warning">Vai al Login!</a>
+            </div>
+        </div>
+    <?php } else if(empty($templateParams["cartProducts"])){ ?>
+        <p>Nessun prodotto è stato ancora aggiunto al carrello</p>
+        <h2><a href="?page=search">Sfoglia Prodotti</a></h2>
+    <?php } else { ?>
     <table>
         <thead>
             <tr>

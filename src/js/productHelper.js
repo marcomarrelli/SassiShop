@@ -49,3 +49,49 @@ document.querySelectorAll("button[name='heart']").forEach(b => {
          }, 3000);
     });
 });
+
+/** Funzione che permette di aggiungere un prodotto al carrello */
+document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+        const productId = this.dataset.productId;
+        window.location.href = `?page=productPage&id=${productId}`;
+    });
+});
+
+/** Funzione che permette di visualizzare la pagina del prodotto */
+document.querySelectorAll('button.card-purchase-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const productId = this.closest('.product-card').dataset.productId;
+    });
+});
+
+/** Funzione helper per lo spinner */
+function incrementQuantity() {
+    const input = document.getElementById('quantity');
+    const max = parseInt(input.max);
+    const currentValue = parseInt(input.value);
+    if (currentValue < max) {
+        input.value = currentValue + 1;
+    }
+}
+
+/** Funzione helper per lo spinner */
+function decrementQuantity() {
+    const input = document.getElementById('quantity');
+    const currentValue = parseInt(input.value);
+    if (currentValue > 1) {
+        input.value = currentValue - 1;
+    }
+}
+
+/** Funzione che permette di aggiungere un prodotto al carrello */
+document.getElementById('quantity').addEventListener('change', function() {
+    const max = parseInt(this.max);
+    const value = parseInt(this.value);
+    if (value > max) this.value = max;
+    if (value < 1) this.value = 1;
+});
+
+document.querySelector('.quantity-adder').addEventListener('click', incrementQuantity);
+document.querySelector('.quantity-remover').addEventListener('click', decrementQuantity);

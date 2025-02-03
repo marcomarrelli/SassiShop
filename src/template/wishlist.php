@@ -53,4 +53,4 @@
     }
 ?>
 
-<script src="js/addWish.js"></script>
+<script src="js/productHelper.js"></script>

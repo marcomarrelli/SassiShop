@@ -31,7 +31,6 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
         case "home":
             $templateParams["title"] = "Sassi Shop - Home";
             $templateParams["content"] = "home.php";
-            $templateParams["categoriesList"] = $dbh->getCategories();
             $templateParams["mostLovedCategories"] = [
                 [
                     "title" => "Amici ed Emozioni",
@@ -165,22 +164,22 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             $templateParams["content"] = "manageProduct.php";
             break;
 
+        case "productPage":
+            if(isset($_GET["id"])) {
+                $templateParams["title"] = "Sassi Shop - Dettaglio Prodotto";
+                $templateParams["content"] = "productPage.php";
+                if(isUserLoggedIn()){
+                    $templateParams["userLogged"] = true;
+                } else {
+                    $templateParams["userLogged"] = false;
+                }
+            } else {
+                header("Location: ?page=search");
+            }
+            break;
+
     }
 
     //in ogni caso si parte sempre dal template base
     require("template/base.php");
 ?>
-
-
-<!--
-Pagine:
-- index (home)
-- login / register
-- il mio account (e sottopagine)
-- utente (pagina )
-- chi siamo
-- sostenibilità
-- wishlist / carrello
-- notifiche
-- pagina di ricerca
--->

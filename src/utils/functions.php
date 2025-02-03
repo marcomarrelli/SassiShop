@@ -43,6 +43,20 @@
 
     function getProductImage($product){
         if(is_null($product) || empty($product) || !isset($product["image"])) return "../../assets/images/placeholders/not_available.png";
-        else return imagecreatefromstring(base64_decode($product["image"])) || "../../assets/images/placeholders/not_available.png";
+        return imagecreatefromstring(base64_decode($product["image"])) || "../../assets/images/placeholders/not_available.png";
+    }
+
+    /**
+     * Funzione che restituisce un messaggio di alert in base alla quantità del prodotto.
+     * 
+     * @param int $quantity quantità del prodotto
+     * 
+     * @return string messaggio di alert
+     */
+    function getQuantityAlert(int $quantity) : string {
+        if($quantity <= 0) return "Prodotto esaurito!";
+        else if($quantity == 1) return "Ultimo disponibile!";
+        else if($quantity <= 5) return "Ultimi " . $quantity . " disponibili!";
+        return "";
     }
 ?>

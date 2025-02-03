@@ -502,6 +502,38 @@ class DatabaseHelper {
     }
 
     /**
+     * Restituisce il nome di una categoria dato il suo ID.
+     * 
+     * @param int $categoryId ID della categoria.
+     * 
+     * @return string Nome della categoria.
+     */
+    public function getCategoryName(int $categoryId): string {
+        $sql = "SELECT name FROM Category WHERE id = ?";
+        $temp = $this->execute($sql, [$categoryId]);
+        $result = $temp->get_result();
+        $category = $result->fetch_assoc();
+        $temp->close();
+        return $category['name'] ?? '';
+    }
+    
+    /**
+     * Restituisce il nome di una dimensione dato il suo ID.
+     * 
+     * @param int $sizeId ID della dimensione.
+     * 
+     * @return string Nome della dimensione.
+     */
+    public function getSizeName(int $sizeId): string {
+        $sql = "SELECT size FROM Size WHERE id = ?";
+        $temp = $this->execute($sql, [$sizeId]);
+        $result = $temp->get_result();
+        $size = $result->fetch_assoc();
+        $temp->close();
+        return $size['size'] ?? '';
+    }
+
+    /**
      * Distruttore - Chiude la connessione al database.
      */
     public function __destruct() {

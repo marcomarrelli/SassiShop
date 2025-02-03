@@ -84,8 +84,4 @@
 </body>
 </html>
 
-<!--
-
-        <button id="theme-switcher" onclick="switchTheme()">Change Theme</button>
-
--->
+<script src="js/functions.js"></script>

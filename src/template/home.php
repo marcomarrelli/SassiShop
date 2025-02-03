@@ -9,7 +9,7 @@
             <i class="bi bi-columns-gap"></i>
             <select class="form-select" aria-label="Cerca tra tutte le categorie" name="category_filter">
                 <option class="home-select-category-placeholder" value="-1" selected>Tutte le categorie</option>
-                <?php foreach ($templateParams["categoriesList"] as $category): ?>
+                <?php foreach ($dbh->getCategories() as $category): ?>
                     <option value="<?php echo $category["id"]; ?>"><?php echo $category["name"]; ?></option>
                 <?php endforeach; ?>
             </select>
@@ -17,9 +17,9 @@
 
         <div class="home-search-and-filter d-flex gap-2">
             <button type="submit" class="btn home-search-button">Cerca</button>    
-            <button class="btn home-filter-button">
+            <!-- <button class="btn home-filter-button">
                 <i class="bi bi-filter"></i>
-            </button>
+            </button> -->
         </div>
     </div>
 </form>
