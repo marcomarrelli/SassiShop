@@ -43,17 +43,6 @@ CREATE TABLE IF NOT EXISTS User (
     FOREIGN KEY (privilege) REFERENCES Privilege(id) ON DELETE RESTRICT
 );
 
-CREATE TABLE IF NOT EXISTS Post (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    seller INT NOT NULL,
-    product INT NOT NULL,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    FOREIGN KEY (seller) REFERENCES User(id) ON DELETE CASCADE,
-    FOREIGN KEY (product) REFERENCES Product(id) ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS Cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user INT NOT NULL,
@@ -107,7 +96,7 @@ CREATE TABLE IF NOT EXISTS Rating (
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     FOREIGN KEY (product) REFERENCES Product(id) ON DELETE CASCADE,
     FOREIGN KEY (user) REFERENCES User(id) ON DELETE CASCADE,
-    UNIQUE KEY unique_rating (post, user)
+    UNIQUE KEY unique_rating (product, user)
 );
 
 CREATE TABLE IF NOT EXISTS NotificationType (
