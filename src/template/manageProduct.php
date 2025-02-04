@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<div class='alert alert-danger'>Tutti i campi sono obbligatori!</div>";
     } else {
         $imagePath = null;
+
         if (isset($_FILES['productImage']) && $_FILES['productImage']['size'] > 0) {
 
             $uploadResult = uploadProductImage($_FILES['productImage']);
@@ -40,15 +41,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if($editMode) {
-            $oldImagePath = $dbh->getProductInfo($productId)['image'];
-
-            $result = $dbh->updateProduct($productId, $name, $description, $price, $quantity, $category, $size, $imagePath);
-
-            if($result && $imagePath && $oldImagePath) {
+            $oldProductInfo = $dbh->getProductInfo($productId);
+            
+            if(!$imagePath) {
+                $imagePath = $oldProductInfo['image'];
+            } else {
+                $oldImagePath = '../' . $oldProductInfo['image'];
                 if(file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
             }
+        
+            $result = $dbh->updateProduct($productId, $name, $description, $price, $quantity, $category, $size, $imagePath);
         } else {
             if(!$imagePath) {
                 echo "<div class='alert alert-danger'>Immagine richiesta!</div>";
