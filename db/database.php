@@ -671,6 +671,43 @@ class DatabaseHelper {
         return $result;
     }
 
+    public function checkProductCart(int $productId, int $userId) : bool {
+        $sql = "SELECT * FROM Cart WHERE user = ? AND product = ?";
+        $temp = $this->execute($sql, [$userId, $productId]);
+        $result = $temp->get_result();
+        $temp->close();
+
+        return $result->num_rows > 0;
+    }
+    
+    public function updateProductCartQuantity(int $productId, int $userId, int $quantity) : bool {
+        $sql = "UPDATE Cart SET quantity = quantity + ? WHERE user = ? AND product = ?";
+        $temp = $this->execute($sql, [$quantity, $userId, $productId]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+    
+    public function addProductCart(int $productId, int $userId, int $quantity) : bool {
+        $sql = "INSERT INTO Cart (user, product, quantity) VALUES (?, ?, ?)";
+        $temp = $this->execute($sql, [$userId, $productId, $quantity]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+    
+    public function getCartCount(int $userId) : int {
+        $sql = "SELECT SUM(quantity) as total FROM Cart WHERE user = ?";
+        $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+        $cartCount = $result->fetch_assoc()['total'] ?? 0;
+        $temp->close();
+
+        return $cartCount;
+    }
+
     /**
      * Distruttore - Chiude la connessione al database.
      */
