@@ -33,46 +33,49 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             $templateParams["content"] = "home.php";
             $templateParams["mostLovedCategories"] = [
                 [
-                    "title" => "Amici ed Emozioni",
+                    "title" => "Emozioni",
                     "description" => "Un'emozione,<br>per lasciarti impietrito!",
                     "image" => "../assets/images/placeholders/categoria_amichetti.jpg",
                     "alt" => "Categoria: Sassi Amici",
                     "href" => "?page=search&category=1"
                 ],
                 [
-                    "title" => "Bandiere",
-                    "description" => "Tutto il mondo,<br>a portata di pietra!",
-                    "image" => "../assets/images/placeholders/categoria_bandiere.jpg",
-                    "alt" => "Categoria: Bandiere",
-                    "href" => "?page=search&category=1"
+                    "title" => "Pietre Preziose",
+                    "description" => "Pietre, ma costose<br>e più scintillanti!",
+                    "image" => "../assets/images/placeholders/categoria_preziose.jpg",
+                    "alt" => "Categoria: Pietre Preziose",
+                    "href" => "?page=search&category=6"
                 ],
                 [
                     "title" => "Animaletti",
                     "description" => "Che verso fa la pietra?<br>Scoprilo!",
                     "image" => "../assets/images/placeholders/categoria_animali.jpg",
                     "alt" => "Categoria: Animali",
-                    "href" => "?page=search&category=1"
+                    "href" => "?page=search&category=2"
                 ]
             ];
             
             $templateParams["mostSoldCollections"] = [
                 [
-                    "title" => "San Valentino",
-                    "description" => "Non avere il cuore di pietra, regalalo!",
-                    "image" => "../assets/images/placeholders/collezione_san_valentino.jpg",
-                    "alt" => "Categoria: San Valentino"
+                    "title" => "Le Amiche",
+                    "description" => "Le pietre per<br>le vere amio!",
+                    "image" => "../assets/images/placeholders/collezione_amiche.jpg",
+                    "alt" => "Categoria: San Valentino",
+                    "href" => "?page=productPage&id=2"
                 ],
                 [
-                    "title" => "Cartoni Animati",
-                    "description" => "Gotta catch 'em all!<br>E tanto altro...",
-                    "image" => "../assets/images/placeholders/collezione_cartoni_animati.jpg",
-                    "alt" => "Categoria: Cartoni Animati"
+                    "title" => "Bandiere",
+                    "description" => "Tutto il mondo,<br>a portata di pietra!",
+                    "image" => "../assets/images/placeholders/collezione_bandiere.jpg",
+                    "alt" => "Collezione: Bandiere",
+                    "href" => "?page=productPage&id=3"
                 ],
                 [
                     "title" => "Famiglia",
                     "description" => "Fatti abbracciare!<br>Per tutta la famiglia.",
                     "image" => "../assets/images/placeholders/collezione_famiglia.jpg",
-                    "alt" => "Categoria: Famiglie"
+                    "alt" => "Categoria: Famiglie",
+                    "href" => "?page=productPage&id=7"
                 ]
             ];
 

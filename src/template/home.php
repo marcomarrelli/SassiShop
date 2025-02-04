@@ -25,14 +25,14 @@
     <section class="section mt-5 home-section">
         <h2 class="text-center home-loved-category-title">Categorie più Amate</h2>
         <div class="row justify-content-center">
-            <?php foreach ($templateParams["mostLovedCategories"] as $category): ?>
+            <?php foreach ($templateParams["mostLovedCategories"] as $collection): ?>
                 <div class="col-sm-6 col-md-4 col-xl-4">
                     <div class="card h-100 home-loved-category">
-                        <img src="<?php echo $category['image']; ?>" class="card-img-top" alt="<?php echo $category['alt']; ?>">
+                        <img src="<?php echo $collection['image']; ?>" class="card-img-top" alt="<?php echo $collection['alt']; ?>">
                         <div class="card-body home-card-body">
-                            <h5 class="card-title"><?php echo $category['title']; ?></h5>
-                            <p class="card-text"><?php echo $category['description']; ?></p>
-                            <a href=<?php echo $category['href']; ?> class="btn home-go-to-loved-categories">Scopri la categoria!</a>
+                            <h5 class="card-title"><?php echo $collection['title']; ?></h5>
+                            <p class="card-text"><?php echo $collection['description']; ?></p>
+                            <a href=<?php echo $collection['href']; ?> class="btn home-go-to-loved-categories">Scopri la<br/>categoria!</a>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
         </div>
     </section>
     <section class="section mt-5 home-section">
-        <h2 class="text-center home-sold-collections-title">Categorie più Amate</h2>
+        <h2 class="text-center home-sold-collections-title">Collezioni più Amate</h2>
         <div class="row justify-content-center">
             <?php foreach ($templateParams["mostSoldCollections"] as $category): ?>
                 <div class="col-sm-6 col-md-4 col-xl-4">
@@ -49,7 +49,7 @@
                         <div class="card-body home-card-body">
                             <h5 class="card-title"><?php echo $category['title']; ?></h5>
                             <p class="card-text"><?php echo $category['description']; ?></p>
-                            <a href="#" class="btn home-go-to-sold-collections">Scopri la categoria!</a>
+                            <a href=<?php echo $category['href']; ?> class="btn home-go-to-sold-collections">Scopri la<br/>collezione!</a>
                         </div>
                     </div>
                 </div>
