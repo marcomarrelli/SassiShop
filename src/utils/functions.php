@@ -1,7 +1,7 @@
 <?php
-
     //funzioni comuni a tutti i file
     //registra sulla session l'utente in questo momento attivo
+
     function registerLoggedUser($user){
         $_SESSION["idUser"] = $user["id"];
         $_SESSION["email"] = $user["email"];
@@ -11,9 +11,12 @@
         $_SESSION["privilege"] = $user["privilege"];
     }
     
-
-    function isUserLoggedIn() :bool{
+    function isUserLoggedIn() : bool{
         return !empty($_SESSION['idUser']);
+    }
+
+    function isAdmin() : bool {
+        return (isset($_SESSION["privilege"]) && $_SESSION["privilege"] == 1);
     }
 
     function logout(){
@@ -58,5 +61,37 @@
         else if($quantity == 1) return "Ultimo disponibile!";
         else if($quantity <= 5) return "Ultimi " . $quantity . " disponibili!";
         return "";
+    }
+
+    function uploadProductImage($file) {
+        $uploadDir = '../assets/images/products/';
+        $validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        $maxSize = 4 * 1024 * 1024; // 4MB
+    
+        if($file['error'] !== UPLOAD_ERR_OK) {
+            return ['success' => false, 'error' => 'Errore nel caricamento del file!'];
+        }
+    
+        if(!in_array($file['type'], $validTypes)) {
+            return ['success' => false, 'error' => 'Tipo di file non supportato!'];
+        }
+    
+        if($file['size'] > $maxSize) {
+            return ['success' => false, 'error' => 'File troppo grande (4MB Max.)!'];
+        }
+    
+        $fileInfo = pathinfo($file['name']);
+        $fileName = time() . '_' . $fileInfo['filename'] . '.' . $fileInfo['extension'];
+
+        $targetPath = $uploadDir . $fileName;
+
+        if(move_uploaded_file($file['tmp_name'], $targetPath)) {
+            return [
+                'success' => true, 
+                'path' => $targetPath
+            ];
+        }
+    
+        return ['success' => false, 'error' => 'Errore nel salvataggio del file!'];
     }
 ?>

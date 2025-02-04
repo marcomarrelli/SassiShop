@@ -176,11 +176,7 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             if(isset($_GET["id"])) {
                 $templateParams["title"] = "Sassi Shop - Dettaglio Prodotto";
                 $templateParams["content"] = "productPage.php";
-                if(isUserLoggedIn()){
-                    $templateParams["userLogged"] = true;
-                } else {
-                    $templateParams["userLogged"] = false;
-                }
+                $templateParams["userLogged"] = isUserLoggedIn();
             } else {
                 header("Location: ?page=search");
             }

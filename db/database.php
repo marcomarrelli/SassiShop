@@ -558,7 +558,22 @@ class DatabaseHelper {
         $temp->close();
         return $category['name'] ?? '';
     }
-    
+
+    /**
+     * Restituisce le size disponibili.
+     * 
+     * @return array Array delle size.
+     */
+    public function getSizes(): array {
+        $sql = "SELECT * FROM Size";
+        $temp = $this->execute($sql);
+        $result = $temp->get_result();
+        $sizes = $result->fetch_all(MYSQLI_ASSOC);
+        $temp->close();
+
+        return $sizes;
+    }
+
     /**
      * Restituisce il nome di una dimensione dato il suo ID.
      * 
@@ -573,6 +588,87 @@ class DatabaseHelper {
         $size = $result->fetch_assoc();
         $temp->close();
         return $size['size'] ?? '';
+    }
+
+    /**
+     * Funzione per aggiungere un prodotto al database.
+     * 
+     * @param string $name Nome del prodotto.
+     * @param string $description Descrizione del prodotto.
+     * @param float  $price Prezzo del prodotto.
+     * @param int    $quantity Quantità del prodotto.
+     * @param int    $category Categoria del prodotto.
+     * @param int    $size Dimensione del prodotto.
+     * @param string $image Immagine del prodotto.
+     * 
+     * @return bool True se il prodotto è stato aggiunto correttamente, altrimenti false.
+     */
+    public function addProduct(string $name, string $description, float $price, int $quantity, int $category, int $size, string $image): bool {
+        $sql = "INSERT INTO Product (name, description, price, quantity, category, size, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $temp = $this->execute($sql, [trim($name), trim($description), $price, $quantity, $category, $size, $image]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+
+    /**
+     * Funzione per modificare un prodotto sul database.
+     * 
+     * @param int    $productId ID del prodotto.
+     * @param string $name Nome del prodotto.
+     * @param string $description Descrizione del prodotto.
+     * @param float  $price Prezzo del prodotto.
+     * @param int    $quantity Quantità del prodotto.
+     * @param int    $category Categoria del prodotto.
+     * @param int    $size Dimensione del prodotto.
+     * @param string $image Immagine del prodotto.
+     * 
+     * @return bool True se il prodotto è stato modificato correttamente, altrimenti false.     
+     */
+    public function updateProduct(int $productId, string $name = "", string $description = "", float $price = 0, int $quantity = 0, int $category = -1, int $size = -1, string $image = ""): bool {
+        $sql = "UPDATE Product SET";
+        $params = [];
+
+        if(!empty($name)) {
+            $sql .= " name = ?,";
+            $params[] = $name;
+        }
+        if(!empty($description)) {
+            $sql .= " description = ?,";
+            $params[] = $description;
+        }
+        if($price > 0) {
+            $sql .= " price = ?,";
+            $params[] = $price;
+        }
+        if($quantity > 0) {
+            $sql .= " quantity = ?,";
+            $params[] = $quantity;
+        }
+        if($category != -1) {
+            $sql .= " category = ?,";
+            $params[] = $category;
+        }
+        if($size != -1) {
+            $sql .= " size = ?,";
+            $params[] = $size;
+        }
+        if(!empty($image)) {
+            $sql .= " image = ?,";
+            $params[] = $image;
+        }
+
+        $sql = rtrim($sql, ",");
+        $sql .= " WHERE id = ?";
+
+        $params[] = $productId;
+
+        $temp = $this->execute($sql, $params);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
     }
 
     /**

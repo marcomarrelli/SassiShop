@@ -52,16 +52,22 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title"><?php echo $product['name']; ?></h4>
-                            <?php if($templateParams["userLogged"]){ ?>
-                                <button class="btn btn-outline-danger btn-sm" name="heart">
-                                    <p class="d-none"><?php echo $product["id"] ?></p>
-                                    <?php if($dbh->checkProductWishlist($product["id"], $_SESSION["idUser"])){?>
-                                        <i class="bi bi-heart-fill"></i>
-                                    <?php }else{?>
-                                        <i class="bi bi-heart"></i>
-                                    <?php }?>
-                                </button>
-                            <?php } ?>
+                            <?php if($templateParams["userLogged"]){ 
+                                if(isAdmin()) { ?>
+                                    <a href="?page=manageProduct&action=edit&id=<?php echo $product['id']; ?>" class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                <?php } else { ?>
+                                    <button class="btn btn-outline-danger btn-sm" name="heart">
+                                        <p class="d-none"><?php echo $product["id"] ?></p>
+                                        <?php if($dbh->checkProductWishlist($product["id"], $_SESSION["idUser"])){?>
+                                            <i class="bi bi-heart-fill"></i>
+                                        <?php }else{?>
+                                            <i class="bi bi-heart"></i>
+                                        <?php }?>
+                                    </button>
+                                <?php } 
+                            } ?>
                         </div>
                         <p class="card-text"><?php echo string_cutter($product['description'], 50); ?></p>
                         <p class="card-subtext"><small class="text-muted"><?php echo getQuantityAlert($product['quantity']); ?></small></p>

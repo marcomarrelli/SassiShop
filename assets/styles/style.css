@@ -506,7 +506,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 .product-card .card-purchase-button:hover {
     color: var(--text-color);
-    background-color: var(--highlight-color);
+    background-color: var(--controls-background-color);
     position: absolute;
     bottom: 1rem;
     right: 1rem;
@@ -573,4 +573,47 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     .cart-badge {
         display: none;
     }
+}
+
+.manage-product-container {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.manage-product-form input[type="file"] {
+    border: 1px solid var(--controls-border-color);
+    background-color: var(--controls-background-color);
+}
+
+.manage-product-form input[type="file"]:hover {
+    background-color: var(--controls-hover-color);
+}
+
+.manage-product-form .text-muted {
+    color: var(--placeholder-color) !important;
+}
+
+.manage-product-form .form-control, .manage-product-form .form-select {
+    background-color: var(--controls-background-color);
+    border-color: var(--controls-border-color);
+}
+
+.product-description {
+    min-height: 15vh;
+    max-height: 20vh;
+}
+
+.manage-product-form .form-control:focus, .manage-product-form .form-select:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.5rem var(--primary-hover-color) !important;
+}
+
+.create-product-button {
+    background-color: var(--primary-color);
+    color: var(--controls-background-color);
+}
+
+.create-product-button:hover {
+    background-color: var(--highlight-color);
+    color: var(--text-color);
 }
