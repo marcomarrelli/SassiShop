@@ -451,8 +451,17 @@ class DatabaseHelper {
      * @return array Array di purchase con i relativi prodotti.
      */
     public function getUserOrders(int $userId): array {
-        $sql = "SELECT * FROM Purchase, Product, productlist WHERE Purchase.user = ? AND productlist.product = Product.id AND productlist.purchase = purchase.id";
+        $sql = "SELECT * FROM Purchase WHERE Purchase.user = ?";
         $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+        $temp->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getProductList(int $purchaseId): array{
+        $sql = "SELECT * FROM productlist, product WHERE purchase = ? AND product.id = product";
+        $temp = $this->execute($sql, [$purchaseId]);
         $result = $temp->get_result();
         $temp->close();
 
