@@ -15,7 +15,6 @@ document.querySelector("input[value='Cancella']").addEventListener("click", func
         d.disabled = true;
     });
     let button = document.querySelectorAll("input[name='save'], input[name='cancel']");
-    console.log(button);
     button.forEach(b => {
         b.classList.add("d-none");
     });

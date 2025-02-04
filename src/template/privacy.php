@@ -28,6 +28,11 @@
                 </div>
             </div>
         </form>
+        <script>
+            document.querySelector("input[type='button']").addEventListener("click", function(){
+                window.location.href = '?page=profile&profilePage=privacy';
+            });
+        </script>
 
 <?php
     }else{
@@ -46,3 +51,4 @@
 <?php
     }
 ?>
+
