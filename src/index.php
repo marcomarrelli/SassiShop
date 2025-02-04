@@ -34,21 +34,21 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             $templateParams["mostLovedCategories"] = [
                 [
                     "title" => "Emozioni",
-                    "description" => "Un'emozione,<br>per lasciarti impietrito!",
+                    "description" => "Un'emozione,<br>per lasciarti<br>impietrito!",
                     "image" => "../assets/images/placeholders/categoria_amichetti.jpg",
                     "alt" => "Categoria: Sassi Amici",
                     "href" => "?page=search&category=1"
                 ],
                 [
                     "title" => "Pietre Preziose",
-                    "description" => "Pietre, ma costose<br>e più scintillanti!",
+                    "description" => "Pietre,<br>ma costose<br>e scintillanti!",
                     "image" => "../assets/images/placeholders/categoria_preziose.jpg",
                     "alt" => "Categoria: Pietre Preziose",
                     "href" => "?page=search&category=6"
                 ],
                 [
                     "title" => "Animaletti",
-                    "description" => "Che verso fa la pietra?<br>Scoprilo!",
+                    "description" => "Che verso fa<br>la pietra?<br>Scoprilo!",
                     "image" => "../assets/images/placeholders/categoria_animali.jpg",
                     "alt" => "Categoria: Animali",
                     "href" => "?page=search&category=2"
@@ -58,21 +58,21 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             $templateParams["mostSoldCollections"] = [
                 [
                     "title" => "Le Amiche",
-                    "description" => "Le pietre per<br>le vere amio!",
+                    "description" => "Le pietre<br>per le<br>vere amio!",
                     "image" => "../assets/images/placeholders/collezione_amiche.jpg",
                     "alt" => "Categoria: San Valentino",
                     "href" => "?page=productPage&id=2"
                 ],
                 [
                     "title" => "Bandiere",
-                    "description" => "Tutto il mondo,<br>a portata di pietra!",
+                    "description" => "Tutto il mondo<br>a portata<br>di pietra!",
                     "image" => "../assets/images/placeholders/collezione_bandiere.jpg",
                     "alt" => "Collezione: Bandiere",
                     "href" => "?page=productPage&id=3"
                 ],
                 [
                     "title" => "Famiglia",
-                    "description" => "Fatti abbracciare!<br>Per tutta la famiglia.",
+                    "description" => "Fatti abbracciare!<br>Per tutta<br>la famiglia.",
                     "image" => "../assets/images/placeholders/collezione_famiglia.jpg",
                     "alt" => "Categoria: Famiglie",
                     "href" => "?page=productPage&id=7"

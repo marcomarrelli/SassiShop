@@ -69,7 +69,7 @@
                                 <?php } 
                             } ?>
                         </div>
-                        <p class="card-text"><?php echo string_cutter($product['description'], 50); ?></p>
+                        <p class="card-text"><?php echo stringCutter($product['description'], 50); ?></p>
                         <p class="card-subtext"><small class="text-muted"><?php echo getQuantityAlert($product['quantity']); ?></small></p>
                         <button class="btn card-purchase-button">
                             Compra a <?php echo $product['price']; ?>€

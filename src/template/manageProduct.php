@@ -63,8 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result) {
             echo "<div class='alert alert-success'>Prodotto " . ($editMode ? "modificato" : "aggiunto") . " con successo!</div>";
+            header("Refresh: 3; url=?page=home");
         } else {
-            echo "<div class='alert alert-danger'>Errore nell'" . ($editMode ? "modifica" : "aggiunta") . " del prodotto!</div>";
+            echo "<div class='alert alert-danger'>Errore " . ($editMode ? "nella modifica" : "nell'aggiunta") . " del prodotto!</div>";
         }
     }
 }

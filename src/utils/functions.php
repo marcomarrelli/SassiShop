@@ -35,7 +35,7 @@
      * 
      * @return string stringa tagliata
      */
-    function string_cutter($string, $length) : string {
+    function stringCutter($string, $length) : string {
         if(is_null($string)) return "";
         if(empty($string)) return "";
 
