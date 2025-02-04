@@ -145,6 +145,8 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             if(isset($_POST["firstNameRegister"]) && isset($_POST["lastNameRegister"]) && isset($_POST["usernameRegister"]) && isset($_POST["emailRegister"]) && isset($_POST["passwordRegister"])){
                 if($dbh->checkUsername($_POST["usernameRegister"])){
                     $templateParams["erroreRegister"] = "Username già esistente";
+                }else if($dbh->checkEmail($_POST["emailRegister"])){
+                    $templateParams["erroreRegister"] = "Esiste già un account associato a questa mail";
                 }else{
                     $privilege = 2;
                     //if(isset($_POST["admin"])){

@@ -17,20 +17,20 @@
 
 
     
-<?php foreach ($templateParams["wishlist"] as $product): ?>
+    <?php foreach ($templateParams["wishlist"] as $product): ?>
         <div class="card mb-3 product-card" data-product-id="<?php echo $product['id']; ?>">
             <div class="row no-gutters h-100">
                 <div class="col-md-4">
-                    <img src="../assets/images/placeholders/not_available.png" class="card-img" alt="Prodotto: <?php echo $product['name']; ?>">
+                    <img src=<?php echo getProductImage($product); ?> class="card-img" alt="Prodotto: <?php echo $product['name']; ?>">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title"><?php echo $product['name']; ?></h4>
-                            <button class="btn btn-outline-danger btn-sm" name="heart">
-                                    <p class="d-none"><?php echo $wish['product'] ?></p>
-                                    <i class="bi bi-heart-fill"></i>
-                            </button>
+                                <button class="btn btn-outline-danger btn-sm" name="heart">
+                                    <p class="d-none"><?php echo $product["id"] ?></p>
+                                        <i class="bi bi-heart-fill"></i>
+                                </button>
                         </div>
                         <p class="card-text"><?php echo string_cutter($product['description'], 50); ?></p>
                         <p class="card-subtext"><small class="text-muted"><?php echo getQuantityAlert($product['quantity']); ?></small></p>

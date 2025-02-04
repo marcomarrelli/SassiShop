@@ -507,6 +507,22 @@ class DatabaseHelper {
         return (count($result->fetch_all(MYSQLI_ASSOC)) > 0);
     }
 
+    /**
+     * controlla che non ci siano altri utenti con la stessa email.
+     * 
+     * @param string $email email identificativo dell'utente.
+     * 
+     * @return bool false se esiste già un utente con quell'username, se no true.
+     */
+    public function checkEmail(string $email): bool{
+        $sql = "SELECT * FROM User WHERE User.email = ?";
+        $temp = $this->execute($sql, [$email]);
+        $result = $temp->get_result();
+        $temp->close();
+        
+        return (count($result->fetch_all(MYSQLI_ASSOC)) > 0);
+    }
+
     public function getUserInfo(int $userId){
         $sql = "SELECT * FROM User WHERE User.id = ?";
         $temp = $this->execute($sql, [$userId]);
