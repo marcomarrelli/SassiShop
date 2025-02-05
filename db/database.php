@@ -500,6 +500,14 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getUserNotification(int $userId): array {
+        $sql = "SELECT * FROM Notification WHERE Notification.user = ?";
+        $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+        $temp->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
     /**
      * controlla che non ci siano altri utenti con lo stesso username.
      * 

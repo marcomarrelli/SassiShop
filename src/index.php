@@ -106,7 +106,7 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
 
         case "notification":
             if(isUserLoggedIn()){
-                $templateParams["notifications"] = "";// = $dbh->getUserNotification($userId);
+                $templateParams["notification"] = $dbh->getUserNotification($_SESSION["idUser"]);
                 //non c'è ancora la tabella delle notifiche
                 $templateParams["userLogged"] = true;
             }else{

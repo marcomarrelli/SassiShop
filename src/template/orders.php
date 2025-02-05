@@ -20,7 +20,7 @@
                     <?php foreach($templateParams["orders"] as $order): ?>
                     <div class="d-flex justify-content-between align-items-center header-profile text-white p-3 rounded">
                         <div>
-                            <i class="fas fa-shopping-cart me-2"></i>
+                            <i class="fas me-2"></i>
                             Ordine del: <?php echo $order["date"]?>
                         </div>
                         <div class="badge bg-light text-danger">
