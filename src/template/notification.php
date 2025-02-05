@@ -2,12 +2,6 @@
     $stockEmpty1 = "Oh nooo! È esaurito un prodotto presente nel tuo carrello: ";
     $stockRefill2 = "Yuppi! È stato rifornito un prodotto presente nel tuo carrello: ";
     $purchase3 = "È stato effettuato un ordine dall'utente: ";
-
-    if($templateParams["notification"][0]["type"] == 1){
-        $testo = $stockEmpty1;
-    }else{
-        $testo = "";
-    }
 ?>
 
 
