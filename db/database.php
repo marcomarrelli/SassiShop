@@ -698,6 +698,15 @@ class DatabaseHelper {
         return $result;
     }
     
+    public function removeProductCart(int $productId, int $userId) : bool {
+        $sql = "DELETE FROM Cart WHERE user = ? AND product = ?";
+        $temp = $this->execute($sql, [$userId, $productId]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+
     public function getCartCount(int $userId) : int {
         $sql = "SELECT SUM(quantity) as total FROM Cart WHERE user = ?";
         $temp = $this->execute($sql, [$userId]);
@@ -706,6 +715,16 @@ class DatabaseHelper {
         $temp->close();
 
         return $cartCount;
+    }
+
+    function getCartTotal(int $userId) : float {
+        $sql = "SELECT SUM(price * Product.quantity) as total FROM Cart, Product WHERE user = ? AND product = Product.id";
+        $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+        $cartTotal = $result->fetch_assoc()['total'] ?? 0;
+        $temp->close();
+
+        return $cartTotal;
     }
 
     /**

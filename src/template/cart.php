@@ -1,3 +1,8 @@
+<div class="top-banner">
+    <div class="banner-success text-center">
+    </div>
+</div>
+
 <?php if(!$templateParams["userLogged"]): ?>
     <div class="container py-5 d-flex justify-content-center align-items-center">
         <div class="alert alert-warning text-center no-login-cart-alert w-75" role="alert">
@@ -46,9 +51,7 @@
 
         <div class="card mt-4">
             <div class="card-body d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">Totale: € <?php echo number_format(array_sum(array_map(function($p) { 
-                    return $p['price'] * $p['quantity']; 
-                }, $templateParams["cartProducts"])), 2); ?></h4>
+                <h4 class="mb-0">Totale: € <?php echo number_format($dbh->getCartTotal($_SESSION["idUser"]), 2); ?></h4>
                 <button class="btn card-purchase-button">Procedi all'Acquisto</button>
             </div>
         </div>
