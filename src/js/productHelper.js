@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             totalElement.textContent = `Totale: € ${data.cartTotal.toFixed(2)}`;
                         }
     
-                        showBanner("Quantità aggiornata!");
+                        showBanner("Quantità aggiornata!", true);
                     } else {
                         showBanner("Errore nell'aggiornamento della quantità!");
                     }
