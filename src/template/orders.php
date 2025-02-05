@@ -28,10 +28,10 @@
                         </div>
                     </div>
                     <table class="table table-hover">
-                        <thead class="">
-                            <tr>
+                        <thead>
+                            <tr class="fs-5">
                             <th class="d-none d-md-table-cell col-1"></th>
-                                <th class="ps-5 fs-5">Prodotto</th>
+                                <th class="ps-5">Prodotto</th>
                                 <th class="d-none d-md-table-cell">Quantità</th>
                                 <th>Prezzo</th>
                             </tr>
@@ -43,13 +43,13 @@
                             <?php foreach($productList as $product): ?>
                             <tr class="product-order" data-product-id="<?php echo $product['id']; ?>">
                                 <td scope="row" class="d-none d-md-table-cell col-2"> <img class="img-responsive img-fluid" src="<?php echo $product['image']?>" alt="Prodotto: <?php echo $product["name"] ?>"> </td>
-                                <td class="ps-5"><?php echo $product["name"]?></td>
-                                <td class="d-none d-md-table-cell"><?php echo $product["quantity"]?></td>
-                                <td><?php $total += $product["price"]*$product["quantity"];
+                                <td class="ps-5 fs-5"><?php echo $product["name"]?></td>
+                                <td class="d-none d-md-table-cell fs-5"><?php echo $product["quantity"]?></td>
+                                <td class="fs-5"><?php $total += $product["price"]*$product["quantity"];
                                 echo $product["price"]?></td>
                             </tr>
                             <?php endforeach; ?>
-                            <tr class="table-danger fw-bold">
+                            <tr class="table-danger fw-bold fs-5">
                                 <td class="d-none d-md-table-cell"></td>
                                 <td colspan="2">Totale Ordine</td>
                                 <td><?php echo $total?> €</td>
