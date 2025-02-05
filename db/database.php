@@ -492,7 +492,11 @@ class DatabaseHelper {
      * @return array Array di prodotti nel carrello.
      */
     public function getUserCart(int $userId): array {
-        $sql = "SELECT * FROM Cart, Product WHERE Cart.user = ? AND Cart.product = Product.id";
+        $sql = "SELECT Cart.product, Cart.quantity as cartQuantity, Product.quantity as availableQuantity,
+                Product.name, Product.description, Product.price, Product.image, Product.id
+                FROM Cart 
+                INNER JOIN Product ON Cart.product = Product.id 
+                WHERE Cart.user = ?";
         $temp = $this->execute($sql, [$userId]);
         $result = $temp->get_result();
         $temp->close();
@@ -725,8 +729,26 @@ class DatabaseHelper {
         return $cartCount;
     }
 
-    function getCartTotal(int $userId) : float {
-        $sql = "SELECT SUM(price * Product.quantity) as total FROM Cart, Product WHERE user = ? AND product = Product.id";
+    public function addCartProductQuantity(int $userId, int $productId) {
+        $sql = "UPDATE Cart SET quantity = quantity + 1 WHERE user = ? AND product = ?";
+        $temp = $this->execute($sql, [$userId, $productId]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+
+    public function removeCartProductQuantity(int $userId, int $productId) {
+        $sql = "UPDATE Cart SET quantity = quantity - 1 WHERE user = ? AND product = ?";
+        $temp = $this->execute($sql, [$userId, $productId]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+
+    public function getCartTotal(int $userId) : float {
+        $sql = "SELECT SUM(price * Cart.quantity) as total FROM Cart, Product WHERE user = ? AND product = Product.id";
         $temp = $this->execute($sql, [$userId]);
         $result = $temp->get_result();
         $cartTotal = $result->fetch_assoc()['total'] ?? 0;
