@@ -31,7 +31,7 @@
                         <thead class="">
                             <tr>
                             <th class="d-none d-md-table-cell col-1"></th>
-                                <th>Prodotto</th>
+                                <th class="ps-5 fs-5">Prodotto</th>
                                 <th class="d-none d-md-table-cell">Quantità</th>
                                 <th>Prezzo</th>
                             </tr>
@@ -41,9 +41,9 @@
                             <?php $productList = $dbh->getProductList($order["id"]); 
                             $total = 0;?>
                             <?php foreach($productList as $product): ?>
-                            <tr>
-                                <td scope="row" class="d-none d-md-table-cell col-1"> <img class="img-responsive img-fluid" src="<?php echo $product['image']?>" alt="Prodotto: <?php echo $product["name"] ?>"> </td>
-                                <td><?php echo $product["name"]?></td>
+                            <tr class="product-order" data-product-id="<?php echo $product['id']; ?>">
+                                <td scope="row" class="d-none d-md-table-cell col-2"> <img class="img-responsive img-fluid" src="<?php echo $product['image']?>" alt="Prodotto: <?php echo $product["name"] ?>"> </td>
+                                <td class="ps-5"><?php echo $product["name"]?></td>
                                 <td class="d-none d-md-table-cell"><?php echo $product["quantity"]?></td>
                                 <td><?php $total += $product["price"]*$product["quantity"];
                                 echo $product["price"]?></td>
@@ -65,3 +65,4 @@
 <?php 
     }
 ?>
+<script src="js/productHelper.js"></script>

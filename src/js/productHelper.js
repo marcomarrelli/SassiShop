@@ -176,4 +176,20 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    const productOrder = document.querySelectorAll('.product-order');
+    if (productOrder.length > 0) {
+        productOrder.forEach(card => {
+            card.addEventListener('click', function(e) {
+                if(!e.target.closest('button')) {
+                    const productId = this.dataset.productId;
+                    if (!productId) {
+                        console.error('Product ID not found');
+                        return;
+                    }
+                    window.location.href = `?page=productPage&id=${productId}`;
+                }
+            });
+        });
+    }
 });
