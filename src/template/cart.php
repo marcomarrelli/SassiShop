@@ -36,12 +36,12 @@
                         <p class="card-text"><?php echo stringCutter($product['description'], 50); ?></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="input-group" style="width: 130px;">
-                                <!-- <button class="btn btn-outline-secondary quantity-remover" type="button">-</button>
-                                <input type="number" class="form-control text-center" value=" php echo $product['quantity']; " min="1">
-                                <button class="btn btn-outline-secondary quantity-adder" type="button">+</button> -->
-                                <input type="number" class="form-control text-center" value="<?php echo $product['quantity']; ?>" readonly>
+                                <button class="btn btn-outline-secondary quantity-remover" type="button">-</button>
+                                <input type="number" class="form-control text-center" value="<?php echo $product['cartQuantity'];?>" min="1" max="<?php echo $product['availableQuantity']; ?>">
+                                <button class="btn btn-outline-secondary quantity-adder" type="button">+</button>
+                                <!-- <input type="number" class="form-control text-center" readonly> -->
                             </div>
-                            <p class="h5 mb-0">€ <?php echo number_format($product['price'] * $product['quantity'], 2); ?></p>
+                            <p class="h5 mb-0">€ <?php echo number_format($product['price'] * $product['cartQuantity'], 2); ?></p>
                         </div>
                     </div>
                 </div>
