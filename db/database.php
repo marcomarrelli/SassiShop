@@ -867,6 +867,36 @@ class DatabaseHelper {
                     throw new Exception("Failed to update product quantity");
                 }
                 $stmt->close();
+
+                $sql = "SELECT quantity FROM product WHERE id=?";
+                $stmt = $this->execute($sql, [$item['product']]);
+                $quantity = $stmt->get_result()->fetch_assoc();
+                $stmt ->close();
+
+                if($quantity["quantity"] == 0){
+                    $sql = "SELECT DISTINCT c.user 
+                    FROM Cart c 
+                    WHERE c.product = ? 
+                    AND c.quantity > (SELECT quantity FROM Product WHERE id = ?)";
+
+                    $sql = "SELECT DISTINCT c.user FROM Cart c WHERE c.product = ?";
+                    $stmt = $this->execute($sql, [$item['product']]);
+                    $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                    $stmt->close();
+    
+                    if (!empty($users)) {
+                        $sql = "INSERT INTO Notification (type, user, product, isRead) VALUES (1, ?, ?, 0)";
+                        foreach ($users as $user) {
+                            if($user['user']!=$userId){
+                                $stmt = $this->execute($sql, [$user['user'], $item['product']]);
+                                if ($stmt->affected_rows <= 0) {
+                                    throw new Exception("Failed to add notification");
+                                }
+                                $stmt->close();
+                            }
+                        }
+                    }
+                }
             }
 
             $sql = "SELECT * FROM user WHERE user.privilege=1";
