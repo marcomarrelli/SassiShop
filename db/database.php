@@ -920,36 +920,37 @@ class DatabaseHelper {
     public function checkAndNotifyRefill(int $productId, int $newQuantity): void {
         if ($newQuantity <= 0) return;
     
+        $this->db->begin_transaction();
         try {
-            // Get users with this product in cart where cart quantity > available
+            // Get users with this product in cart where cart quantity > new quantity
             $sql = "SELECT DISTINCT c.user 
                     FROM Cart c 
                     WHERE c.product = ? 
-                    AND c.quantity > (SELECT quantity FROM Product WHERE id = ?)";
+                    AND c.quantity <= ?";
             
-            $stmt = $this->execute($sql, [$productId, $productId]);
+            $stmt = $this->execute($sql, [$productId, $newQuantity]);
             $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
     
-            if (empty($users)) return;
+            if (empty($users)) {
+                $this->db->rollback();
+                return;
+            }
     
-            // Get notification type ID for refill
-            $sql = "SELECT id FROM NotificationType WHERE name = 'STOCK_REFILL'";
-            $stmt = $this->execute($sql);
-            $notificationType = $stmt->get_result()->fetch_assoc()['id'];
-            $stmt->close();
-    
-            // Insert notifications
-            $sql = "INSERT INTO Notification (type, user, product) VALUES (?, ?, ?)";
+            // Insert refill notification for each user
+            $sql = "INSERT INTO Notification (type, user, product, isRead) VALUES (2, ?, ?, 0)";
             foreach ($users as $user) {
-                $stmt = $this->execute($sql, [$notificationType, $user['user'], $productId]);
+                $stmt = $this->execute($sql, [$user['user'], $productId]);
                 if ($stmt->affected_rows <= 0) {
                     throw new Exception("Failed to add notification");
                 }
-                else $stmt->close();
+                $stmt->close();
             }
     
+            $this->db->commit();
+    
         } catch (Exception $e) {
+            $this->db->rollback();
             return;
         }
     }
