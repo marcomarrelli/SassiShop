@@ -142,7 +142,7 @@
                     $templateParams["erroreRegister"] = "Esiste già un account associato a questa mail";
                 }else{
                     $privilege = 2;
-                    $credit_card = isset($_POST["creditCard"]) ? $_POST["creditCard"] : "";
+                    $credit_card = isset($_POST["creditCardRegister"]) ? $_POST["creditCardRegister"] : "";
                     $dbh->addUser($_POST["firstNameRegister"], $_POST["lastNameRegister"], $_POST["usernameRegister"], $_POST["emailRegister"], $_POST["passwordRegister"], $credit_card, $privilege);
                     $login_result = $dbh->Login($_POST["emailRegister"], $_POST["passwordRegister"]);
                     registerLoggedUser($login_result);
