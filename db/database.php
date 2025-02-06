@@ -451,7 +451,7 @@ class DatabaseHelper {
      * @return array Array di purchase con i relativi prodotti.
      */
     public function getUserOrders(int $userId): array {
-        $sql = "SELECT * FROM Purchase WHERE Purchase.user = ? ORDER BY date desc";
+        $sql = "SELECT Purchase.id as purchaseId, Purchase.user, Purchase.date, Purchase.status FROM Purchase WHERE Purchase.user = ? ORDER BY date desc";
         $temp = $this->execute($sql, [$userId]);
         $result = $temp->get_result();
         $temp->close();
@@ -869,10 +869,26 @@ class DatabaseHelper {
                 $stmt->close();
             }
 
+            $sql = "SELECT * FROM user WHERE user.privilege=1";
+            $stmt = $this->execute($sql);
+            $admins = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+
+            foreach($admins as $admin){
+                $sql = "INSERT INTO notification (type, user, isRead, purchaseUser) VALUES (3, ?, 0, ?)";
+                $stmt = $this->execute($sql, [$admin["id"], $userId]);
+                if ($stmt->affected_rows <= 0) {
+                    throw new Exception("Failed to add notification");
+                }
+            }
+            $stmt->close();
+
+
             $sql = "DELETE FROM Cart WHERE user = ?";
             $stmt = $this->execute($sql, [$userId]);
             $stmt->close();
     
+            
             $this->db->commit();
             return true;
     

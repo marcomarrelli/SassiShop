@@ -109,11 +109,11 @@ CREATE TABLE IF NOT EXISTS Notification (
     type INT NOT NULL,
     user INT,
     product INT,
-    purchase INT,
+    purchaseUser INT,
     isRead BOOLEAN DEFAULT FALSE,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (type) REFERENCES NotificationType(id) ON DELETE RESTRICT,
     FOREIGN KEY (user) REFERENCES User(id) ON DELETE CASCADE,
-    FOREIGN KEY (product) REFERENCES Product(id) ON DELETE CASCADE,
+    FOREIGN KEY (purchaseUser) REFERENCES User(id) ON DELETE CASCADE,
     FOREIGN KEY (purchase) REFERENCES Purchase(id) ON DELETE CASCADE
 );

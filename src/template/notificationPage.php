@@ -32,7 +32,7 @@
             }else if($notification["type"] == 2){
                 echo $stockRefill2 ."<a class=\"link-product ps-0\" href=\"?page=productPage&id="  . $notification["product"] ."\">". $dbh->getProductInfo($notification["product"])["name"] . "</a>";
             }else if($notification["type"] == 3){
-                echo $purchase3 . $dbh->getUserInfo($notification["user"])["username"];
+                echo $purchase3 . $dbh->getUserInfo($notification["purchaseUser"])["username"];
             }?>
             <p class="mt-3"><?php echo $notification["date"] ?></p>
         </div>
