@@ -824,7 +824,7 @@ class DatabaseHelper {
         $this->db->begin_transaction();
         try {
             // Create purchase record
-            $sql = "INSERT INTO Purchase (user) VALUES (?)";
+            $sql = "INSERT INTO Purchase (user, status) VALUES (?, 'PENDING')";
             $stmt = $this->execute($sql, [$userId]);
             if ($stmt->affected_rows <= 0) {
                 throw new Exception("Failed to create purchase");
@@ -832,7 +832,7 @@ class DatabaseHelper {
             $purchaseId = $this->db->insert_id;
             $stmt->close();
     
-            // Get cart items and check stock
+            // Get cart items with availability check
             $sql = "SELECT c.product, c.quantity as cartQuantity, p.price, p.quantity as available 
                     FROM Cart c 
                     JOIN Product p ON c.product = p.id 
@@ -840,6 +840,10 @@ class DatabaseHelper {
             $stmt = $this->execute($sql, [$userId]);
             $cartItems = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
+    
+            if (empty($cartItems)) {
+                throw new Exception("Cart is empty");
+            }
     
             foreach ($cartItems as $item) {
                 // Verify stock availability
@@ -861,45 +865,14 @@ class DatabaseHelper {
                 }
                 $stmt->close();
     
-                // Update product quantity
+                // Update product quantity and trigger notifications
                 $newQuantity = $item['available'] - $item['cartQuantity'];
                 if (!$this->updateProduct($item['product'], "", "", 0, $newQuantity)) {
                     throw new Exception("Failed to update product stock");
                 }
-                $stmt->close();
-
-                $sql = "SELECT quantity FROM product WHERE id=?";
-                $stmt = $this->execute($sql, [$item['product']]);
-                $quantity = $stmt->get_result()->fetch_assoc();
-                $stmt ->close();
-
-                if($quantity["quantity"] == 0){
-                    $sql = "SELECT DISTINCT c.user 
-                    FROM Cart c 
-                    WHERE c.product = ? 
-                    AND c.quantity > (SELECT quantity FROM Product WHERE id = ?)";
-
-                    $sql = "SELECT DISTINCT c.user FROM Cart c WHERE c.product = ?";
-                    $stmt = $this->execute($sql, [$item['product']]);
-                    $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-                    $stmt->close();
-    
-                    if (!empty($users)) {
-                        $sql = "INSERT INTO Notification (type, user, product, isRead) VALUES (1, ?, ?, 0)";
-                        foreach ($users as $user) {
-                            if($user['user']!=$userId){
-                                $stmt = $this->execute($sql, [$user['user'], $item['product']]);
-                                if ($stmt->affected_rows <= 0) {
-                                    throw new Exception("Failed to add notification");
-                                }
-                                $stmt->close();
-                            }
-                        }
-                    }
-                }
             }
     
-            // Notify admins of purchase
+            // Notify admins of new purchase
             $sql = "SELECT id FROM User WHERE privilege = 1";
             $stmt = $this->execute($sql);
             $admins = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -954,13 +927,26 @@ class DatabaseHelper {
     
         $this->db->begin_transaction();
         try {
-            // Get users with this product in cart where cart quantity > new quantity
+            // Get current product quantity
+            $sql = "SELECT quantity FROM Product WHERE id = ?";
+            $stmt = $this->execute($sql, [$productId]);
+            $currentQuantity = $stmt->get_result()->fetch_assoc()['quantity'];
+            $stmt->close();
+    
+            // Only proceed if quantity increased
+            if ($newQuantity <= $currentQuantity) {
+                $this->db->rollback();
+                return;
+            }
+    
+            // Get users with this product in cart where cart quantity was previously insufficient
             $sql = "SELECT DISTINCT c.user 
                     FROM Cart c 
                     WHERE c.product = ? 
+                    AND c.quantity > ?
                     AND c.quantity <= ?";
             
-            $stmt = $this->execute($sql, [$productId, $newQuantity]);
+            $stmt = $this->execute($sql, [$productId, $currentQuantity, $newQuantity]);
             $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
     
