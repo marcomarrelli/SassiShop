@@ -518,7 +518,7 @@ class DatabaseHelper {
     }
 
     public function getUserNotification(int $userId): array {
-        $sql = "SELECT * FROM Notification WHERE Notification.user = ?";
+        $sql = "SELECT * FROM Notification WHERE Notification.user = ? ORDER BY date DESC";
         $temp = $this->execute($sql, [$userId]);
         $result = $temp->get_result();
         $temp->close();

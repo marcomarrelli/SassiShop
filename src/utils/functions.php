@@ -25,6 +25,7 @@
         unset($_SESSION["firstName"]);
         unset($_SESSION["lastName"]);
         unset($_SESSION["privilege"]);
+        unset($_SESSION["cartCount"]);
     }
 
     /**
