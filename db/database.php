@@ -743,6 +743,81 @@ class DatabaseHelper {
         }
     }
 
+    /**
+     * Funzione per modificare un prodotto sul database.
+     * 
+     * @param int    $productId ID del prodotto.
+     * @param string $name Nome del prodotto.
+     * @param string $description Descrizione del prodotto.
+     * @param float  $price Prezzo del prodotto.
+     * @param int    $quantity Quantità del prodotto.
+     * @param int    $category Categoria del prodotto.
+     * @param int    $size Dimensione del prodotto.
+     * @param string $image Immagine del prodotto.
+     * 
+     * @return bool True se il prodotto è stato modificato correttamente, altrimenti false.     
+     */
+    public function updateProductQuantity(int $productId, string $name = "", string $description = "", float $price = 0, int $quantity = 0, int $category = -1, int $size = -1, string $image = ""): bool {
+        $this->db->begin_transaction();
+        try {
+            $sql = "UPDATE Product SET";
+            $params = [];
+    
+            if(!empty($name)) {
+                $sql .= " name = ?,";
+                $params[] = $name;
+            }
+            if(!empty($description)) {
+                $sql .= " description = ?,";
+                $params[] = $description;
+            }
+            if($price > 0) {
+                $sql .= " price = ?,";
+                $params[] = $price;
+            }
+            if($quantity >= 0) {
+                $sql .= " quantity = ?,";
+                $params[] = $quantity;
+            }
+            if($category != -1) {
+                $sql .= " category = ?,";
+                $params[] = $category;
+            }
+            if($size != -1) {
+                $sql .= " size = ?,";
+                $params[] = $size;
+            }
+            if(!empty($image)) {
+                $sql .= " image = ?,";
+                $params[] = $image;
+            }
+    
+            if(empty($params)) {
+                $this->db->rollback();
+                return false;
+            }
+    
+            $sql = rtrim($sql, ",");
+            $sql .= " WHERE id = ?";
+            $params[] = $productId;
+    
+            $stmt = $this->execute($sql, $params);
+            $result = $stmt->affected_rows > 0;
+            $stmt->close();
+    
+            if($result && $quantity >= 0) {
+                $this->checkAndNotifyLowStock($productId, $quantity);
+            }
+    
+            $this->db->commit();
+            return $result;
+    
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
     public function checkProductCart(int $productId, int $userId) : bool {
         $sql = "SELECT * FROM Cart WHERE user = ? AND product = ?";
         $temp = $this->execute($sql, [$userId, $productId]);
@@ -872,7 +947,7 @@ class DatabaseHelper {
     
                 // Update product quantity
                 $newQuantity = $item['available'] - $item['cartQuantity'];
-                if (!$this->updateProduct($item['product'], "", "", 0, $newQuantity)) {
+                if (!$this->updateProductQuantity($item['product'], "", "", 0, $newQuantity)) {
                     throw new Exception("Failed to update stock");
                 }
     
