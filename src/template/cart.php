@@ -52,7 +52,7 @@
         <div class="card mt-4">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Totale: € <?php echo number_format($dbh->getCartTotal($_SESSION["idUser"]), 2); ?></h4>
-                <button class="btn card-purchase-button">Procedi all'Acquisto</button>
+                <button class="btn cart-purchase-button">Procedi all'Acquisto</button>
             </div>
         </div>
     </div>

@@ -691,32 +691,109 @@ class DatabaseHelper {
 
         return $result->num_rows > 0;
     }
-    
-    public function updateProductCartQuantity(int $productId, int $userId, int $quantity) : bool {
-        $sql = "UPDATE Cart SET quantity = quantity + ? WHERE user = ? AND product = ?";
-        $temp = $this->execute($sql, [$quantity, $userId, $productId]);
-        $result = $temp->affected_rows > 0;
-        $temp->close();
 
-        return $result;
-    }
-    
     public function addProductCart(int $productId, int $userId, int $quantity) : bool {
-        $sql = "INSERT INTO Cart (user, product, quantity) VALUES (?, ?, ?)";
-        $temp = $this->execute($sql, [$userId, $productId, $quantity]);
-        $result = $temp->affected_rows > 0;
-        $temp->close();
-
-        return $result;
+        try {
+            $sql = "INSERT INTO Cart (user, product, quantity) VALUES (?, ?, ?)";
+            $stmt = $this->execute($sql, [$userId, $productId, $quantity]);
+            return $stmt->affected_rows > 0;
+        } catch (Exception $e) {
+            return false;
+        }
     }
     
-    public function removeProductCart(int $productId, int $userId) : bool {
-        $sql = "DELETE FROM Cart WHERE user = ? AND product = ?";
-        $temp = $this->execute($sql, [$userId, $productId]);
-        $result = $temp->affected_rows > 0;
-        $temp->close();
+    public function removeProductCart(int $productId, int $userId): bool {
+        try {
+            $sql = "DELETE FROM Cart WHERE user = ? AND product = ?";
+            $stmt = $this->execute($sql, [$userId, $productId]);
+            return $stmt->affected_rows > 0;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    
+    public function addCartProductQuantity(int $productId, int $userId, int $increment = 1): bool {
+        try {
+            $sql = "UPDATE Cart SET quantity = quantity + ? WHERE user = ? AND product = ?";
+            $stmt = $this->execute($sql, [$increment, $userId, $productId]);
+            return $stmt->affected_rows > 0;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    
+    public function removeCartProductQuantity(int $productId, int $userId, int $decrement = 1): bool {
+        try {
+            $sql = "UPDATE Cart SET quantity = quantity - ? WHERE user = ? AND product = ? AND quantity > ?";
+            $stmt = $this->execute($sql, [$decrement, $userId, $productId, $decrement]);
+            return $stmt->affected_rows > 0;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    
+    public function createPurchase(int $userId): bool {
+        $this->db->begin_transaction();
+        try {
+            $sql = "INSERT INTO Purchase (user) VALUES (?)";
+            $stmt = $this->execute($sql, [$userId]);
+            if ($stmt->affected_rows <= 0) {
+                throw new Exception("Failed to create purchase");
+            }
+            $purchaseId = $this->db->insert_id;
+            $stmt->close();
+    
+            $sql = "SELECT c.product, c.quantity as cartQuantity, p.price, p.quantity as available 
+                    FROM Cart c 
+                    JOIN Product p ON c.product = p.id 
+                    WHERE c.user = ?";
+            $stmt = $this->execute($sql, [$userId]);
+            $cartItems = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+    
+            foreach ($cartItems as $item) {
+                if ($item['available'] < $item['cartQuantity']) {
+                    throw new Exception("Insufficient stock");
+                }
+    
+                $sql = "INSERT INTO ProductList (purchase, product, quantity, productPrice) 
+                        VALUES (?, ?, ?, ?)";
+                $stmt = $this->execute($sql, [
+                    $purchaseId, 
+                    $item['product'], 
+                    $item['cartQuantity'],
+                    $item['price']
+                ]);
+                if ($stmt->affected_rows <= 0) {
+                    throw new Exception("Failed to add product to purchase");
+                }
+                $stmt->close();
 
-        return $result;
+                $sql = "UPDATE Product 
+                        SET quantity = quantity - ? 
+                        WHERE id = ? AND quantity >= ?";
+                $stmt = $this->execute($sql, [
+                    $item['cartQuantity'],
+                    $item['product'],
+                    $item['cartQuantity']
+                ]);
+                if ($stmt->affected_rows <= 0) {
+                    throw new Exception("Failed to update product quantity");
+                }
+                $stmt->close();
+            }
+
+            $sql = "DELETE FROM Cart WHERE user = ?";
+            $stmt = $this->execute($sql, [$userId]);
+            $stmt->close();
+    
+            $this->db->commit();
+            return true;
+    
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return false;
+        }
     }
 
     public function getCartCount(int $userId) : int {
@@ -727,24 +804,6 @@ class DatabaseHelper {
         $temp->close();
 
         return $cartCount;
-    }
-
-    public function addCartProductQuantity(int $userId, int $productId) {
-        $sql = "UPDATE Cart SET quantity = quantity + 1 WHERE user = ? AND product = ?";
-        $temp = $this->execute($sql, [$userId, $productId]);
-        $result = $temp->affected_rows > 0;
-        $temp->close();
-
-        return $result;
-    }
-
-    public function removeCartProductQuantity(int $userId, int $productId) {
-        $sql = "UPDATE Cart SET quantity = quantity - 1 WHERE user = ? AND product = ?";
-        $temp = $this->execute($sql, [$userId, $productId]);
-        $result = $temp->affected_rows > 0;
-        $temp->close();
-
-        return $result;
     }
 
     public function getCartTotal(int $userId) : float {

@@ -25,7 +25,7 @@
                 <a class="link-profile nav-link" href="?page=profile&profilePage=dettagliAccount"><i class="bi bi-person pe-2 icons"></i>Dettagli account</a> <hr class="hr text"/>
             </li>
             <li class="col-12 col-md-6 col-lg-4 nav-item">
-                <a class="link-profile nav-link" href="?page=profile&profilePage=cronologiaOrdini"><i class="bi bi-card-list pe-2 icons"></i>Cronologia ordini</a><hr class="hr text"/>
+                <a class="link-profile nav-link" href="?page=profile&profilePage=orders"><i class="bi bi-card-list pe-2 icons"></i>Cronologia ordini</a><hr class="hr text"/>
             </li>
             <li class="col-12 col-md-6 col-lg-4 nav-item">
                 <a class="link-profile nav-link" href="?page=profile&profilePage=wishlist"><i class="bi bi-heart-fill pe-2 icons"></i>Wishlist</a><hr class="hr text"/>
@@ -62,7 +62,7 @@
         case "dettagliAccount":
             require("accountDetails.php");
             break;
-        case "cronologiaOrdini":
+        case "orders":
             require("orders.php");
             break;
         case "wishlist":

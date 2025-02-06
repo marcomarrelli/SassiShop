@@ -151,6 +151,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Cart purchase button handler
+    document.querySelector('.cart-purchase-button')?.addEventListener('click', function() {
+        updateCartQuantity(0, 0, 'buy')
+            .then(data => {
+                if(data.success) {
+                    cartBadge && (cartBadge.textContent = 0);
+                    showBanner("Ordine completato con successo!");
+                    setTimeout(() => {
+                        window.location.href = '?page=profile&profilePage=orders';
+                    }, 2500);
+                } else {
+                    showBanner("Errore durante l'acquisto!");
+                }
+            });
+    });
+
     // Product page add to cart
     document.querySelector('.add-to-cart')?.addEventListener('click', function() {
         const quantityInput = document.querySelector('input[name="product-quantity"]');
@@ -163,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if(data.success) {
                     cartBadge && (cartBadge.textContent = data.cartCount);
-                    showBanner("Prodotto aggiunto al carrello!");
+                    showBanner("Prodotto aggiunto al carrello!", true);
                 } else {
                     showBanner("Errore nell'aggiunta al carrello!");
                 }

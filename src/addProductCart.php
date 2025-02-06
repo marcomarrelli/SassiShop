@@ -20,30 +20,35 @@ $userId = $_SESSION["idUser"];
 // Handle different cart actions
 switch($action) {
     case 'remove':
-        $result = $dbh->removeProductCart($productId, $userId);
+        if($data['quantity']) $result = $dbh->removeCartProductQuantity($productId, $userId, $data['quantity']);
+        else $result = $dbh->removeProductCart($productId, $userId);
         break;
         
     case 'increment':
-        $result = $dbh->addCartProductQuantity($userId, $productId);
+        $result = $dbh->addCartProductQuantity($productId, $userId);
         break;
         
     case 'decrement':
-        $result = $dbh->removeCartProductQuantity($userId, $productId);
+        $result = $dbh->removeCartProductQuantity($productId, $userId);
         break;
         
     case 'update':
         $quantity = $data['quantity'] ?? 1;
-        $result = $dbh->updateProductCartQuantity($productId, $userId, $quantity);
+        $result = $dbh->addCartProductQuantity($productId, $userId, $quantity);
         break;
         
     case 'add':
     default:
         $quantity = $data['quantity'] ?? 1;
         if($dbh->checkProductCart($productId, $userId)) {
-            $result = $dbh->updateProductCartQuantity($productId, $userId, $quantity);
+            $result = $dbh->addCartProductQuantity($productId, $userId, $quantity);
         } else {
             $result = $dbh->addProductCart($productId, $userId, $quantity);
         }
+        break;
+
+    case 'buy':
+        $result = $dbh->createPurchase($userId);
         break;
 }
 
@@ -51,14 +56,30 @@ switch($action) {
 if($result) {
     $cartCount = $dbh->getCartCount($userId);
     $cartTotal = $dbh->getCartTotal($userId);
+
+    switch($action) {
+        case 'increment':
+        case 'decrement':
+        case 'remove':
+        case 'update':
+        case 'add':
+            echo json_encode([
+                'success' => true,
+                'cartCount' => $cartCount,
+                'cartTotal' => $cartTotal,
+                'unitPrice' => $dbh->getProductInfo($productId)['price']
+            ]);
+
+            break;
+
+        case 'buy':
+            echo json_encode([
+                'success' => true
+            ]);
+            break;
+    }
+
     $_SESSION['cartCount'] = $cartCount;
-    
-    echo json_encode([
-        'success' => true,
-        'cartCount' => $cartCount,
-        'cartTotal' => $cartTotal,
-        'unitPrice' => $dbh->getProductInfo($productId)['price']
-    ]);
 } else {
     echo json_encode([
         'success' => false,

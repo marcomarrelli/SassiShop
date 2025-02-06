@@ -44,9 +44,10 @@
         return (strlen($string) > $length) ? substr($string, 0, $length) . "..." : $string;
     }
 
-    function getProductImage($product){
-        if(is_null($product) || empty($product) || !isset($product["image"])) return "../../assets/images/placeholders/not_available.png";
-        return $product["image"];
+    function getProductImage($product) {
+        $defaultImage = "../assets/images/placeholders/not_available.png";
+        if(is_null($product) || empty($product) || !isset($product["image"])) return $defaultImage;
+        return file_exists($product["image"]) ? $product["image"] : $defaultImage; 
     }
 
     /**
