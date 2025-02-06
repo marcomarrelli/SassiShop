@@ -22,30 +22,30 @@
     <div class="container">
         <ul class="nav row justidy-content-center">
             <li class="col-12 col-md-6 col-lg-4 nav-item"> 
-                <a class="link-profile nav-link" href="?page=profile&profilePage=dettagliAccount"><i class="bi bi-person pe-2 icons"></i>Dettagli account</a> <hr class="hr text"/>
+                <a class="link-profile nav-link" href="?page=profile&profilePage=dettagliAccount"><img class="img-fluid icons pe-2 w-25" src="<?php echo UPLOAD_DIR ?>person.svg" alt="Dettagli account"/>Dettagli account</a> <hr class="hr text"/>
             </li>
             <li class="col-12 col-md-6 col-lg-4 nav-item">
-                <a class="link-profile nav-link" href="?page=profile&profilePage=orders"><i class="bi bi-card-list pe-2 icons"></i>Cronologia ordini</a><hr class="hr text"/>
+                <a class="link-profile nav-link" href="?page=profile&profilePage=orders"><img class="img-fluid icons pe-2 w-25" src="<?php echo UPLOAD_DIR ?>card-list.svg" alt="Cronologia Ordini"/>Cronologia ordini</a><hr class="hr text"/>
             </li>
             
             <li class="col-12 col-md-6 col-lg-4 nav-item">
                 <a class="link-profile nav-link" href="?page=profile&profilePage=wishlist">
                     
                 <?php if(isAdmin()){ ?>
-                    <i class="bi bi-pencil pe-2 icons"></i>I tuoi Prodotti
+                    <img class="img-fluid icons pe-2 w-25" src="<?php echo UPLOAD_DIR ?>pencil.svg" alt="I tuoi Prodotti"/>I tuoi Prodotti
                 <?php }else{ ?>
-                    <i class="bi bi-heart-fill pe-2 icons"></i>Wishlist
+                    <img class="img-fluid icons pe-2 w-25" src="<?php echo UPLOAD_DIR ?>heart-fill.svg" alt="Wishlist"/></i>Wishlist
                 <?php } ?>
                 </a><hr class="hr text"/>
             </li>
             <li class="col-12 col-md-6 col-lg-4 nav-item">
-                <a class="link-profile nav-link" href="?page=profile&profilePage=assistenza"><i class="bi bi-telephone-fill pe-2 icons"></i>Assistenza</a><hr class="hr text"/>
+                <a class="link-profile nav-link" href="?page=profile&profilePage=assistenza"><img class="img-fluid icons pe-2 w-25" src="<?php echo UPLOAD_DIR ?>telephone-fill.svg" alt="Assistenza"/>Assistenza</a><hr class="hr text"/>
             </li>
             <li class="col-12 col-md-6 col-lg-4 nav-item">
-                <a class="link-profile nav-link" href="?page=profile&profilePage=privacy"><i class="bi bi-fingerprint pe-2 icons"></i>Privicy e sicurezza</a><hr class="hr text"/>
+                <a class="link-profile nav-link" href="?page=profile&profilePage=privacy"><img class="img-fluid icons pe-2 w-25" src="<?php echo UPLOAD_DIR ?>fingerprint.svg" alt="Privacy e Sicurezza"/>Privicy e sicurezza</a><hr class="hr text"/>
             </li>
             <li class="col-12 col-md-6 col-lg-4 nav-item">
-                <a class="link-profile nav-link" href="?page=profile&profilePage=logout"><i class="bi bi-door-open pe-2 icons"></i>Logout</a><hr class="hr text"/>
+                <a class="link-profile nav-link" href="?page=profile&profilePage=logout"><img class="img-fluid icons pe-2 w-25" src="<?php echo UPLOAD_DIR ?>door-open.svg" alt="Wishlist"/>Logout</a><hr class="hr text"/>
             </li>
         </ul>
     </div>
