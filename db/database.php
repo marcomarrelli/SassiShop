@@ -459,12 +459,16 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getProductList(int $purchaseId): array{
-        $sql = "SELECT * FROM productlist, product WHERE purchase = ? AND product.id = product";
+    public function getProductList(int $purchaseId): array {
+        $sql = "SELECT p.id, p.name, p.description, p.image, p.price, pl.quantity as orderQuantity, pl.productPrice as orderPrice
+                FROM ProductList pl
+                JOIN Product p ON pl.product = p.id
+                WHERE pl.purchase = ?";
+        
         $temp = $this->execute($sql, [$purchaseId]);
         $result = $temp->get_result();
         $temp->close();
-
+    
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -763,8 +767,7 @@ class DatabaseHelper {
             $stmt->close();
     
             $sql = "SELECT c.product, c.quantity as cartQuantity, p.price, p.quantity as available 
-                    FROM Cart c 
-                    JOIN Product p ON c.product = p.id 
+                    FROM Cart c INNER JOIN Product p ON c.product = p.id
                     WHERE c.user = ?";
             $stmt = $this->execute($sql, [$userId]);
             $cartItems = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

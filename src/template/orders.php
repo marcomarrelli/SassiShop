@@ -44,8 +44,8 @@
                             <tr class="product-order" data-product-id="<?php echo $product['id']; ?>">
                                 <td scope="row" class="d-none d-md-table-cell col-2"> <img class="img-responsive img-fluid" src="<?php echo $product['image']?>" alt="Prodotto: <?php echo $product["name"] ?>"> </td>
                                 <td class="ps-5 fs-5"><?php echo $product["name"]?></td>
-                                <td class="d-none d-md-table-cell fs-5"><?php echo $product["quantity"]?></td>
-                                <td class="fs-5"><?php $total += $product["price"]*$product["quantity"];
+                                <td class="d-none d-md-table-cell fs-5"><?php echo $product["orderQuantity"]?></td>
+                                <td class="fs-5"><?php $total += $product["price"]*$product["orderQuantity"];
                                 echo $product["price"]?></td>
                             </tr>
                             <?php endforeach; ?>
