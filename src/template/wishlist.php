@@ -33,8 +33,7 @@
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                 <?php } else { ?>
-                                    <button class="btn btn-outline-danger btn-sm" name="heart">
-                                        <p class="d-none"><?php echo $product["id"] ?></p>
+                                    <button class="btn btn-outline-danger btn-sm" name="heart" data-product-id="<?php echo $product["id"] ?>">
                                         <i class="bi bi-heart-fill"></i>
                                     </button>
                                 <?php }     ?>

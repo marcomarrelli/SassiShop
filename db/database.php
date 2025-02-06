@@ -960,7 +960,6 @@ class DatabaseHelper {
     
         $this->db->begin_transaction();
         try {
-            // Get users with this product in cart where cart quantity > new quantity
             $sql = "SELECT DISTINCT c.user 
                     FROM Cart c 
                     WHERE c.product = ? 

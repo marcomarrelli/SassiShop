@@ -1,13 +1,14 @@
-<form action="?page=search" method="POST">
+<form action="?page=search" method="GET">
+    <input type="hidden" name="page" value="search">
     <div class="home-search-container">
         <div class="input-group home-search-input">
             <i class="bi bi-search"></i>
-            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" name="name_filter" placeholder="Cerca il tuo sasso...">
+            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" name="filtering" placeholder="Cerca il tuo sasso...">
         </div>
 
         <div class="input-group home-select-category">
             <i class="bi bi-columns-gap"></i>
-            <select class="form-select" aria-label="Cerca tra tutte le categorie" name="category_filter">
+            <select class="form-select" aria-label="Cerca tra tutte le categorie" name="category">
                 <option class="home-select-category-placeholder" value="-1" selected>Tutte le categorie</option>
                 <?php foreach ($dbh->getCategories() as $category): ?>
                     <option value="<?php echo $category["id"]; ?>"><?php echo $category["name"]; ?></option>
@@ -32,7 +33,7 @@
                         <div class="card-body home-card-body">
                             <h5 class="card-title"><?php echo $collection['title']; ?></h5>
                             <p class="card-text"><?php echo $collection['description']; ?></p>
-                            <a href=<?php echo $collection['href']; ?> class="btn home-go-to-loved-categories">Scopri la<br/>categoria!</a>
+                            <a href="<?php echo $collection['href']; ?>" class="btn home-go-to-loved-categories">Scopri la<br/>categoria!</a>
                         </div>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
                         <div class="card-body home-card-body">
                             <h5 class="card-title"><?php echo $category['title']; ?></h5>
                             <p class="card-text"><?php echo $category['description']; ?></p>
-                            <a href=<?php echo $category['href']; ?> class="btn home-go-to-sold-collections">Scopri la<br/>collezione!</a>
+                            <a href="<?php echo $category['href']; ?>" class="btn home-go-to-sold-collections">Scopri la<br/>collezione!</a>
                         </div>
                     </div>
                 </div>

@@ -6,9 +6,8 @@
         registerLoggedUser($dbh->getUserInfo($_SESSION["idUser"]));
     }
 ?>
-<script src="js/accountDetails.js"></script>
-<form action="#" method="POST">
-    
+
+<form action="#" method="POST">    
     <div class="container align-items-center justify-content-center mt-4">
         <div class="card shadow-sm">
             <div class="card-header form-profile">
@@ -41,4 +40,4 @@
     </div>
 </form>
 
-
+<script src="js/accountDetails.js"></script>

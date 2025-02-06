@@ -33,7 +33,7 @@
                         <tbody>
                             <?php foreach($templateParams["notification"] as $notification): ?>
                                 <tr class="notification-row" data-notification-id="<?php echo $notification["id"]?>">
-                                    <td scope="row" class=" col-auto ps-3 pe-0 text-center">    
+                                    <td class=" col-auto ps-3 pe-0 text-center">    
                                     <?php if(!$notification["isRead"]){ ?>
                                         <i class="bi bi-circle-fill text-primary"></i>
                                     <?php } ?>

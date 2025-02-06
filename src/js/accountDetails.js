@@ -20,4 +20,3 @@ document.querySelector("input[value='Cancella']").addEventListener("click", func
     });
     document.querySelector("input[name='edit']").disabled = false;
 });
-

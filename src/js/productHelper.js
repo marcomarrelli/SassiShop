@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('button[name="heart"]')?.forEach(button => {
         button.addEventListener('click', function(e) {
             e.stopPropagation();
-            const productId = this.querySelector('p')?.innerHTML;
+            const productId = this.dataset.productId;
             const icon = this.querySelector('i');
             
             if (!productId || !icon) return;
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Product page add to cart
     document.querySelector('.add-to-cart')?.addEventListener('click', function() {
         const quantityInput = document.querySelector('input[name="product-quantity"]');
-        const productId = document.querySelector('button[name="heart"] p')?.innerHTML;
+        const productId = document.querySelector('button[name="heart"]')?.dataset.productId;
         const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
 
         if (!productId) return;

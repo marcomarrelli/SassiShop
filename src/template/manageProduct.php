@@ -111,16 +111,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-md-6">
                         <label for="productCategory" class="form-label">Categoria</label>
                         <select class="form-select" id="productCategory" name="productCategory" required>
+                            <option value="">Seleziona una categoria</option>
                             <?php foreach ($dbh->getCategories() as $category): ?>
-                                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+                                <option value="<?php echo $category['id']; ?>" 
+                                    <?php echo ($editMode && $productToEdit['category'] == $category['id']) ? 'selected' : ''; ?>>
+                                    <?php echo $category['name']; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label for="productSize" class="form-label">Dimensione</label>
                         <select class="form-select" id="productSize" name="productSize" required>
+                            <option value="">Seleziona una dimensione</option>
                             <?php foreach ($dbh->getSizes() as $size): ?>
-                                <option value="<?php echo $size['id']; ?>"><?php echo $size['size']; ?></option>
+                                <option value="<?php echo $size['id']; ?>"
+                                    <?php echo ($editMode && $productToEdit['size'] == $size['id']) ? 'selected' : ''; ?>>
+                                    <?php echo $size['size']; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -135,7 +143,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" class="btn btn-outline-secondary">
+                    <?php $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '?page=search'; ?>
+                    <a href="<?php echo $previousPage; ?>" class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-left"></i> Annulla
                     </a>
                     <button type="submit" class="btn create-product-button">

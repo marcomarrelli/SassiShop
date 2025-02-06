@@ -1,10 +1,30 @@
-<!-- file base -->
+<!DOCTYPE html>
+<html lang="it">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?php echo $templateParams["title"]; ?></title>
-    <link rel="stylesheet" type="text/css" href="../assets/styles/style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page Title -->
+    <title><?php echo $templateParams["title"] ?? "SassiShop"; ?></title>
+    
+    <!-- Page Icon -->
     <link rel="icon" href="../assets/images/logo.ico" type="image/x-icon">
+
+    <!-- Icone Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Istok%20Web' rel='stylesheet'>
+    
+    <!-- Proprietary CSS -->
+    <link rel="stylesheet" type="text/css" href="../assets/styles/style.css">
 </head>
 
 <body>
@@ -75,19 +95,17 @@
     </footer>
 
     <script>
-            const root = document.documentElement;
+        const root = document.documentElement;
+        const savedTheme = localStorage.getItem("theme") || "light-mode";
+        root.classList.add(savedTheme);
+        function switchTheme() {
+            const newTheme = root.classList.contains("light-mode") ? "dark-mode" : "light-mode";
+            root.classList.replace(root.classList.contains("light-mode") ? "light-mode" : "dark-mode", newTheme);
+            localStorage.setItem("theme", newTheme);
+        }
+    </script>
 
-            const savedTheme = localStorage.getItem("theme") || "light-mode";
-            root.classList.add(savedTheme);
-
-            function switchTheme() {
-                const newTheme = root.classList.contains("light-mode") ? "dark-mode" : "light-mode";
-
-                root.classList.replace(root.classList.contains("light-mode") ? "light-mode" : "dark-mode", newTheme);
-                localStorage.setItem("theme", newTheme);
-            }
-        </script>
+    <!-- Generic Functions -->
+    <script src="js/functions.js"></script>
 </body>
 </html>
-
-<script src="js/functions.js"></script>
