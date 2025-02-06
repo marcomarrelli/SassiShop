@@ -92,6 +92,11 @@ body {
     font-family: 'Istok Web'; /* Default Font Family */
 }
 
+body > footer{
+    background-color: var(--highlight-color-hover);
+    color: var(--text-color);
+}
+
 p, a, h1, h2, h3, h4, h5, h6, .text-muted {
     color: var(--text-color) !important;
 }
