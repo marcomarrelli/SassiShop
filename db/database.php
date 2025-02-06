@@ -736,11 +736,41 @@ class DatabaseHelper {
     }
     
     public function addCartProductQuantity(int $productId, int $userId, int $increment = 1): bool {
+        $this->db->begin_transaction();
         try {
+            $sql = "SELECT c.quantity as cartQuantity, p.quantity as maxQuantity 
+                    FROM Cart c 
+                    JOIN Product p ON c.product = p.id 
+                    WHERE c.user = ? AND c.product = ?";
+            $stmt = $this->execute($sql, [$userId, $productId]);
+            $result = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+    
+            if (!$result) {
+                throw new Exception("Product not in cart");
+            }
+    
+            $newQuantity = $result['cartQuantity'] + $increment;
+            if ($newQuantity > $result['maxQuantity']) {
+                $this->db->rollback();
+                return false;
+            }
+    
             $sql = "UPDATE Cart SET quantity = quantity + ? WHERE user = ? AND product = ?";
             $stmt = $this->execute($sql, [$increment, $userId, $productId]);
-            return $stmt->affected_rows > 0;
+            $updated = $stmt->affected_rows > 0;
+            $stmt->close();
+    
+            if ($updated) {
+                $this->db->commit();
+                return true;
+            }
+    
+            $this->db->rollback();
+            return false;
+    
         } catch (Exception $e) {
+            $this->db->rollback();
             return false;
         }
     }
