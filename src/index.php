@@ -178,6 +178,21 @@
                 header("Location: ?page=notification");
             }
             break;
+        
+        case "findOutMore":
+            $templateParams["title"] = "Sassi Shop - Scopri di più";
+            $templateParams["content"] = "findOutMore.php";
+        break;
+
+        case "aboutUs":
+            $templateParams["title"] = "Sassi Shop - Chi siamo";
+            $templateParams["content"] = "aboutUs.php";
+        break;
+
+        case "sostenibility":
+            $templateParams["title"] = "Sassi Shop - Sostenibilità";
+            $templateParams["content"] = "sostenibility.php";
+        break;
 
     }
 

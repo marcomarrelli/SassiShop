@@ -82,17 +82,23 @@
         ?>
     </main>
 
-    <footer>
-        <hr/>
-        <p>Scopri di più</p>
-        <hr/>
-        <p>Chi Siamo</p>
-        <hr/>
-        <p>Sostenibilità</p>
-        <hr/>
-        <p>Gestisci Cookies</p>
-        <hr/>
+    <footer class="container-fluid py-4 mt-5">
+        <div class="container">
+        <div class="row text-center">
+          <div class="col-12">
+            <nav class="nav flex-column">
+              <a href="?page=findOutMore" class="nav-link text">Scopri di più</a>
+              <hr class="border-dark opacity-25 w-75 mx-auto">
+              <a href="?page=aboutUs" class="nav-link text">Chi Siamo</a>
+              <hr class="border-dark opacity-25 w-75 mx-auto">
+              <a href="?page=sostenibility" class="nav-link text">Sostenibilità</a>
+              <hr class="border-dark opacity-25 w-75 mx-auto">
+            </nav>
+          </div>
+        </div>
+      </div>
     </footer>
+
 
     <!-- Generic Functions -->
     <script src="js/functions.js"></script>
