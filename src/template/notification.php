@@ -12,10 +12,12 @@
             </div>
         </div>
     <?php
-    }else if(empty($templateParams["notification"])){
-        echo "<p>Non hai nessuna notifica</p>
-        <h2><a href=\"?page=search\">Sfoglia Prodotti</a></h2> ";
-    }else{ //se l'utente ha effettuato almeno un ordine, stampo gli ordini
+    }else if(empty($templateParams["notification"])){ ?>
+        <div class="home-profile">
+            <h2>Non hai ancora ricevuto nessuna notifica!</h2>
+            <h3><a class="link-product" href="?page=search">Sfoglia Prodotti</a></h3>
+        </div>
+    <?php }else{ //se l'utente ha effettuato almeno un ordine, stampo gli ordini
      ?>    
 
     <div class="container-fluid align-items-center justify-content-center mt-4">
