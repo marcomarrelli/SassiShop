@@ -1,9 +1,5 @@
-<!-- file base a tutti -->
+<!-- file base -->
 
-<!-- file base a tutti -->
-
-<!DOCTYPE html>
-<html lang="it">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php echo $templateParams["title"]; ?></title>

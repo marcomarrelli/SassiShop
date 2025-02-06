@@ -1,3 +1,9 @@
+<?php
+if(isAdmin()) {
+    header("Location: ?page=home");
+}
+?>
+
 <div class="top-banner">
     <div class="banner-success text-center">
     </div>

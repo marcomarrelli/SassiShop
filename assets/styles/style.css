@@ -624,3 +624,26 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     display: flex;
     justify-content: space-between;
 }
+
+.product-details-table {
+    background-color: var(--background-half-color);
+    color: var(--text-color);
+    margin-top: 2rem;
+    border-color: var(--controls-border-color);
+}
+
+.product-details-table th {
+    width: 30%;
+    padding: 1rem;
+    font-weight: 600;
+    border-color: var(--controls-border-color);
+}
+
+.product-details-table td {
+    padding: 1rem;
+    border-color: var(--controls-border-color);
+}
+
+.product-details-table tr:hover {
+    background-color: var(--primary-hover-color);
+}

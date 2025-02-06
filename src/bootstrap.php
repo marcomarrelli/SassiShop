@@ -10,4 +10,3 @@
         $_SESSION['cartCount'] = $dbh->getCartCount($_SESSION["idUser"]);
     }
 ?>
-

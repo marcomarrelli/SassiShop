@@ -128,8 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="mb-4">
                     <label for="productImage" class="form-label">Immagine del Prodotto</label>
-                    <input type="file" class="form-control" id="productImage" name="productImage" 
-                           accept=".jpg,.jpeg,.png" <?php echo !$editMode ? 'required' : ''; ?>>
+                    <input type="file" class="form-control" id="productImage" name="productImage" accept=".jpg,.jpeg,.png">
                     <?php if($editMode): ?>
                         <small class="text-muted">Lascia vuoto per mantenere l'immagine esistente</small>
                     <?php endif; ?>

@@ -60,7 +60,7 @@ if (empty($product)) {
                 <?php echo getQuantityAlert($product['quantity']); ?>
             </p>
 
-            <?php if($product['quantity'] > 0): ?>
+            <?php if($product['quantity'] > 0 && !isAdmin()): ?>
                 <div class="row align-items-center mb-4">
                     <div class="col-4">
                         <div class="input-group">
@@ -70,14 +70,12 @@ if (empty($product)) {
                         </div>
                     </div>
                     <div class="col-8 text-end">
-                        <button class="btn w-50 add-to-cart"> Aggiungi al Carrello </button>
-                    </div>
                 </div>
             <?php endif; ?>
 
             <div class="mt-4">
                 <h4>Dettagli Prodotto</h4>
-                <table class="table">
+                <table class="product-details-table">
                     <tbody>
                         <tr>
                             <th scope="row">Categoria</th>
