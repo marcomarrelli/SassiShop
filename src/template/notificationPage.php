@@ -2,7 +2,7 @@
     if(!isset($_GET["notificationId"])){
         header("Location: ?page=notification");
     }else{
-        $stockEmpty1 = "Oh nooo! È esaurito un prodotto presente nel tuo carrello: ";
+        $stockEmpty1 = "Oh nooo! È esaurito un tuo prodotto: ";
         $stockRefill2 = "Yuppi! È stato rifornito un prodotto presente nel tuo carrello: ";
         $purchase3 = "È stato effettuato un ordine dall'utente: ";
         $lowStock4 = "Attenzione! Sta per esaurirsi il prodotto: ";
