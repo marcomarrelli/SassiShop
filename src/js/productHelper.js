@@ -180,6 +180,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    document.querySelectorAll('.product-order')?.forEach(card => {
+        card.addEventListener('click', function(e) {
+            if(!e.target.closest('button')) {
+                const productId = this.dataset.productId;
+                if (productId) window.location.href = `?page=productPage&id=${productId}`;
+            }
+        });
+    });
+
     // Remove from cart functionality
     document.querySelectorAll('button[name="remove-cart"]')?.forEach(button => {
         button.addEventListener('click', function(e) {
