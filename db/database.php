@@ -960,19 +960,7 @@ class DatabaseHelper {
     
         $this->db->begin_transaction();
         try {
-            // Get current product quantity
-            $sql = "SELECT quantity FROM Product WHERE id = ?";
-            $stmt = $this->execute($sql, [$productId]);
-            $currentQuantity = $stmt->get_result()->fetch_assoc()['quantity'];
-            $stmt->close();
-    
-            // Only proceed if quantity increased
-            if ($newQuantity <= $currentQuantity) {
-                $this->db->rollback();
-                return;
-            }
-    
-            // Get users with this product in cart where cart quantity was previously insufficient
+            // Get users with this product in cart where cart quantity > new quantity
             $sql = "SELECT DISTINCT c.user 
                     FROM Cart c 
                     WHERE c.product = ? 
