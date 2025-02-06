@@ -42,9 +42,11 @@
                         </div>
                         <p class="card-text"><?php echo stringCutter($product['description'], 50); ?></p>
                         <p class="card-subtext"><small class="text-muted"><?php echo getQuantityAlert($product['quantity']); ?></small></p>
-                        <button class="btn card-purchase-button">
-                            Compra a <?php echo $product['price']; ?>€
-                        </button>
+                        <?php if(isset($_SESSION["idUser"]) && $_SESSION["privilege"] == 2): ?>
+                            <button class="btn card-purchase-button">
+                                <?php echo $product['quantity'] > 0 ? "Compra a " . $product['price'] . "€" : "Prodotto esaurito"; ?>
+                            </button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
