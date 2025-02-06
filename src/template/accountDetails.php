@@ -28,7 +28,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label pt-3" for="email">Email</label>
-                    <input class="form-control" type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="<?php echo $_SESSION["email"] ?>" disabled required/>
+                    <input class="form-control" type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?php echo $_SESSION["email"] ?>" disabled required/>
                 </div>
                 <div class="mb-3">
                     <label class="form-label pt-3" for="creditCard">Carta di Credito</label>
