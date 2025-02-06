@@ -874,8 +874,25 @@ class DatabaseHelper {
                     throw new Exception("Failed to update stock");
                 }
     
-                // Notify admins for empty stock
-                if ($newQuantity == 0) {
+                if($newQuantity == 0){
+                    $sql = "SELECT DISTINCT c.user FROM Cart c WHERE c.product = ?";
+                    $stmt = $this->execute($sql, [$item['product']]);
+                    $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                    $stmt->close();
+    
+                    if (!empty($users)) {
+                        $sql = "INSERT INTO Notification (type, user, product, isRead) VALUES (1, ?, ?, 0)";
+                        foreach ($users as $user) {
+                            if($user['user']!=$userId){
+                                $stmt = $this->execute($sql, [$user['user'], $item['product']]);
+                                if ($stmt->affected_rows <= 0) {
+                                    throw new Exception("Failed to add notification");
+                                }
+                                $stmt->close();
+                            }
+                        }
+                    }
+                    // Notify admins for empty stock
                     foreach ($admins as $admin) {
                         $sql = "INSERT INTO Notification (type, user, product, isRead) 
                                 VALUES (1, ?, ?, 0)";
@@ -883,6 +900,7 @@ class DatabaseHelper {
                         $stmt->close();
                     }
                 }
+                
     
                 // Notify admins for low stock
                 if ($newQuantity > 0 && $newQuantity <= 5) {
@@ -958,10 +976,9 @@ class DatabaseHelper {
             $sql = "SELECT DISTINCT c.user 
                     FROM Cart c 
                     WHERE c.product = ? 
-                    AND c.quantity > ?
                     AND c.quantity <= ?";
             
-            $stmt = $this->execute($sql, [$productId, $currentQuantity, $newQuantity]);
+            $stmt = $this->execute($sql, [$productId, $newQuantity]);
             $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
     
