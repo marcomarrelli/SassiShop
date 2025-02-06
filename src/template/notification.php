@@ -40,7 +40,7 @@
                                     </td>
                                     <td class="py-3"> 
                                         <div class="d-flex flex-column fw-semibold text-dark">
-                                            <?php echo " <b>";
+                                            <?php echo " <strong>";
                                             switch($notification["type"]) {
                                                 case 1:
                                                     echo '<i class="bi bi-exclamation-circle text-danger me-2"></i>Prodotto Esaurito';
@@ -55,7 +55,7 @@
                                                     echo '<i class="bi bi-cart-dash text-danger me-2"></i>Prodotto in Esaurimento';
                                                     break;
                                             }?>
-                                            </b>
+                                            </strong>
                                         </div>
                                     <td class="ps-5 fs-6"> <small class="text-muted"><?php echo $notification["date"]?> </small></td>
                                 </tr> 
