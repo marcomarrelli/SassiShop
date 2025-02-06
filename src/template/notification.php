@@ -51,6 +51,9 @@
                                                 case 3:
                                                     echo '<i class="bi bi-bag-check text-primary me-2"></i>Acquisto Completato';
                                                     break;
+                                                case 4:
+                                                    echo '<i class="bi bi-cart-dash text-danger me-2"></i>Prodotto in Esaurimento';
+                                                    break;
                                             }?>
                                             </b>
                                         </div>

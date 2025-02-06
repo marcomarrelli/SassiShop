@@ -5,6 +5,7 @@
         $stockEmpty1 = "Oh nooo! È esaurito un prodotto presente nel tuo carrello: ";
         $stockRefill2 = "Yuppi! È stato rifornito un prodotto presente nel tuo carrello: ";
         $purchase3 = "È stato effettuato un ordine dall'utente: ";
+        $lowStock4 = "Attenzione! Sta per esaurirsi il prodotto: ";
         $notification = $dbh->getNotificationInfo($_GET["notificationId"]);
 
         $dbh->readNotification($notification["id"]);
@@ -33,7 +34,10 @@
                 echo $stockRefill2 ."<a class=\"link-product ps-0\" href=\"?page=productPage&id="  . $notification["product"] ."\">". $dbh->getProductInfo($notification["product"])["name"] . "</a>";
             }else if($notification["type"] == 3){
                 echo $purchase3 . $dbh->getUserInfo($notification["purchaseUser"])["username"];
-            }?>
+            }else if($notification["type"] == 4){
+                echo $lowStock4 ."<a class=\"link-product ps-0\" href=\"?page=productPage&id="  . $notification["product"] ."\">". $dbh->getProductInfo($notification["product"])["name"] . "</a>";
+            }
+            ?>
             <p class="mt-3"><?php echo $notification["date"] ?></p>
         </div>
     </div>

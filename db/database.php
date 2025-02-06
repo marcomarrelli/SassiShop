@@ -729,6 +729,7 @@ class DatabaseHelper {
     
             if($result && $quantity >= 0) {
                 $this->checkAndNotifyRefill($productId, $quantity);
+                $this->checkAndNotifyLowStock($productId, $quantity);
             }
     
             $this->db->commit();
@@ -822,6 +823,7 @@ class DatabaseHelper {
     public function createPurchase(int $userId): bool {
         $this->db->begin_transaction();
         try {
+            // Create purchase record
             $sql = "INSERT INTO Purchase (user) VALUES (?)";
             $stmt = $this->execute($sql, [$userId]);
             if ($stmt->affected_rows <= 0) {
@@ -830,18 +832,22 @@ class DatabaseHelper {
             $purchaseId = $this->db->insert_id;
             $stmt->close();
     
+            // Get cart items and check stock
             $sql = "SELECT c.product, c.quantity as cartQuantity, p.price, p.quantity as available 
-                    FROM Cart c INNER JOIN Product p ON c.product = p.id
+                    FROM Cart c 
+                    JOIN Product p ON c.product = p.id 
                     WHERE c.user = ?";
             $stmt = $this->execute($sql, [$userId]);
             $cartItems = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
     
             foreach ($cartItems as $item) {
+                // Verify stock availability
                 if ($item['available'] < $item['cartQuantity']) {
-                    throw new Exception("Insufficient stock");
+                    throw new Exception("Insufficient stock for product " . $item['product']);
                 }
     
+                // Add to purchase list
                 $sql = "INSERT INTO ProductList (purchase, product, quantity, productPrice) 
                         VALUES (?, ?, ?, ?)";
                 $stmt = $this->execute($sql, [
@@ -851,20 +857,14 @@ class DatabaseHelper {
                     $item['price']
                 ]);
                 if ($stmt->affected_rows <= 0) {
-                    throw new Exception("Failed to add product to purchase");
+                    throw new Exception("Failed to add product to purchase list");
                 }
                 $stmt->close();
-
-                $sql = "UPDATE Product 
-                        SET quantity = quantity - ? 
-                        WHERE id = ? AND quantity >= ?";
-                $stmt = $this->execute($sql, [
-                    $item['cartQuantity'],
-                    $item['product'],
-                    $item['cartQuantity']
-                ]);
-                if ($stmt->affected_rows <= 0) {
-                    throw new Exception("Failed to update product quantity");
+    
+                // Update product quantity
+                $newQuantity = $item['available'] - $item['cartQuantity'];
+                if (!$this->updateProduct($item['product'], "", "", 0, $newQuantity)) {
+                    throw new Exception("Failed to update product stock");
                 }
                 $stmt->close();
 
@@ -898,26 +898,28 @@ class DatabaseHelper {
                     }
                 }
             }
-
-            $sql = "SELECT * FROM user WHERE user.privilege=1";
+    
+            // Notify admins of purchase
+            $sql = "SELECT id FROM User WHERE privilege = 1";
             $stmt = $this->execute($sql);
             $admins = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
-
-            foreach($admins as $admin){
-                $sql = "INSERT INTO notification (type, user, isRead, purchaseUser) VALUES (3, ?, 0, ?)";
-                $stmt = $this->execute($sql, [$admin["id"], $userId]);
+    
+            foreach ($admins as $admin) {
+                $sql = "INSERT INTO Notification (type, user, isRead, purchaseUser) 
+                        VALUES (3, ?, 0, ?)";
+                $stmt = $this->execute($sql, [$admin['id'], $userId]);
                 if ($stmt->affected_rows <= 0) {
-                    throw new Exception("Failed to add notification");
+                    throw new Exception("Failed to notify admin");
                 }
-                else $stmt->close();
+                $stmt->close();
             }
-
+    
+            // Clear user's cart
             $sql = "DELETE FROM Cart WHERE user = ?";
             $stmt = $this->execute($sql, [$userId]);
             $stmt->close();
     
-            
             $this->db->commit();
             return true;
     
@@ -985,6 +987,25 @@ class DatabaseHelper {
         }
     }
  
+    public function checkAndNotifyLowStock(int $productId, int $quantity): void {
+        if($quantity > 0 && $quantity <= 5) {
+            try {
+                $sql = "SELECT id FROM User WHERE privilege = 1";
+                $stmt = $this->execute($sql);
+                $admins = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                $stmt->close();
+
+                $sql = "INSERT INTO Notification (type, user, product, isRead) VALUES (4, ?, ?, 0)";
+                foreach ($admins as $admin) {
+                    $stmt = $this->execute($sql, [$admin['id'], $productId]);
+                    $stmt->close();
+                }
+            } catch (Exception $e) {
+                return;
+            }
+        }
+    }
+
     /**
      * Distruttore - Chiude la connessione al database.
      */

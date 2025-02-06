@@ -54,5 +54,4 @@ INSERT INTO NotificationType (name) VALUES
 ('STOCK_EMPTY'),
 ('STOCK_REFILL'),
 ('PURCHASE'),
-('POST_COMMENT'),
-('POST_RATING');
+('LOW_STOCK');
