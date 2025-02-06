@@ -134,8 +134,13 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
                 //Utente Loggato
                 $templateParams["title"] = "Sassi Shop - Profile";
                 $templateParams["content"] = "profile.php";
-                $templateParams["orders"] = $dbh->getUserOrders($_SESSION["idUser"]);
-                $templateParams["wishlist"] = $dbh->getUserWishlist($_SESSION["idUser"]);
+                if($_SESSION["privilege"] == 1){
+                    $templateParams["orders"] = $dbh->getAdminOrders();
+                    $templateParams["wishlist"] = $dbh->getProducts();
+                }else{
+                    $templateParams["orders"] = $dbh->getUserOrders($_SESSION["idUser"]);
+                    $templateParams["wishlist"] = $dbh->getUserWishlist($_SESSION["idUser"]);
+                }
             
             }else{
                 //Utente non loggato

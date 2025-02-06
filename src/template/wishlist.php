@@ -9,11 +9,12 @@
     //lista ordini vuota, allora l'utente non ha ancora effettuato ordini
     if(empty($templateParams["wishlist"])){
         echo "<div class=\"home-profile\">
-            <h2>Nessun prodotto è stato ancora aggiunto ai preferiti!</h2>
+            <h2>Nessun prodotto è stato ancora aggiunto!</h2>
             <h3><a class=\"link-product\" href=\"?page=search\">Sfoglia Prodotti</a></h3>
             </div>  ";
     }else{ //se l'utente ha effettuato almeno un ordine, stampo gli ordini
      ?>    
+
 
 
     
@@ -27,10 +28,17 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title"><?php echo $product['name']; ?></h4>
-                                <button class="btn btn-outline-danger btn-sm" name="heart">
-                                    <p class="d-none"><?php echo $product["id"] ?></p>
+                                <?php if(isAdmin()) { ?>
+                                    <a href="?page=manageProduct&action=edit&id=<?php echo $product['id']; ?>" class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                <?php } else { ?>
+                                    <button class="btn btn-outline-danger btn-sm" name="heart">
+                                        <p class="d-none"><?php echo $product["id"] ?></p>
                                         <i class="bi bi-heart-fill"></i>
-                                </button>
+                                    </button>
+                                <?php }     ?>
+                            
                         </div>
                         <p class="card-text"><?php echo stringCutter($product['description'], 50); ?></p>
                         <p class="card-subtext"><small class="text-muted"><?php echo getQuantityAlert($product['quantity']); ?></small></p>

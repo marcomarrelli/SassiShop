@@ -459,6 +459,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAdminOrders(): array{
+        $sql = "SELECT Purchase.id as purchaseId, Purchase.user, Purchase.date, Purchase.status, User.id AS userId, User.username FROM Purchase, User WHERE Purchase.user = User.id ORDER BY date desc";
+        $temp = $this->execute($sql);
+        $result = $temp->get_result();
+        $temp->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getProductList(int $purchaseId): array {
         $sql = "SELECT p.id, p.name, p.description, p.image, p.price, pl.quantity as orderQuantity, pl.productPrice as orderPrice
                 FROM ProductList pl

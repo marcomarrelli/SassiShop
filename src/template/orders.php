@@ -23,6 +23,11 @@
                             <i class="fas me-2"></i>
                             Ordine del: <?php echo $order["date"]?>
                         </div>
+                        <?php if($_SESSION["privilege"] == 1){ ?>
+                            <div>
+                                Utente: <?php echo $order["username"]?>
+                            </div>
+                        <?php  } ?>
                         <div class="badge bg-light text-danger">
                             Status: <?php echo $order["status"]?>
                         </div>
@@ -38,7 +43,8 @@
                         </thead>
                         <tbody>
                             
-                            <?php $productList = $dbh->getProductList($order["id"]); 
+                            <?php
+                            $productList = $dbh->getProductList($order["purchaseId"]); 
                             $total = 0;?>
                             <?php foreach($productList as $product): ?>
                             <tr class="product-order" data-product-id="<?php echo $product['id']; ?>">
