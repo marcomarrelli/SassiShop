@@ -880,9 +880,8 @@ class DatabaseHelper {
                 if ($stmt->affected_rows <= 0) {
                     throw new Exception("Failed to add notification");
                 }
+                else $stmt->close();
             }
-            $stmt->close();
-
 
             $sql = "DELETE FROM Cart WHERE user = ?";
             $stmt = $this->execute($sql, [$userId]);
@@ -944,7 +943,10 @@ class DatabaseHelper {
             $sql = "INSERT INTO Notification (type, user, product) VALUES (?, ?, ?)";
             foreach ($users as $user) {
                 $stmt = $this->execute($sql, [$notificationType, $user['user'], $productId]);
-                $stmt->close();
+                if ($stmt->affected_rows <= 0) {
+                    throw new Exception("Failed to add notification");
+                }
+                else $stmt->close();
             }
     
         } catch (Exception $e) {

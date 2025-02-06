@@ -8,12 +8,14 @@ INSERT INTO Privilege (type) VALUES
 ('Admin'),
 ('User');
 
-INSERT INTO User (firstName, lastName, username, email, password, privilege) VALUES
-('Admin', 'Admin', 'admin', 'admin@sassishop.it', 'admin', 1),
-('Pietro', 'Pietra', 'pietro_pietra', 'pietro.pietra@gmail.com', 'Pietrone99', 2),
-('Sara', 'Sassi', 'sassolover', 'sara.sassi@yahoo.it', 'S4SS0', 2),
-('Giovanni', 'Gioielli', 'giogio_vannielli', 'giovagiojells@gmail.com', 'GioGioVanni', 2),
-('Peter', 'Stone', 'peter_stone', 'peter.stone@gmail.com', 'PietraX2', 2);
+-- NO - Needs Hashing
+
+-- INSERT INTO User (firstName, lastName, username, email, password, privilege) VALUES
+-- ('Admin', 'Admin', 'admin', 'admin@sassishop.it', 'admin', 1),
+-- ('Pietro', 'Pietra', 'pietro_pietra', 'pietro.pietra@gmail.com', 'Pietrone99', 2),
+-- ('Sara', 'Sassi', 'sassolover', 'sara.sassi@yahoo.it', 'S4SS0', 2),
+-- ('Giovanni', 'Gioielli', 'giogio_vannielli', 'giovagiojells@gmail.com', 'GioGioVanni', 2),
+-- ('Peter', 'Stone', 'peter_stone', 'peter.stone@gmail.com', 'PietraX2', 2);
 
 INSERT INTO Category (name, description) VALUES
 ('Emozioni', "Rappresenta le tue emozioni!"),
@@ -46,15 +48,6 @@ INSERT INTO Product (name, description, price, quantity, category, size, image, 
 ('Pietra Spagna', "Yo quiero mucho pietra.",                                    13.50, 08, 3, 2, '../assets/images/products/spagna.jpg',     FALSE),
 ('Pietra Triste', "Se non mi compri rimarrò triste...",                         07.00, 04, 1, 1, '../assets/images/products/triste.jpg',     FALSE),
 ('Pietra Volpe', "Che verso fanno le pietre?",                                  09.99, 12, 2, 1, '../assets/images/products/volpe.jpg',      FALSE);
-
--- Populate Posts
--- INSERT INTO Post (seller, product, title, description) VALUES
-
--- Populate Comments
--- INSERT INTO Comment (post, user, comment) VALUES
-
--- Populate Ratings
--- INSERT INTO Rating (post, user, rating) VALUES
 
 -- Populate NotificationType
 INSERT INTO NotificationType (name) VALUES
