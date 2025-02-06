@@ -83,13 +83,17 @@ XXL     >   1400px
     transition: all 0.3s ease;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
 
     background-color: var(--background-color);
 
     font-family: 'Istok Web'; /* Default Font Family */
+}
+
+p, a, h1, h2, h3, h4, h5, h6, .text-muted {
+    color: var(--text-color) !important;
 }
 
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
@@ -426,6 +430,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     width: 70% !important;
     min-height: 30vh !important;
     margin: 1rem auto;
+
+    background-color: var(--background-half-color);
 }
 
 .product-card .col-md-8 {
@@ -468,6 +474,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 .product-card .card-title {
+    color: var(--text-color) !important;
     text-decoration: none;
     font-weight: 600;
 }
