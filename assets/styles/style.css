@@ -117,7 +117,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 .header-logo {
-    width: 100vw;
+    width: 100%;
+    /* 100vw; */
     height: 18vh;
     text-align: center;
     margin: 5 0;
@@ -140,13 +141,14 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 .home-search-container {
-    width: 80vw !important;
+    width: 95%;
     height: 15vh !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .home-search-input, .home-select-category {
@@ -202,7 +204,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 .home-cards-container {
-    width: 80vw;
+    width: 95%;
     margin: 0 auto;
     display: grid;
     gap: 25px;
@@ -268,7 +270,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 @media (min-width: 1200px) {
     .home-cards-container {
-        width: 90vw;
+        width: 90%;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px;
     }
@@ -278,7 +280,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     }
 
     .home-search-container {
-        width: 90vw;
+        width: 90%;
         height: 21vh;
         flex-direction: row;
         align-items: center;
