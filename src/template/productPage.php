@@ -70,6 +70,8 @@ if (empty($product)) {
                         </div>
                     </div>
                     <div class="col-8 text-end">
+                        <button class="btn w-50 add-to-cart"> Aggiungi al Carrello </button>
+                    </div>
                 </div>
             <?php endif; ?>
 

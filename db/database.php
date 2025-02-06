@@ -680,48 +680,64 @@ class DatabaseHelper {
      * @return bool True se il prodotto è stato modificato correttamente, altrimenti false.     
      */
     public function updateProduct(int $productId, string $name = "", string $description = "", float $price = 0, int $quantity = 0, int $category = -1, int $size = -1, string $image = ""): bool {
-        $sql = "UPDATE Product SET";
-        $params = [];
-
-        if(!empty($name)) {
-            $sql .= " name = ?,";
-            $params[] = $name;
+        $this->db->begin_transaction();
+        try {
+            $sql = "UPDATE Product SET";
+            $params = [];
+    
+            if(!empty($name)) {
+                $sql .= " name = ?,";
+                $params[] = $name;
+            }
+            if(!empty($description)) {
+                $sql .= " description = ?,";
+                $params[] = $description;
+            }
+            if($price > 0) {
+                $sql .= " price = ?,";
+                $params[] = $price;
+            }
+            if($quantity >= 0) {
+                $sql .= " quantity = ?,";
+                $params[] = $quantity;
+            }
+            if($category != -1) {
+                $sql .= " category = ?,";
+                $params[] = $category;
+            }
+            if($size != -1) {
+                $sql .= " size = ?,";
+                $params[] = $size;
+            }
+            if(!empty($image)) {
+                $sql .= " image = ?,";
+                $params[] = $image;
+            }
+    
+            if(empty($params)) {
+                $this->db->rollback();
+                return false;
+            }
+    
+            $sql = rtrim($sql, ",");
+            $sql .= " WHERE id = ?";
+            $params[] = $productId;
+    
+            $stmt = $this->execute($sql, $params);
+            $result = $stmt->affected_rows > 0;
+            $stmt->close();
+    
+            if($result && $quantity >= 0) {
+                $this->checkAndNotifyRefill($productId, $quantity);
+            }
+    
+            $this->db->commit();
+            return $result;
+    
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return false;
         }
-        if(!empty($description)) {
-            $sql .= " description = ?,";
-            $params[] = $description;
-        }
-        if($price > 0) {
-            $sql .= " price = ?,";
-            $params[] = $price;
-        }
-        if($quantity > 0) {
-            $sql .= " quantity = ?,";
-            $params[] = $quantity;
-        }
-        if($category != -1) {
-            $sql .= " category = ?,";
-            $params[] = $category;
-        }
-        if($size != -1) {
-            $sql .= " size = ?,";
-            $params[] = $size;
-        }
-        if(!empty($image)) {
-            $sql .= " image = ?,";
-            $params[] = $image;
-        }
-
-        $sql = rtrim($sql, ",");
-        $sql .= " WHERE id = ?";
-
-        $params[] = $productId;
-
-        $temp = $this->execute($sql, $params);
-        $result = $temp->affected_rows > 0;
-        $temp->close();
-
-        return $result;
     }
 
     public function checkProductCart(int $productId, int $userId) : bool {
@@ -886,6 +902,40 @@ class DatabaseHelper {
         return $cartTotal;
     }
 
+    public function checkAndNotifyRefill(int $productId, int $newQuantity): void {
+        if ($newQuantity <= 0) return;
+    
+        try {
+            // Get users with this product in cart where cart quantity > available
+            $sql = "SELECT DISTINCT c.user 
+                    FROM Cart c 
+                    WHERE c.product = ? 
+                    AND c.quantity > (SELECT quantity FROM Product WHERE id = ?)";
+            
+            $stmt = $this->execute($sql, [$productId, $productId]);
+            $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+    
+            if (empty($users)) return;
+    
+            // Get notification type ID for refill
+            $sql = "SELECT id FROM NotificationType WHERE name = 'STOCK_REFILL'";
+            $stmt = $this->execute($sql);
+            $notificationType = $stmt->get_result()->fetch_assoc()['id'];
+            $stmt->close();
+    
+            // Insert notifications
+            $sql = "INSERT INTO Notification (type, user, product) VALUES (?, ?, ?)";
+            foreach ($users as $user) {
+                $stmt = $this->execute($sql, [$notificationType, $user['user'], $productId]);
+                $stmt->close();
+            }
+    
+        } catch (Exception $e) {
+            return;
+        }
+    }
+ 
     /**
      * Distruttore - Chiude la connessione al database.
      */
