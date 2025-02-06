@@ -512,6 +512,25 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function readNotification(int $notificationId): bool{
+        $sql = "UPDATE notification SET isRead = 1 WHERE notification.id = ?";
+        $temp = $this->execute($sql, [$notificationId]);
+        $result = $temp->affected_rows > 0;
+        $temp->close();
+
+        return $result;
+    }
+
+    public function getNotificationInfo(int $notificationId): array{
+        $sql = "SELECT * FROM Notification WHERE Notification.id = ?";
+        $temp = $this->execute($sql, [$notificationId]);
+        $result = $temp->get_result();
+        $temp->close();
+
+        return $result->fetch_assoc();
+    }
+
     /**
      * controlla che non ci siano altri utenti con lo stesso username.
      * 

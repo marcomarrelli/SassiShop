@@ -182,6 +182,15 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             }
             break;
 
+        case "notificationPage";
+            if(isset($_GET["notificationId"])) {
+                $templateParams["title"] = "Sassi Shop - Dettaglio Notifica";
+                $templateParams["content"] = "notificationPage.php";
+            } else {
+                header("Location: ?page=notification");
+            }
+            break;
+
     }
 
     //in ogni caso si parte sempre dal template base
