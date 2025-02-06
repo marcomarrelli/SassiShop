@@ -36,7 +36,14 @@
                     <?php } ?>
             </li>
             <li class="header-nav-item">
-                <a href="?page=notification"> <i class="bi bi-bell"> </i> </a>
+                <a href="?page=notification"> 
+                    <i class="bi bi-bell"> </i>
+                        <?php if(isUserLoggedIn()){ ?>
+                            <span id="notificationBadge" class="position-absolute top-0 start-55 translate-middle badge rounded-pill cart-badge">
+                                <?php echo $dbh->getUserNotificationUnread($_SESSION["idUser"])["numNotification"];?>
+                            </span>
+                        <?php } ?>
+                </a>
             </li>
             <li class="header-nav-item">
                 <a href="?page=profile"> <i class="bi bi-person-circle"> </i> </a>

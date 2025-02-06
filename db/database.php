@@ -517,6 +517,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getUserNotificationUnread(int $userId): array {
+        $sql = "SELECT COUNT(*) AS numNotification FROM Notification WHERE Notification.user = ? AND Notification.isRead = 0";
+        $temp = $this->execute($sql, [$userId]);
+        $result = $temp->get_result();
+        $temp->close();
+
+        return $result->fetch_assoc();
+    }
+
     public function readNotification(int $notificationId): bool{
         $sql = "UPDATE notification SET isRead = 1 WHERE notification.id = ?";
         $temp = $this->execute($sql, [$notificationId]);
