@@ -70,6 +70,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Product page quantity controls
+    const quantityInput = document.querySelector('input[name="product-quantity"]');
+    const addButton = document.querySelector('.quantity-adder');
+    const removeButton = document.querySelector('.quantity-remover');
+
+    if(quantityInput && addButton && removeButton) {
+        function updateQuantity(isAdding) {
+            const currentValue = parseInt(quantityInput.value) || 1;
+            const maxQuantity = parseInt(quantityInput.max) || 999;
+            const newValue = isAdding ? currentValue + 1 : currentValue - 1;
+
+            if(newValue >= 1 && newValue <= maxQuantity) {
+                quantityInput.value = newValue;
+            }
+        }
+
+        addButton.addEventListener('click', () => updateQuantity(true));
+        removeButton.addEventListener('click', () => updateQuantity(false));
+    }
+
     // Cart quantity controls
     document.querySelectorAll('.quantity-adder, .quantity-remover')?.forEach(button => {
         button.addEventListener('click', function() {
