@@ -14,11 +14,10 @@
                 <div class="card-body p-4">
                     <div class="mb-3">
                         <label for="emailLogin" class="form-label">Email:</label>
-                        <input class="form-control" type="text" id="emailLogin" name="emailLogin" required/>
-                    </div>
+                        <input class="form-control" type="text" id="emailLogin" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="emailLogin" required/>
                     <div class="mb-3">
                         <label class="form-label pt-3" for="passwordLogin">Password:</label>
-                        <input class="form-control" type="password" id="passwordLogin" name="passwordLogin" required/>
+                        <input class="form-control" type="password" id="passwordLogin" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="passwordLogin" required/>
                     </div>
                     <div>
                         <input class="btn btn-profile btn-outline-dark px-4 mx-3" type="submit" name="login" value="Login"/>

@@ -360,7 +360,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 .link-profile:hover, .link-product:hover{
-    color: var(--secondary-color);
+    color: var(--secondary-color) !important;
 }
 
 .text {

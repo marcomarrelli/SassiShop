@@ -1,8 +1,8 @@
 <!-- i dettagli dell'account sono all'interno di un form per il momento disabilitato. Si potranno poi modificare i dati
  premendo il pulsante modifica -->
 <?php
-    if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["username"]) && isset($_POST["email"])){
-        $dbh->updateUser($_SESSION["idUser"], $_POST["firstName"], $_POST["lastName"], $_POST["username"], $_POST["email"]);
+    if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["creditCard"])){
+        $dbh->updateUser($_SESSION["idUser"], $_POST["firstName"], $_POST["lastName"], $_POST["username"], $_POST["email"], $_POST["creditCard"]);
         registerLoggedUser($dbh->getUserInfo($_SESSION["idUser"]));
     }
 ?>
@@ -16,19 +16,24 @@
             <div class="card-body p-4">
                 <div class="mb-3">
                     <label for="firstName" class="form-label">Nome</label>
-                    <input class="form-control" type="text" id="firstName" name="firstName" value="<?php echo $_SESSION["firstName"] ?>" disabled required/>
+                    <input class="form-control" type="text" id="firstName" name="firstName" pattern="[A-Za-z]+" value="<?php echo $_SESSION["firstName"] ?>" disabled required/>
                 </div>
                 <div class="mb-3">
                     <label class="form-label pt-3" for="lastName">Cognome</label>
-                    <input class="form-control" type="text" id="lastName" name="lastName" value="<?php echo $_SESSION["lastName"] ?>" disabled required/>
+                    <input class="form-control" type="text" id="lastName" name="lastName" pattern="[A-Za-z]+" value="<?php echo $_SESSION["lastName"] ?>" disabled required/>
                 </div>
                 <div class="mb-3">
                     <label class="form-label pt-3" for="username">Username</label>
-                    <input class="form-control" type="text" id="username" name="username" value="<?php echo $_SESSION["username"] ?>" disabled required/>
+                    <input class="form-control" type="text" id="username" name="username" pattern="[A-Za-z0-9._]+" value="<?php echo $_SESSION["username"] ?>" disabled required/>
                 </div>
                 <div class="mb-3">
                     <label class="form-label pt-3" for="email">Email</label>
-                    <input class="form-control" type="text" id="email" name="email" value="<?php echo $_SESSION["email"] ?>" disabled required/>
+                    <input class="form-control" type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="<?php echo $_SESSION["email"] ?>" disabled required/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label pt-3" for="creditCard">Carta di Credito</label>
+                    <input class="form-control" type="text" id="creditCard" name="creditCard" maxlength="19" pattern="\d{4}\s\d{4}\s\d{4}\s\d{4}" value="<?php echo isset($_SESSION["creditCard"]) ? $_SESSION["creditCard"] : '' ?>" disabled required/>
+                    <small class="form-text text-muted">Formato: 1234 5678 9012 3456</small>
                 </div>
                 <div>
                     <input class="btn btn-profile btn-outline-dark px-4 m-2" type="button" name="edit" value="Modifica"/>

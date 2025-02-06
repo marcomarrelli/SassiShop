@@ -8,7 +8,8 @@
         $_SESSION["firstName"] = $user["firstName"];
         $_SESSION["lastName"] = $user["lastName"];
         $_SESSION["username"] = $user["username"];
-        $_SESSION["privilege"] = $user["privilege"];
+        $_SESSION["creditCard"] = $user["creditCard"] ?? "";
+        $_SESSION["privilege"] = $user["privilege"] ?? 2;
     }
     
     function isUserLoggedIn() : bool{
@@ -24,6 +25,8 @@
         unset($_SESSION["email"]);
         unset($_SESSION["firstName"]);
         unset($_SESSION["lastName"]);
+        unset($_SESSION["username"]);
+        unset($_SESSION["creditCard"]);
         unset($_SESSION["privilege"]);
         unset($_SESSION["cartCount"]);
     }

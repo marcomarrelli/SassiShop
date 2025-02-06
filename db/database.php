@@ -109,15 +109,16 @@ class DatabaseHelper {
      * 
      * @return bool True se l'utente è stato aggiunto correttamente, altrimenti false.
      */
-    public function addUser(string $firstName, string $lastName, string $username, string $email, string $password, int $privilege = 2): bool {
-        $sql = "INSERT INTO User (firstName, lastName, username, email, password, privilege)
-                VALUES (?, ?, ?, ?, ?, ?)";
+    public function addUser(string $firstName, string $lastName, string $username, string $email, string $password, ?string $creditCard = "", int $privilege = 2): bool {
+        $sql = "INSERT INTO User (firstName, lastName, username, email, password, creditCard, privilege)
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
         $temp = $this->execute($sql, [
             trim($firstName),
             trim($lastName),
             trim($username),
             filter_var(trim($email), FILTER_SANITIZE_EMAIL),
             password_hash($password, PASSWORD_DEFAULT),
+            $creditCard,
             $privilege
         ]);
         $result = $temp->affected_rows > 0;
@@ -126,15 +127,16 @@ class DatabaseHelper {
         return $result;
     }
 
-    public function updateUser(int $userId, string $firstName = "", string $lastName = "", string $username = "", string $email = "") {
+    public function updateUser(int $userId, string $firstName = "", string $lastName = "", string $username = "", string $email = "", string $creditCard = ""): void {
         $sql = "UPDATE `user` SET
         firstName = ?,
         lastName = ?,
         username = ?,
-        email = ?
+        email = ?,
+        creditCard = ?
         WHERE User.id = ?";
 
-        $temp = $this->execute($sql, [$firstName, $lastName, $username, $email, $userId]);
+        $temp = $this->execute($sql, [$firstName, $lastName, $username, $email, $creditCard, $userId]);
         $temp->close();
     }
 

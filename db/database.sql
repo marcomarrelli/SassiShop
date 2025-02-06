@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS User (
     email VARCHAR(127) NOT NULL,
     password VARCHAR(255) NOT NULL,
     privilege INT NOT NULL,
+    creditCard VARCHAR(50) DEFAULT "",
     UNIQUE KEY email_unique (email),
     FOREIGN KEY (privilege) REFERENCES Privilege(id) ON DELETE RESTRICT
 );

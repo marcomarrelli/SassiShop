@@ -14,11 +14,11 @@
                     <div class="card-body p-4">
                         <div class="mb-3">
                             <label for="newPassword" class="form-label">Nuova Password</label>
-                            <input class="form-control" type="password" id="newPassword" name="newPassword" required/>
+                            <input class="form-control" type="password" id="newPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="newPassword" required/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label pt-3" for="confirmPassword">Conferma Password</label>
-                            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" required/>
+                            <input class="form-control" type="password" id="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="confirmPassword" required/>
                         </div>
                         <div>
                             <input class="btn btn-profile btn-outline-dark px-4 mx-3" type="submit" name="save" value="Salva"/>
