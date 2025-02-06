@@ -35,7 +35,7 @@
                     <div class="mb-3">
                         <label class="form-label pt-3" for="emailRegister">Email:</label>
                         <input class="form-control" type="email" id="emailRegister" name="emailRegister" 
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
                             title="Inserisci un indirizzo email valido" required/>
                     </div>
                     <div class="mb-3">
