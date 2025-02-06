@@ -832,7 +832,7 @@ class DatabaseHelper {
             $purchaseId = $this->db->insert_id;
             $stmt->close();
     
-            // Get cart items with availability check
+            // Get cart items
             $sql = "SELECT c.product, c.quantity as cartQuantity, p.price, p.quantity as available 
                     FROM Cart c 
                     JOIN Product p ON c.product = p.id 
@@ -845,8 +845,14 @@ class DatabaseHelper {
                 throw new Exception("Cart is empty");
             }
     
+            // Get admin users once
+            $sql = "SELECT id FROM User WHERE privilege = 1";
+            $stmt = $this->execute($sql);
+            $admins = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+    
             foreach ($cartItems as $item) {
-                // Verify stock availability
+                // Check stock
                 if ($item['available'] < $item['cartQuantity']) {
                     throw new Exception("Insufficient stock for product " . $item['product']);
                 }
@@ -860,35 +866,44 @@ class DatabaseHelper {
                     $item['cartQuantity'],
                     $item['price']
                 ]);
-                if ($stmt->affected_rows <= 0) {
-                    throw new Exception("Failed to add product to purchase list");
-                }
                 $stmt->close();
     
-                // Update product quantity and trigger notifications
+                // Update product quantity
                 $newQuantity = $item['available'] - $item['cartQuantity'];
                 if (!$this->updateProduct($item['product'], "", "", 0, $newQuantity)) {
-                    throw new Exception("Failed to update product stock");
+                    throw new Exception("Failed to update stock");
+                }
+    
+                // Notify admins for empty stock
+                if ($newQuantity == 0) {
+                    foreach ($admins as $admin) {
+                        $sql = "INSERT INTO Notification (type, user, product, isRead) 
+                                VALUES (1, ?, ?, 0)";
+                        $stmt = $this->execute($sql, [$admin['id'], $item['product']]);
+                        $stmt->close();
+                    }
+                }
+    
+                // Notify admins for low stock
+                if ($newQuantity > 0 && $newQuantity <= 5) {
+                    foreach ($admins as $admin) {
+                        $sql = "INSERT INTO Notification (type, user, product, isRead) 
+                                VALUES (4, ?, ?, 0)";
+                        $stmt = $this->execute($sql, [$admin['id'], $item['product']]);
+                        $stmt->close();
+                    }
                 }
             }
     
             // Notify admins of new purchase
-            $sql = "SELECT id FROM User WHERE privilege = 1";
-            $stmt = $this->execute($sql);
-            $admins = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            $stmt->close();
-    
             foreach ($admins as $admin) {
                 $sql = "INSERT INTO Notification (type, user, isRead, purchaseUser) 
                         VALUES (3, ?, 0, ?)";
                 $stmt = $this->execute($sql, [$admin['id'], $userId]);
-                if ($stmt->affected_rows <= 0) {
-                    throw new Exception("Failed to notify admin");
-                }
                 $stmt->close();
             }
     
-            // Clear user's cart
+            // Clear cart
             $sql = "DELETE FROM Cart WHERE user = ?";
             $stmt = $this->execute($sql, [$userId]);
             $stmt->close();
