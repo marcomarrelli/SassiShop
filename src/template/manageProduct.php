@@ -135,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <a href="?page=search" class="btn btn-outline-secondary">
+                    <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-left"></i> Annulla
                     </a>
                     <button type="submit" class="btn create-product-button">
