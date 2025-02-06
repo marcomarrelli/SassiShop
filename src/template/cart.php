@@ -35,7 +35,7 @@
                         </div>
                         <p class="card-text"><?php echo stringCutter($product['description'], 50); ?></p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="input-group" style="width: 130px;">
+                            <div class="input-group quantity-group">
                                 <button class="btn btn-outline-secondary quantity-remover" type="button">-</button>
                                 <input type="number" class="form-control text-center" value="<?php echo $product['cartQuantity'];?>" min="1" max="<?php echo $product['availableQuantity']; ?>">
                                 <button class="btn btn-outline-secondary quantity-adder" type="button">+</button>

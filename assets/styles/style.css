@@ -617,3 +617,10 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     background-color: var(--highlight-color);
     color: var(--text-color);
 }
+
+.quantity-group {
+    min-width: 100px;
+    width: 10vw;
+    display: flex;
+    justify-content: space-between;
+}
